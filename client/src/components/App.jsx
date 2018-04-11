@@ -16,6 +16,12 @@ class App extends React.Component {
     })
   }
 
+  clickHandler(page) {
+    this.setState({
+      url: page
+    });
+  }
+
   renderView() {
     const {view} = this.state;
 
