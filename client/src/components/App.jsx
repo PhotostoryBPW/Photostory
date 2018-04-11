@@ -10,25 +10,25 @@ class App extends React.Component {
     }
   }
 
-  // changeView(option) {
-  //   this.setState({
-  //     view: option
-  //   })
-  // }
+  changeView(option) {
+    this.setState({
+      view: option
+    })
+  }
 
-  // renderView() {
-  //   const {view} = this.state;
+  renderView() {
+    const {view} = this.state;
 
-  //   if (view === 'feed') {
-  //     return <Feed handleClick={(() => this.changeView(view)) } data={this.state.data} view={this.state.view}/>
-  //   } else if (view === 'admin') {
-  //     return <Admin data={this.state.data} />
-  //   } else if (view === 'create') {
-  //     return <Create data={this.state.data} />
-  //   } else {
-  //     return <Post key={view._id} post={view} />
-  //   }
-  // }
+    // if (view === 'feed') {
+    //   return <Feed handleClick={(() => this.changeView(view)) } data={this.state.data} view={this.state.view}/>
+    // } else if (view === 'admin') {
+    //   return <Admin data={this.state.data} />
+    // } else if (view === 'create') {
+    //   return <Create data={this.state.data} />
+    // } else {
+    //   return <Post key={view._id} post={view} />
+    // }
+  }
   
   render() {
     return (

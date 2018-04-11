@@ -33,3 +33,5 @@ CREATE TABLE IF NOT EXISTS followers (
   PRIMARY KEY (id)
 );
 
+-- run this command in the termnal after mysql is running (mysql.server stop | then | mysql.server start)
+-- mysql -u root < server/schema.sql
