@@ -37,10 +37,6 @@ class Post extends React.Component {
         <div className='postMoment'>
           Moment.js - posted 2 days ago.
         </div>
-        :
-        <div>
-          Template text: No posts to display.
-        </div>
         }
     </div>
     );
