@@ -3,8 +3,8 @@ const parser = require('body-parser');
 const request = require('request');
 const router = require('./router');
 const path = require('path');
+const db = require('./DB');
 const app = express();
-const DB = require('./DB');
 app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 

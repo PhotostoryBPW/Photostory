@@ -2,29 +2,34 @@ CREATE DATABASE IF NOT EXISTS photostory;
 USE photostory;
 CREATE TABLE IF NOT EXISTS users (
   id int not null AUTO_INCREMENT,
-  user_id int not null,
-  username varchar(25) not null,
-  photo_url varchar(100),
+  userHandle int not null,
+  userName varchar(25) not null,
+  userLoc varchar(50),
+  photoUrl varchar(100),
   bio varchar(500),
   email varchar(50) not null,
+  followedCount int,
   followed_id int not null,
+  followersCount int,
   follows_id int not null,
   PRIMARY KEY (id)
 );
 CREATE TABLE IF NOT EXISTS posts (
   id int not null AUTO_INCREMENT,
-  user_id int not null,
-  likes int,
-  bio varchar(500),
-  photo_url varchar(100),
-  located varchar(100),
+  users_id int not null,
+  postLoc varchar(50),
+  body varchar(500),
+  photoUrl varchar(100),
+  comments_id int not null,
+  likesCount int,
+  likes_id int,
   PRIMARY KEY (id)
 );
 CREATE TABLE IF NOT EXISTS comments (
   id int not null AUTO_INCREMENT,
-  text varchar(200),
-  user_id int not null,
-  post_id int not null,
+  body varchar(200),
+  users_id int not null,
+  posts_id int not null,
   PRIMARY KEY (id)
 );
 CREATE TABLE IF NOT EXISTS followers (
@@ -33,5 +38,8 @@ CREATE TABLE IF NOT EXISTS followers (
   PRIMARY KEY (id)
 );
 
--- run this command in the termnal after mysql is running (mysql.server stop | then | mysql.server start)
--- mysql -u root < server/schema.sql
+
+--- To run: open Terminal and start MySQL server:
+--- mysql.server stop | then | mysql.server start
+--- mysql -u root < server/schema.sql
+

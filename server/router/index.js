@@ -2,12 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Controller = require('../Controller');
 
-// router.post('/post', Controller.New);
+router.get('/feed', Controller.Posts.Show);
 
-// router.get('/search', Controller.Search);
+router.post('/post', Controller.Posts.Create);
 
-// router.post('/signup', Controller.Signup);
+router.get('/find', Controller.Users.Find);
 
-// router.post('/login', Controller.Login);
+router.post('/signup', Controller.Users.Signup);
+
+router.post('/login', Controller.Users.Login);
 
 module.exports = router;

@@ -10,8 +10,8 @@ const Models = {
       });
     },
     find: function (cb) {
-      var queryStr = 'select posts.id, posts.text, posts.photo, posts.location from \
-                      posts left outer join users on (posts.userId = users.userId) \
+      var queryStr = 'select posts.id, posts.body, posts.photoUrl, posts.postLoc from \
+                      posts left outer join users on (posts.users_id = users.id) \
                       order by posts.id desc';
       db.query(queryStr, function(err, results) {
         cb(err, results);
@@ -19,13 +19,14 @@ const Models = {
     },
     like: function(cb) {
       var queryStr = 'select * from posts where posts.id = ?), ?)';
+      // to do
       db.query(queryStr, params, function(err, results) {
         cb(err, results)
       });
     },
-    new: function (params, cb) {
-      var queryStr = 'insert into posts(userId, text, photo, location) value (?, \
-                      select userId from users where userId = ? limit 1), ?)';
+    create: function (params, cb) {
+      var queryStr = 'insert into posts(users_id, body, photoUrl, postLoc) value (?, \
+                      select * from users where users.id = ? limit 1), ?)';
       db.query(queryStr, params, function(err, results) {
         cb(err, results);
       });
@@ -45,19 +46,19 @@ const Models = {
       });
     },
     new: function (params, cb) {
-      var queryStr = 'insert into users(username) values (?)';
+      var queryStr = 'insert into users(userName) values (?)';
       db.query(queryStr, params, function(err, results) {
         cb(err, results);
       });
     },
     follow: function(params, cb) {
-      var queryStr = 'select * from users where userId = ? limit 1), ?)';
+      var queryStr = 'select * from users where users.id = ? limit 1), ?)';
       db.query(queryStr, params, function(err, results) {
         cb(err, results);
       });
     },
     unfollow: function(params, cb) {
-      var queryStr = 'select * from users where userId = ? limit 1), ?)';
+      var queryStr = 'select * from users where users.id = ? limit 1), ?)';
       db.query(queryStr, params, function(err, results) {
         cb(err, results);
       });
