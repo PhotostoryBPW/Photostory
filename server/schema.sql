@@ -38,6 +38,8 @@ CREATE TABLE IF NOT EXISTS followers (
   PRIMARY KEY (id)
 );
 
+
 --- To run: open Terminal and start MySQL server:
 --- mysql.server stop | then | mysql.server start
 --- mysql -u root < server/schema.sql
+
