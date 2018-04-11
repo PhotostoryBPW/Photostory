@@ -1,6 +1,6 @@
 import React from 'react';
 
-import sample from './sample_data'
+
 
 class App extends React.Component {
   constructor() {

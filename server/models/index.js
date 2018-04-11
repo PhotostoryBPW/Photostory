@@ -1,4 +1,4 @@
-var db = require('../db');
+var db = require('../DB');
 
 const Models = {
 
@@ -64,3 +64,5 @@ const Models = {
     },
   }
   };
+
+  module.exports.Models = Models;
