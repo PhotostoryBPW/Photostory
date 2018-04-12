@@ -1,5 +1,5 @@
 import React from 'react';
-
+import NavBar from './NavBar.jsx'
 
 
 class App extends React.Component {
@@ -72,6 +72,9 @@ class App extends React.Component {
 
         <div className="main">
           {this.renderView()}
+        </div>
+        <div className="nav">
+          <NavBar/>
         </div>
       </div>
     );

@@ -842,6 +842,10 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _NavBar = __webpack_require__(26);
+
+var _NavBar2 = _interopRequireDefault(_NavBar);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -865,21 +869,21 @@ var App = function (_React$Component) {
   }
 
   _createClass(App, [{
-    key: "changeView",
+    key: 'changeView',
     value: function changeView(option) {
       this.setState({
         view: option
       });
     }
   }, {
-    key: "clickHandler",
+    key: 'clickHandler',
     value: function clickHandler(page) {
       this.setState({
         url: page
       });
     }
   }, {
-    key: "renderView",
+    key: 'renderView',
     value: function renderView() {
       var view = this.state.view;
 
@@ -894,37 +898,42 @@ var App = function (_React$Component) {
       // }
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       var _this2 = this;
 
       return _react2.default.createElement(
-        "div",
+        'div',
         null,
         _react2.default.createElement(
-          "div",
-          { className: "nav" },
+          'div',
+          { className: 'nav' },
           _react2.default.createElement(
-            "span",
-            { className: "logo",
+            'span',
+            { className: 'logo',
               onClick: function onClick() {
                 return _this2.changeView('feed');
               } },
-            "Photostory"
+            'Photostory'
           ),
           _react2.default.createElement(
-            "span",
+            'span',
             { className: this.state.view === 'feed' ? 'nav-selected' : 'nav-unselected',
               onClick: function onClick() {
                 return _this2.changeView('feed');
               } },
-            "See all Posts"
+            'See all Posts'
           )
         ),
         _react2.default.createElement(
-          "div",
-          { className: "main" },
+          'div',
+          { className: 'main' },
           this.renderView()
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'nav' },
+          _react2.default.createElement(_NavBar2.default, null)
         )
       );
     }
@@ -19564,6 +19573,57 @@ var _App2 = _interopRequireDefault(_App);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('photostory'));
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NavBar = function NavBar(props) {
+  return _react2.default.createElement(
+    "div",
+    { className: "navBar" },
+    _react2.default.createElement(
+      "div",
+      null,
+      _react2.default.createElement("img", { className: "Home" })
+    ),
+    _react2.default.createElement(
+      "div",
+      null,
+      _react2.default.createElement("img", { className: "Search" })
+    ),
+    _react2.default.createElement(
+      "div",
+      null,
+      _react2.default.createElement("img", { className: "AddPost" })
+    ),
+    _react2.default.createElement(
+      "div",
+      null,
+      _react2.default.createElement("img", { className: "Notifications" })
+    ),
+    _react2.default.createElement(
+      "div",
+      null,
+      _react2.default.createElement("img", { className: "Profile" })
+    )
+  );
+};
+
+exports.default = NavBar;
 
 /***/ })
 /******/ ]);
