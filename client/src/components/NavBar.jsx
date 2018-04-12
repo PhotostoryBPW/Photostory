@@ -16,7 +16,6 @@ const NavBar = (props) => (
     </div>
     <div>
       <img className="profile"/>
-
     </div>
   </div>
 );
