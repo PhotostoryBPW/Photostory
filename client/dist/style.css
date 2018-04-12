@@ -1,0 +1,64 @@
+
+body {
+  font-family: 'PT Serif', sans-serif;
+  margin: auto;
+  background-color: #800;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  font-family: 'PT Serif', sans-serif;
+  color: #CCC;
+  background-color: rgb(0, 0, 0);
+}
+
+.addPost{
+  border: none;
+}
+
+.home {
+  margin: auto;
+}
+
+.main {
+  background-color: #800;
+}
+
+.notifications {
+  border: none;
+}
+
+.profile {
+  margin: auto;
+}
+
+.profileMain {
+  border: none;
+}
+
+.search {
+  margin: auto;
+}
+
+.statsItem {
+  border: none;
+}
+
+
+#edit {
+  border-radius: 4px;
+}
+
+#handle {
+  background-color: #C44;
+}
+
+#stats {
+  background-color: #E77;
+}
+
+#userPhoto {
+  margin: auto;
+}

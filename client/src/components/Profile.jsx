@@ -2,7 +2,7 @@ import React from 'react';
 var moment = require('moment');
 
 const Profile = (props) => (
-  <div className="profile">
+  <div className="profileMain">
     <div id="handle">{props.user.handle}</div>
     <div id="userPhoto">{props.user.photoUrl}</div>
     <div id="stats">
