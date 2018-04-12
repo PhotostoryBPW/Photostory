@@ -3,19 +3,19 @@ import React from 'react';
 const NavBar = (props) => (
   <div className="navBar">
     <div>
-      <img className="home"/>
+      <img className="home"/> HOME
     </div>
     <div>
-      <img className="search"/>
+      <img className="search"/> SEARCH
     </div>
     <div>
-      <img className="addPost"/>
+      <img className="addPost"/> POST
     </div>
     <div>
-      <img className="notifications"/>
+      <img className="notifications"/> !!!
     </div>
     <div>
-      <img className="profile"/>
+      <img className="profile"/> PROF
     </div>
   </div>
 );

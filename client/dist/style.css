@@ -23,7 +23,7 @@ button {
 }
 
 .main {
-  background-color: #800;
+  background-color: white;
 }
 
 .notifications {
@@ -61,4 +61,9 @@ button {
 
 #userPhoto {
   margin: auto;
+}
+
+div.navBar div {
+  display: inline-block;
+  float: left;
 }
