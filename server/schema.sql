@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
   userHandle varchar(25),
   userName varchar(25) not null,
   userLoc varchar(50),
-  photoUrl varchar(100),
+  photoUrl varchar(100), -- temporary - this should exist in a separate table eventually and be changed to and ID foreign key sitch
   bio varchar(500),
   email varchar(50) not null,
   followedCount int,
@@ -19,17 +19,10 @@ CREATE TABLE IF NOT EXISTS posts (
   users_id int not null,
   postLoc varchar(50),
   body varchar(500),
-  photoUrl varchar(100),
-  comments_id int,
+  photoUrl varchar(100), -- temporary - this should exist in a separate table eventually and be changed to and ID foreign key sitch
+  parent_id int,
   likesCount int,
   likes_id int,
-  PRIMARY KEY (id)
-);
-CREATE TABLE IF NOT EXISTS comments (
-  id int not null AUTO_INCREMENT,
-  body varchar(200),
-  users_id int,
-  posts_id int,
   PRIMARY KEY (id)
 );
 CREATE TABLE IF NOT EXISTS followers (
@@ -37,6 +30,28 @@ CREATE TABLE IF NOT EXISTS followers (
   follows_id int,
   PRIMARY KEY (id)
 );
+CREATE TABLE IF NOT EXISTS following (
+  id int not null AUTO_INCREMENT,
+  following_id int,
+  PRIMARY KEY (id)
+);
+CREATE TABLE IF NOT EXISTS likes (
+  id int not null AUTO_INCREMENT,
+  users_id int,
+  posts_id int,
+  PRIMARY KEY (id)
+);
+CREATE TABLE IF NOT EXISTS images (
+  id int not null AUTO_INCREMENT,
+  image_url varchar(255),
+  PRIMARY KEY (id)
+);
+CREATE TABLE IF NOT EXISTS hashtags (
+  id int not null AUTO_INCREMENT,
+  hashtag varchar(50),
+  PRIMARY KEY (id)
+);
+
 
 --- To run: open Terminal and start MySQL server:
 --- mysql.server stop | then | mysql.server start
@@ -45,7 +60,7 @@ CREATE TABLE IF NOT EXISTS followers (
 --- Dummy data
 ---------------------
 
-INSERT INTO users (userHandle, userName, userLoc, photoUrl, bio, email)
+INSERT INTO users (userHandle, userName, userLoc, photoUrl, bio, email, followedCount, followersCount)
 VALUES ('randomuser', 'Tim R.', 'New York, NY', 'https://pbs.twimg.com/media/BcINeMVCIAABeWd.jpg', 'abcdefg hijklmnop qrs tuv wxyz', 'tim@nowhere.com');
 
 INSERT INTO users (userHandle, userName, userLoc, photoUrl, bio, email)

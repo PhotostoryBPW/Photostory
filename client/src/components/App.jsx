@@ -1,12 +1,12 @@
 import React from 'react';
-import NavBar from './NavBar.jsx'
+import NavBar from './NavBar.jsx';
 
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      //
+      view: 'feed'
     }
   }
 
@@ -24,10 +24,10 @@ class App extends React.Component {
 
   renderView() {
     const {view} = this.state;
-
-    // if (view === 'feed') {
-    //   return <Feed handleClick={(() => this.changeView(view)) } data={this.state.data} view={this.state.view}/>
-    // } else if (view === 'admin') {
+    if (view === 'feed') {
+      return <Feed handleClick={(() => this.changeView(view)) } data={this.state.data} view={this.state.view}/>
+    }
+    //  else if (view === 'admin') {
     //   return <Admin data={this.state.data} />
     // } else if (view === 'create') {
     //   return <Create data={this.state.data} />
@@ -51,25 +51,6 @@ class App extends React.Component {
             onClick={() => this.changeView('feed')}>
             See all Posts
           </span>
-          {/* <span className="nav-unselected">
-            Write a Post
-          </span>
-          <span className={
-            this.state.view === 'admin'
-            ? 'nav-selected'
-            : 'nav-unselected'}
-            onClick={() => this.changeView('admin')}>
-            Admin
-          </span>
-          <span className={
-            this.state.view === 'create'
-            ? 'nav-selected'
-            : 'nav-unselected'}
-            onClick={() => this.changeView('create')}>
-            Write a Post
-          </span> */}
-        </div>
-
         <div className="main">
           {this.renderView()}
         </div>
@@ -77,6 +58,7 @@ class App extends React.Component {
           <NavBar/>
         </div>
       </div>
+    </div>  
     );
   }
 }
