@@ -19598,27 +19598,27 @@ var NavBar = function NavBar(props) {
     _react2.default.createElement(
       "div",
       null,
-      _react2.default.createElement("img", { className: "Home" })
+      _react2.default.createElement("img", { className: "home" })
     ),
     _react2.default.createElement(
       "div",
       null,
-      _react2.default.createElement("img", { className: "Search" })
+      _react2.default.createElement("img", { className: "search" })
     ),
     _react2.default.createElement(
       "div",
       null,
-      _react2.default.createElement("img", { className: "AddPost" })
+      _react2.default.createElement("img", { className: "addPost" })
     ),
     _react2.default.createElement(
       "div",
       null,
-      _react2.default.createElement("img", { className: "Notifications" })
+      _react2.default.createElement("img", { className: "notifications" })
     ),
     _react2.default.createElement(
       "div",
       null,
-      _react2.default.createElement("img", { className: "Profile" })
+      _react2.default.createElement("img", { className: "profile" })
     )
   );
 };
