@@ -872,6 +872,13 @@ var App = function (_React$Component) {
       });
     }
   }, {
+    key: "clickHandler",
+    value: function clickHandler(page) {
+      this.setState({
+        url: page
+      });
+    }
+  }, {
     key: "renderView",
     value: function renderView() {
       var view = this.state.view;
