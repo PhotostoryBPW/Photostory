@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
   userHandle varchar(25) not null,
   userName varchar(25) not null,
   userLoc varchar(50),
-  photoUrl varchar(255), -- temporary - this should exist in a separate table eventually and be changed to and ID foreign key sitch
+  userPhotoUrl varchar(255), -- temporary - this should exist in a separate table eventually and be changed to and ID foreign key sitch
   bio varchar(500),
   email varchar(50) not null,
   followedCount int,
@@ -53,22 +53,22 @@ CREATE TABLE IF NOT EXISTS hashtags (
   PRIMARY KEY (id)
 );
 
-INSERT INTO users (userHandle, userName, userLoc, photoUrl, bio, email, followedCount, followersCount)
+INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email, followedCount, followersCount)
 VALUES ('randomuser', 'Tim R.', 'New York, NY', 'source.unsplash.com/1600x900/?featured/?man', 'abcdefg hijklmnop qrs tuv wxyz', 'tim@nowhere.com', 20, 200);
 
-INSERT INTO users (userHandle, userName, userLoc, photoUrl, bio, email)
+INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email)
 VALUES ('janeD123', 'Jane D.', 'Washington', 'source.unsplash.com/1600x900/?featured/?woman', 'text text text', 'jane@nowhere.com');
 
-INSERT INTO users (userHandle, userName, userLoc, photoUrl, bio, email)
+INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email)
 VALUES ('bananaman', 'A Banana', 'Fruit Aisle', 'source.unsplash.com/1600x900/?featured/?banana', 'I AM A BANANAAAAAAAA', 'notripe@overripe.com');
 
-INSERT INTO users (userHandle, userName, userLoc, photoUrl, bio, email)
+INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email)
 VALUES ('dontlisten', 'Bad Advice Mallard', 'Orlando, FL', 'source.unsplash.com/1600x900/?featured/?mallard', 'It isn''t illegal if the cops don''t see you.', 'quack@me.com');
 
-INSERT INTO users (userHandle, userName, userLoc, photoUrl, bio, email)
+INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email)
 VALUES ('someoneelse', 'A. Nonymous', 'Chicago', 'source.unsplash.com/1600x900/?featured/?symbol', 'lorem ipsum dolor sit amet', 'dhsdfgk@mcvdmnfnlfb.com');
 
-INSERT INTO users (userHandle, userName, userLoc, photoUrl, bio, email)
+INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email)
 VALUES ('nyancat', 'Nyan Cat', 'Outer Space', 'source.unsplash.com/1600x900/?featured/?cat', 'Nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan', 'strawberry@poptart.com');
 
 INSERT INTO posts (users_id, postLoc, body, photoUrl)
