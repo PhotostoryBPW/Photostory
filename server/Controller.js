@@ -1,6 +1,18 @@
 const Models = require('./models');
 
 const Controller = {
+  Login: (req, res) => {
+    console.log('hello from controller');
+    console.log(Models, 'models models');
+    Models.login(req, res, (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(results);
+        res.status(200).send(results);
+      }
+    })
+  },
   posts: {
     all: (req, res) => {
       Models.posts.all(function(err, results) {

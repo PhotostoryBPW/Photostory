@@ -94,9 +94,12 @@ VALUES (4, 'The Pond', 'Hmmmmm', 'https://i.imgur.com/ZF8edvO.png');
 
 INSERT INTO posts (users_id, postLoc, body, photoUrl)
 VALUES (5, 'kitchen', 'lol wut', 'https://cdn.shopify.com/s/files/1/1829/4817/products/UVbitingpeargraphic.jpg');
+CREATE TABLE IF NOT EXISTS login (
+  id int not null AUTO_INCREMENT,
+  username varchar(20),
+  password varchar(20),
+  PRIMARY KEY(id)
+);
 
-INSERT INTO posts (users_id, postLoc, body, photoUrl)
-VALUES (3, 'there', 'MAH FRIENDZ', 'https://wallpaperbrowse.com/media/images/7-1.jpg');
 
-INSERT INTO posts (users_id, postLoc, body, photoUrl)
-VALUES (2, 'at home', 'eeeeeeeek!', 'https://wallpaperbrowse.com/media/images/interesting-pictures-25.jpg');
+
