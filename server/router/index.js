@@ -10,6 +10,6 @@ router.post('/post', Controller.posts.create);
 
 // router.post('/signup', Controller.Users.Signup);
 
-// router.post('/login', Controller.Users.Login);
+router.get('/login', Controller.Login);
 
 module.exports = router;

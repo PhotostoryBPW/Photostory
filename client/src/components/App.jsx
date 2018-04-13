@@ -3,7 +3,6 @@ import NavBar from './NavBar.jsx';
 import Feed from './Feed.jsx'
 import axios from 'axios';
 
-
 class App extends React.Component {
   constructor() {
     super();
