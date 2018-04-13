@@ -7,19 +7,11 @@ class Feed extends React.Component {
     super(props);
     this.state = {
       posts: '',
-      users: ''
+      users: '',
     }
-  }
-  
-  componentDidMount() {
-    this.setState({
-      posts: this.props.posts,
-      users: this.props.users
-    })
   }
 
   render() {
-    console.log(this.props.posts);
     return (
       <div>
         {  
