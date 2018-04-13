@@ -36,11 +36,11 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getFeed();
-    this.testEntry({ users_id: 1, body: "blah blah blah blah", postLoc: "test location", photoUrl: "http://bbbbb.com" } );
+    this.testEntry({ users_id: 1, body: "blah blah blah blah", postLoc: "test location", photoUrl: "source.unsplash.com/1600x900/?featured/?space", createdAt: Date.now() } );
   }
 
   testEntry(data) {
-    axios.post('/post', data)
+    axios.post('api/post', data)
       .then( response => {
         console.log('post success ', response.body);
       })
@@ -50,8 +50,9 @@ class App extends React.Component {
   }
 
   getFeed() {
-    axios.get('/feed')
+    axios.get('api/feed')
       .then( response => {
+        console.log('response', response)
         this.setState({ 
           posts: response.data
         })

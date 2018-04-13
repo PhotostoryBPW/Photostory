@@ -33,7 +33,7 @@ const sampleData = {
         users_id: 1,
         postLoc: 'The harbor',
         body: 'I visited the harbor. It was brown.',
-        photoUrl: 'wallpaperbrowse.com/media/images/pictures-14.jpg',
+        photoUrl: 'source.unsplash.com/1600x900/?featured/?cat,robots',
         like_counter: 14,
         createdAt: Date.now()
       },
@@ -42,7 +42,7 @@ const sampleData = {
         users_id: 1,
         postLoc: 'West Virginia',
         body: 'The place where I belong.',
-        photoUrl: 'wallpaperbrowse.com/media/images/pictures-14.jpg',
+        photoUrl: 'source.unsplash.com/1600x900/?featured/?dog,cat',
         like_counter: 14,
         createdAt: Date.now()
       },
@@ -51,7 +51,7 @@ const sampleData = {
         users_id: 2,
         postLoc: 'The English Channel',
         body: 'There\'s so much static here!',
-        photoUrl: 'wallpaperbrowse.com/media/images/pictures-14.jpg',
+        photoUrl: 'source.unsplash.com/1600x900/?featured/?robots',
         like_counter: 8000,
         createdAt: Date.now()
       },   
@@ -60,7 +60,7 @@ const sampleData = {
         users_id: 2,
         postLoc: 'Meryl\'s playpen',
         body: 'This place is like disneyland for the obese',
-        photoUrl: 'wallpaperbrowse.com/media/images/pictures-14.jpg',
+        photoUrl: 'source.unsplash.com/1600x900/?featured/?cat',
         like_counter: 1337,
         createdAt: Date.now()
       },  

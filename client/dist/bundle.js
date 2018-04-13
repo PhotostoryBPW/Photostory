@@ -879,6 +879,7 @@ var App = function (_React$Component) {
       posts: '',
       users: ''
     };
+
     return _this;
   }
 
@@ -908,12 +909,12 @@ var App = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.getFeed();
-      this.testEntry({ users_id: 1, body: "blah blah blah blah", postLoc: "test location", photoUrl: "http://bbbbb.com" });
+      this.testEntry({ users_id: 1, body: "blah blah blah blah", postLoc: "test location", photoUrl: "source.unsplash.com/1600x900/?featured/?space", createdAt: Date.now() });
     }
   }, {
     key: 'testEntry',
     value: function testEntry(data) {
-      _axios2.default.post('/post', data).then(function (response) {
+      _axios2.default.post('api/post', data).then(function (response) {
         console.log('post success ', response.body);
       }).catch(function (err) {
         console.log(err);
@@ -924,7 +925,8 @@ var App = function (_React$Component) {
     value: function getFeed() {
       var _this2 = this;
 
-      _axios2.default.get('/feed').then(function (response) {
+      _axios2.default.get('api/feed').then(function (response) {
+        console.log('response', response);
         _this2.setState({
           posts: response.data
         });
@@ -959,10 +961,10 @@ var App = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'container' },
         _react2.default.createElement(
           'div',
-          { className: 'nav' },
+          { className: 'wrapper' },
           _react2.default.createElement(
             'span',
             { className: 'logo',
@@ -972,22 +974,14 @@ var App = function (_React$Component) {
             'Photostory'
           ),
           _react2.default.createElement(
-            'span',
-            { className: this.state.view === 'feed' ? 'nav-selected' : 'nav-unselected',
-              onClick: function onClick() {
-                return _this4.changeView('feed');
-              } },
-            'See all Posts'
-          ),
-          _react2.default.createElement(
             'div',
             { className: 'main' },
             this.renderView()
           ),
           _react2.default.createElement(
-            'div',
+            'footer',
             { className: 'nav' },
-            _react2.default.createElement(_NavBar2.default, null)
+            _react2.default.createElement(_NavBar2.default, { clickHandler: this.changeView.bind(this) })
           )
         )
       );
@@ -1063,37 +1057,42 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var NavBar = function NavBar(props) {
+  var clickHandler = function clickHandler(e) {
+    console.log(e.target.className);
+    props.clickHandler(e.target.className);
+  };
+
   return _react2.default.createElement(
     "div",
     { className: "navBar" },
     _react2.default.createElement(
       "div",
-      null,
-      _react2.default.createElement("img", { className: "home" }),
+      { onClick: clickHandler.bind(undefined), className: "feed" },
+      _react2.default.createElement("img", null),
       " HOME"
     ),
     _react2.default.createElement(
       "div",
-      null,
-      _react2.default.createElement("img", { className: "search" }),
+      { onClick: clickHandler.bind(undefined), className: "search" },
+      _react2.default.createElement("img", null),
       " SEARCH"
     ),
     _react2.default.createElement(
       "div",
-      null,
-      _react2.default.createElement("img", { className: "addPost" }),
+      { onClick: clickHandler.bind(undefined), className: "post" },
+      _react2.default.createElement("img", null),
       " POST"
     ),
     _react2.default.createElement(
       "div",
-      null,
-      _react2.default.createElement("img", { className: "notifications" }),
+      { onClick: clickHandler.bind(undefined), className: "notifications" },
+      _react2.default.createElement("img", null),
       " !!!"
     ),
     _react2.default.createElement(
       "div",
-      null,
-      _react2.default.createElement("img", { className: "profile" }),
+      { onClick: clickHandler.bind(undefined), className: "profile" },
+      _react2.default.createElement("img", null),
       " PROF"
     )
   );
@@ -19688,7 +19687,7 @@ var _Login2 = _interopRequireDefault(_Login);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //change thise
-_reactDom2.default.render(_react2.default.createElement(_Login2.default, null), document.getElementById('photostory'));
+_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('photostory'));
 
 /***/ }),
 /* 27 */
@@ -19722,10 +19721,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Feed = function (_React$Component) {
   _inherits(Feed, _React$Component);
 
-  function Feed() {
+  function Feed(props) {
     _classCallCheck(this, Feed);
 
-    var _this = _possibleConstructorReturn(this, (Feed.__proto__ || Object.getPrototypeOf(Feed)).call(this));
+    var _this = _possibleConstructorReturn(this, (Feed.__proto__ || Object.getPrototypeOf(Feed)).call(this, props));
 
     _this.state = {
       posts: '',
@@ -19735,17 +19734,8 @@ var Feed = function (_React$Component) {
   }
 
   _createClass(Feed, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.setState({
-        posts: this.props.posts,
-        users: this.props.users
-      });
-    }
-  }, {
     key: 'render',
     value: function render() {
-      console.log(this.props.posts);
       return _react2.default.createElement(
         'div',
         null,
@@ -19804,7 +19794,7 @@ var sampleData = {
     users_id: 1,
     postLoc: 'The harbor',
     body: 'I visited the harbor. It was brown.',
-    photoUrl: 'wallpaperbrowse.com/media/images/pictures-14.jpg',
+    photoUrl: 'source.unsplash.com/1600x900/?featured/?cat,robots',
     like_counter: 14,
     createdAt: Date.now()
   }, {
@@ -19812,7 +19802,7 @@ var sampleData = {
     users_id: 1,
     postLoc: 'West Virginia',
     body: 'The place where I belong.',
-    photoUrl: 'wallpaperbrowse.com/media/images/pictures-14.jpg',
+    photoUrl: 'source.unsplash.com/1600x900/?featured/?dog,cat',
     like_counter: 14,
     createdAt: Date.now()
   }, {
@@ -19820,7 +19810,7 @@ var sampleData = {
     users_id: 2,
     postLoc: 'The English Channel',
     body: 'There\'s so much static here!',
-    photoUrl: 'wallpaperbrowse.com/media/images/pictures-14.jpg',
+    photoUrl: 'source.unsplash.com/1600x900/?featured/?robots',
     like_counter: 8000,
     createdAt: Date.now()
   }, {
@@ -19828,7 +19818,7 @@ var sampleData = {
     users_id: 2,
     postLoc: 'Meryl\'s playpen',
     body: 'This place is like disneyland for the obese',
-    photoUrl: 'wallpaperbrowse.com/media/images/pictures-14.jpg',
+    photoUrl: 'source.unsplash.com/1600x900/?featured/?cat',
     like_counter: 1337,
     createdAt: Date.now()
   }]
@@ -19868,10 +19858,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Post = function (_React$Component) {
   _inherits(Post, _React$Component);
 
-  function Post() {
+  function Post(props) {
     _classCallCheck(this, Post);
 
-    var _this = _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).call(this));
+    var _this = _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).call(this, props));
+
+    _this.clickHandler = _this.clickHandler.bind(_this);
 
     _this.state = {
       post: '',
@@ -19883,11 +19875,25 @@ var Post = function (_React$Component) {
   _createClass(Post, [{
     key: 'renderComment',
     value: function renderComment() {
-      if (!this.state.clicked) {
-        return _react2.default.createElement('input', null);
+      if (this.state.clicked === true) {
+        return _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement('input', null),
+          _react2.default.createElement(
+            'button',
+            null,
+            'POST'
+          )
+        );
       } else {
         return 'Add a comment - click here to render a form to enter comment';
       }
+    }
+  }, {
+    key: 'clickHandler',
+    value: function clickHandler() {
+      this.setState({ clicked: true });
     }
   }, {
     key: 'render',
@@ -19923,7 +19929,6 @@ var Post = function (_React$Component) {
             ' SHARE'
           )
         ),
-        _react2.default.createElement('br', null),
         _react2.default.createElement(
           'div',
           { className: 'likes' },
@@ -19931,7 +19936,16 @@ var Post = function (_React$Component) {
           this.props.post.like_counter,
           ' others.'
         ),
-        _react2.default.createElement('div', { className: 'addComment2', onClick: this.renderComment }),
+        _react2.default.createElement(
+          'div',
+          { className: 'body' },
+          this.props.post.body
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'addComment2', onClick: this.clickHandler },
+          this.renderComment()
+        ),
         _react2.default.createElement(
           'div',
           { className: 'postMoment' },

@@ -43,9 +43,12 @@ class Post extends React.Component {
           <div className='share'>
             <img /> SHARE
           </div>
-        </div><br/>
+        </div>
         <div className='likes'>
           Liked by Judy, Meredith, and {this.props.post.like_counter} others.
+        </div>
+        <div className='body'>
+          {this.props.post.body}
         </div>
         <div className='addComment2' onClick={this.clickHandler}>
           {this.renderComment()}
