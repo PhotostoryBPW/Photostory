@@ -67,3 +67,8 @@ div.navBar div {
   display: inline-block;
   float: left;
 }
+
+.postOptions div {
+  display: inline-block;
+  float: left;
+}

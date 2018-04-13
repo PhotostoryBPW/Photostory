@@ -2,13 +2,23 @@ import React from 'react';
 import NavBar from './NavBar.jsx';
 import Feed from './Feed.jsx'
 import axios from 'axios';
+import sample from '../sample_data.js'
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      view: 'feed'
+      view: 'feed',
+      posts: '',
+      users: ''
     }
+  }
+
+  componentDidMount() {
+    this.setState({
+      posts: sample.posts,
+      users: sample.users
+    })
   }
 
   changeView(option) {
@@ -53,7 +63,7 @@ class App extends React.Component {
   renderView() {
     const {view} = this.state;
     if (view === 'feed') {
-      return <Feed handleClick={(() => this.changeView(view)) } data={this.state.data} view={this.state.view}/>
+      return <Feed handleClick={(() => this.changeView(view)) } posts={this.state.posts} users={this.state.users} view={this.state.view}/>
     }
     //  else if (view === 'admin') {
     //   return <Admin data={this.state.data} />

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Post from './Post.jsx';
 
 
 class Feed extends React.Component {
@@ -7,18 +7,27 @@ class Feed extends React.Component {
     super();
     this.state = {
       posts: '',
+      users: ''
     }
   }
   
+  componentDidMount() {
+    this.setState({
+      posts: this.props.posts,
+      users: this.props.users
+    })
+  }
+
   render() {
+    console.log(this.props.posts);
     return (
       <div>
         {  
-        !!this.state.posts.length
+        this.props.posts.length > 0
         ?
-        this.state.posts.map(post =>     
-        <Post post={post}/>
-        )    
+        this.props.posts.map(post =>  
+          <Post key={post.ID} post={post}/>
+        )
         :
         <div>
           No posts to display.

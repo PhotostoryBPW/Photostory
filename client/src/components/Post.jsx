@@ -1,5 +1,5 @@
 import React from 'react';
-
+import moment from 'moment';
 
 
 class Post extends React.Component {
@@ -7,40 +7,50 @@ class Post extends React.Component {
     super();
     this.state = {
       post: '',
+      clicked: false
     }
   }
   
+  renderComment() {
+    if (!this.state.clicked) {
+      return <input/>
+    } else {
+      return 'Add a comment - click here to render a form to enter comment'
+    }
+  }
+
   render() {
+    console.log('got here to posts')
     return (
       <div>
-        {  
         <div className='postImage'>
-          <img src='placeholder.png'/>
+          <img src={`http://${this.props.post.photoUrl}`}/>
         </div>
         <div className='postOptions'>
           <div className='like'>
-            <img /> 
+            <img /> LIKE
           </div>
           <div className='addComment'>
-            <img /> 
+            <img /> COMMENT
           </div>
           <div className='share'>
-            <img /> 
+            <img /> SHARE
           </div>
-        </div>
+        </div><br/>
         <div className='likes'>
-          Liked by Judy, Meredith, and 20 others.
+          Liked by Judy, Meredith, and {this.props.post.like_counter} others.
         </div>
-        <div className='addComment2'>
-          Add a comment - click here to render a form to enter comment
+        <div className='addComment2' onClick={this.renderComment}>
+          
         </div>
         <div className='postMoment'>
-          Moment.js - posted 2 days ago.
+          {moment(this.props.post.createdAt).fromNow()}
         </div>
-        }
-    </div>
+      </div>
     );
   }
 }
 
 export default Post;
+
+
