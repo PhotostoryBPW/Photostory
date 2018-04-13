@@ -16,6 +16,22 @@ const Models = {
     })
   },
 
+  signup: (req, res, cb) => {
+    var username = req.body.username;
+    var password = req.body.password;
+    var queryToSeeIfUserExists = `select username from login where username = ${JSON.stringify(username)}`;
+    db.query(queryToSeeIfUserExists, (err, results) => {
+      if (results.length < 1) {
+        var query = `INSERT INTO login (username, password) VALUES (${JSON.stringify(username)}, ${JSON.stringify(password)})`;
+        db.query(query, (err, results) => {
+          cb(err, 'username and password added to database');
+        })
+      } else {
+        cb(err, 'username already exists');
+      }
+    })
+  },
+
   posts: {
     all: function(cb) {
       var queryStr = 'select * from posts';

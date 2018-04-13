@@ -13,6 +13,15 @@ const Controller = {
       }
     })
   },
+  Signup: (req, res) => {
+    Models.signup(req, res, (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.status(201).send(results);
+      }
+    })
+  },
   posts: {
     all: (req, res) => {
       Models.posts.all(function(err, results) {
