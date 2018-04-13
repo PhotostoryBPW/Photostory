@@ -1,6 +1,7 @@
 import React from 'react';
 import NavBar from './NavBar.jsx';
 import Feed from './Feed.jsx'
+import axios from 'axios';
 
 
 class App extends React.Component {
@@ -21,6 +22,33 @@ class App extends React.Component {
     this.setState({
       url: page
     });
+  }
+
+  componentDidMount() {
+    this.getFeed();
+    this.testEntry({ users_id: 1, body: "blah blah blah blah", postLoc: "test location", photoUrl: "http://bbbbb.com" } );
+  }
+
+  testEntry(data) {
+    axios.post('/post', data)
+      .then( response => {
+        console.log('post success ', response.body);
+      })
+      .catch( err => {
+        console.log(err);
+      })
+  }
+
+  getFeed() {
+    axios.get('/feed')
+      .then( response => {
+        this.setState({ 
+          posts: response.data
+        })
+      })
+      .catch( err => {
+        console.log(err);
+      })
   }
 
   renderView() {
