@@ -1,23 +1,30 @@
 import React from 'react';
 
-const NavBar = (props) => (
+const NavBar = (props) => {
+  const clickHandler = (e) => {
+    console.log(e.target.className);
+    props.clickHandler(e.target.className);
+  };
+
+  return (
   <div className="navBar">
-    <div>
-      <img className="home"/> HOME
+    <div onClick={clickHandler.bind(this)} className="feed">
+      <img/> HOME
     </div>
-    <div>
-      <img className="search"/> SEARCH
+    <div onClick={clickHandler.bind(this)} className="search">
+      <img/> SEARCH
     </div>
-    <div>
-      <img className="addPost"/> POST
+    <div onClick={clickHandler.bind(this)} className="post">
+      <img/> POST
     </div>
-    <div>
-      <img className="notifications"/> !!!
+    <div onClick={clickHandler.bind(this)} className="notifications">
+      <img/> !!!
     </div>
-    <div>
-      <img className="profile"/> PROF
+    <div onClick={clickHandler.bind(this)} className="profile">
+      <img/> PROF
     </div>
   </div>
-);
+  );
+};
 
 export default NavBar;

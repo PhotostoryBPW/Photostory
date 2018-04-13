@@ -3,8 +3,8 @@ import Post from './Post.jsx';
 
 
 class Feed extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       posts: '',
       users: ''

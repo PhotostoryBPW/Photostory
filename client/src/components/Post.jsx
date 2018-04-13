@@ -3,8 +3,11 @@ import moment from 'moment';
 
 
 class Post extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    
+    this.clickHandler = this.clickHandler.bind(this);
+
     this.state = {
       post: '',
       clicked: false
@@ -12,11 +15,15 @@ class Post extends React.Component {
   }
   
   renderComment() {
-    if (!this.state.clicked) {
-      return <input/>
+    if (this.state.clicked === true) {
+      return <div><input/><button>POST</button></div> 
     } else {
       return 'Add a comment - click here to render a form to enter comment'
     }
+  }
+
+  clickHandler() {
+    this.setState({clicked: true})
   }
 
   render() {
@@ -40,8 +47,8 @@ class Post extends React.Component {
         <div className='likes'>
           Liked by Judy, Meredith, and {this.props.post.like_counter} others.
         </div>
-        <div className='addComment2' onClick={this.renderComment}>
-          
+        <div className='addComment2' onClick={this.clickHandler}>
+          {this.renderComment()}
         </div>
         <div className='postMoment'>
           {moment(this.props.post.createdAt).fromNow()}

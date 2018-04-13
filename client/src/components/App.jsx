@@ -76,25 +76,18 @@ class App extends React.Component {
   
   render() {
     return (
-      <div>
-        <div className="nav">
+      <div className="container">
+        <div className="wrapper">
           <span className="logo"
             onClick={() => this.changeView('feed')}>
             Photostory
           </span>
-          <span className={
-            this.state.view === 'feed'
-            ? 'nav-selected'
-            : 'nav-unselected'}
-            onClick={() => this.changeView('feed')}>
-            See all Posts
-          </span>
         <div className="main">
           {this.renderView()}
         </div>
-        <div className="nav">
-          <NavBar/>
-        </div>
+        <footer className="nav">
+          <NavBar clickHandler={this.changeView.bind(this)}/>
+        </footer>
       </div>
     </div>  
     );
