@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Controller = require('../Controller');
 
-// router.get('/feed', Controller.Posts.Show);
+router.get('/feed', Controller.posts.all);
 
-// router.post('/post', Controller.Posts.Create);
+router.post('/post', Controller.posts.create);
 
 // router.get('/find', Controller.Users.Find);
 

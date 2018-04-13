@@ -1,32 +1,57 @@
 const Models = require('./models');
 
 const Controller = {
-//   Posts: {
-//     Create: (req, res) => {
-//       Models.posts.create(params, function(err, results) {
-//         var params = [req.body.userId, req.body.text, req.body.photo, req.body.location];
-//         models.messages.post(params, function(err, results) {
-//           if (err) { 
-//             console.log(err);
-//           } else {
-//           res.sendStatus(201);
-//           }
-//         });
-//       });
-//     Search: (req, res) => {
-//       Models.posts.find(params, function(err, results) {
-//         var params = [req.body.userId];
-//         models.messages.post(params, function(err, results) {
-//           if (err) { 
-//             console.log(err);
-//           } else {
-//           res.sendStatus(201);
-//           }
-//         });
-//       });
-//   }
+  posts: {
+    all: (req, res) => {
+      Models.posts.all(function(err, results) {
+        if (err) { 
+          console.log(err);
+        } else {
+          res.sendStatus(201);
+        }
+      });
+    },
+    create: (req, res) => {
+      console.log(req);
+      Models.posts.create(req.body, function(err, results) {
+        if (err) { 
+          console.log(err);
+        } else {
+          res.sendStatus(201);
+        }
+      });
+    },
+    delete: (req, res) => {
+      Models.posts.delete(req.body, function(err, results) {
+        if (err) { 
+          console.log(err);
+        } else {
+          res.sendStatus(201);
+        }
+      });
+    },
+  },
 
-
+  users: {
+    create: (req, res) => {
+      Models.users.create(params, function(err, results) {
+        if (err) { 
+          console.log(err);
+        } else {
+          res.sendStatus(201);
+        }
+      });
+    },
+    find: (req, res) => {
+      Models.users.find(params, function(err, results) {
+        if (err) { 
+          console.log(err);
+        } else {
+          res.sendStatus(201);
+        }
+      });
+    },
+  }
 
 
 //   Search: (req, res) => {
