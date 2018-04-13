@@ -68,9 +68,10 @@ class App extends React.Component {
     if (view === 'feed') {
       return <Feed handleClick={(() => this.changeView(view)) } posts={this.state.posts} users={this.state.users} view={this.state.view}/>
     }
-    //  else if (view === 'admin') {
-    //   return <Admin data={this.state.data} />
-    // } else if (view === 'create') {
+     else if (view === 'profile') {
+      return <Profile data={this.state.data} />
+    } 
+    // else if (view === 'create') {
     //   return <Create data={this.state.data} />
     // } else {
     //   return <Post key={view._id} post={view} />
@@ -81,7 +82,7 @@ class App extends React.Component {
     return (
       <div className="container">
         <div className="wrapper">
-          <header classname="header">
+          <header>
             <Header view={this.state.view}/>
           </header>  
           <div className="main">
