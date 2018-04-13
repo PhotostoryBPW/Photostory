@@ -30,6 +30,15 @@ class Post extends React.Component {
     console.log('got here to posts')
     return (
       <div>
+        <div className='userImage'>
+          <img src={`http://${this.props.post.userPhotoUrl}`}/>
+        </div>
+        <div className='userHandle'>
+          {this.props.post.userHandle}
+        </div><br/>
+        <div className='postLocation'>
+          {this.props.post.postLoc}
+        </div>
         <div className='postImage'>
           <img src={`http://${this.props.post.photoUrl}`}/>
         </div>

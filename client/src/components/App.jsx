@@ -2,7 +2,8 @@ import React from 'react';
 import NavBar from './NavBar.jsx';
 import Feed from './Feed.jsx'
 import axios from 'axios';
-import sample from '../sample_data.js'
+import sample from '../sample_data.js';
+import Header from './Header.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -67,9 +68,10 @@ class App extends React.Component {
     if (view === 'feed') {
       return <Feed handleClick={(() => this.changeView(view)) } posts={this.state.posts} users={this.state.users} view={this.state.view}/>
     }
-    //  else if (view === 'admin') {
-    //   return <Admin data={this.state.data} />
-    // } else if (view === 'create') {
+     else if (view === 'profile') {
+      return <Profile data={this.state.data} />
+    } 
+    // else if (view === 'create') {
     //   return <Create data={this.state.data} />
     // } else {
     //   return <Post key={view._id} post={view} />
@@ -80,18 +82,17 @@ class App extends React.Component {
     return (
       <div className="container">
         <div className="wrapper">
-          <span className="logo"
-            onClick={() => this.changeView('feed')}>
-            Photostory
-          </span>
-        <div className="main">
-          {this.renderView()}
+          <header>
+            <Header view={this.state.view}/>
+          </header>  
+          <div className="main">
+            {this.renderView()}
+          </div>
+          <footer className="nav">
+            <NavBar clickHandler={this.changeView.bind(this)}/>
+          </footer>
         </div>
-        <footer className="nav">
-          <NavBar clickHandler={this.changeView.bind(this)}/>
-        </footer>
-      </div>
-    </div>  
+      </div>  
     );
   }
 }

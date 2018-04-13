@@ -34,7 +34,7 @@ const Models = {
 
   posts: {
     all: function(cb) {
-      var queryStr = 'select * from posts';
+      var queryStr = 'select * from posts right join users on posts.users_id=users.id';
       db.query(queryStr, function(err, results) {
         cb(err, results);
       });
