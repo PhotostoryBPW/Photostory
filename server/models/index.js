@@ -6,7 +6,7 @@ const Models = {
     var username = req.query.username;
     var password = req.query.password;
     var queryStr = `select username from login where username = ${JSON.stringify(username)} AND password = ${JSON.stringify(password)}`;
-    db.connection.query(queryStr, function(err, results) {
+    db.query(queryStr, function(err, results) {
       if (results.length > 0) {
         results = "Welcome";
       } else {

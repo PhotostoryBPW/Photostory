@@ -2,7 +2,9 @@ const Models = require('./models');
 
 const Controller = {
   Login: (req, res) => {
-    Models.Models.login(req, res, (err, results) => {
+    console.log('hello from controller');
+    console.log(Models, 'models models');
+    Models.login(req, res, (err, results) => {
       if (err) {
         console.log(err);
       } else {
