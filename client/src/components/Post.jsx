@@ -1,46 +1,66 @@
 import React from 'react';
-
+import moment from 'moment';
 
 
 class Post extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    
+    this.clickHandler = this.clickHandler.bind(this);
+
     this.state = {
       post: '',
+      clicked: false
     }
   }
   
+  renderComment() {
+    if (this.state.clicked === true) {
+      return <div><input/><button>POST</button></div> 
+    } else {
+      return 'Add a comment - click here to render a form to enter comment'
+    }
+  }
+
+  clickHandler() {
+    this.setState({clicked: true})
+  }
+
   render() {
+    console.log('got here to posts')
     return (
       <div>
-        {  
         <div className='postImage'>
-          <img src='placeholder.png'/>
+          <img src={`http://${this.props.post.photoUrl}`}/>
         </div>
         <div className='postOptions'>
           <div className='like'>
-            <img /> 
+            <img /> LIKE
           </div>
           <div className='addComment'>
-            <img /> 
+            <img /> COMMENT
           </div>
           <div className='share'>
-            <img /> 
+            <img /> SHARE
           </div>
         </div>
         <div className='likes'>
-          Liked by Judy, Meredith, and 20 others.
+          Liked by Judy, Meredith, and {this.props.post.like_counter} others.
         </div>
-        <div className='addComment2'>
-          Add a comment - click here to render a form to enter comment
+        <div className='body'>
+          {this.props.post.body}
+        </div>
+        <div className='addComment2' onClick={this.clickHandler}>
+          {this.renderComment()}
         </div>
         <div className='postMoment'>
-          Moment.js - posted 2 days ago.
+          {moment(this.props.post.createdAt).fromNow()}
         </div>
-        }
-    </div>
+      </div>
     );
   }
 }
 
 export default Post;
+
+

@@ -2,13 +2,24 @@ import React from 'react';
 import NavBar from './NavBar.jsx';
 import Feed from './Feed.jsx'
 import axios from 'axios';
+import sample from '../sample_data.js'
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      view: 'feed'
+      view: 'feed',
+      posts: '',
+      users: ''
     }
+    
+  }
+
+  componentDidMount() {
+    this.setState({
+      posts: sample.posts,
+      users: sample.users
+    })
   }
 
   changeView(option) {
@@ -25,11 +36,11 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getFeed();
-    this.testEntry({ users_id: 1, body: "blah blah blah blah", postLoc: "test location", photoUrl: "http://bbbbb.com" } );
+    this.testEntry({ users_id: 1, body: "blah blah blah blah", postLoc: "test location", photoUrl: "source.unsplash.com/1600x900/?featured/?space", createdAt: Date.now() } );
   }
 
   testEntry(data) {
-    axios.post('/post', data)
+    axios.post('api/post', data)
       .then( response => {
         console.log('post success ', response.body);
       })
@@ -39,8 +50,9 @@ class App extends React.Component {
   }
 
   getFeed() {
-    axios.get('/feed')
+    axios.get('api/feed')
       .then( response => {
+        console.log('response', response)
         this.setState({ 
           posts: response.data
         })
@@ -53,7 +65,7 @@ class App extends React.Component {
   renderView() {
     const {view} = this.state;
     if (view === 'feed') {
-      return <Feed handleClick={(() => this.changeView(view)) } data={this.state.data} view={this.state.view}/>
+      return <Feed handleClick={(() => this.changeView(view)) } posts={this.state.posts} users={this.state.users} view={this.state.view}/>
     }
     //  else if (view === 'admin') {
     //   return <Admin data={this.state.data} />
@@ -66,25 +78,18 @@ class App extends React.Component {
   
   render() {
     return (
-      <div>
-        <div className="nav">
+      <div className="container">
+        <div className="wrapper">
           <span className="logo"
             onClick={() => this.changeView('feed')}>
             Photostory
           </span>
-          <span className={
-            this.state.view === 'feed'
-            ? 'nav-selected'
-            : 'nav-unselected'}
-            onClick={() => this.changeView('feed')}>
-            See all Posts
-          </span>
         <div className="main">
           {this.renderView()}
         </div>
-        <div className="nav">
-          <NavBar/>
-        </div>
+        <footer className="nav">
+          <NavBar clickHandler={this.changeView.bind(this)}/>
+        </footer>
       </div>
     </div>  
     );

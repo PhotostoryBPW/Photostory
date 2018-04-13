@@ -2,10 +2,10 @@ CREATE DATABASE IF NOT EXISTS photostory;
 USE photostory;
 CREATE TABLE IF NOT EXISTS users (
   id int not null AUTO_INCREMENT,
-  userHandle varchar(25),
+  userHandle varchar(25) not null,
   userName varchar(25) not null,
   userLoc varchar(50),
-  photoUrl varchar(100), -- temporary - this should exist in a separate table eventually and be changed to and ID foreign key sitch
+  photoUrl varchar(255), -- temporary - this should exist in a separate table eventually and be changed to and ID foreign key sitch
   bio varchar(500),
   email varchar(50) not null,
   followedCount int,
@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS posts (
   parent_id int,
   likesCount int,
   likes_id int,
+  createdAt int,
   PRIMARY KEY (id)
 );
 CREATE TABLE IF NOT EXISTS followers (
@@ -52,54 +53,44 @@ CREATE TABLE IF NOT EXISTS hashtags (
   PRIMARY KEY (id)
 );
 
-
---- To run: open Terminal and start MySQL server:
---- mysql.server stop | then | mysql.server start
---- mysql -u root < server/schema.sql
-
---- Dummy data
----------------------
-
 INSERT INTO users (userHandle, userName, userLoc, photoUrl, bio, email, followedCount, followersCount)
-VALUES ('randomuser', 'Tim R.', 'New York, NY', 'https://pbs.twimg.com/media/BcINeMVCIAABeWd.jpg', 'abcdefg hijklmnop qrs tuv wxyz', 'tim@nowhere.com');
+VALUES ('randomuser', 'Tim R.', 'New York, NY', 'source.unsplash.com/1600x900/?featured/?man', 'abcdefg hijklmnop qrs tuv wxyz', 'tim@nowhere.com', 20, 200);
 
 INSERT INTO users (userHandle, userName, userLoc, photoUrl, bio, email)
-VALUES ('janeD123', 'Jane D.', 'Washington', 'http://i.imgur.com/FsaErgQ.jpg', 'text text text', 'jane@nowhere.com');
+VALUES ('janeD123', 'Jane D.', 'Washington', 'source.unsplash.com/1600x900/?featured/?woman', 'text text text', 'jane@nowhere.com');
 
 INSERT INTO users (userHandle, userName, userLoc, photoUrl, bio, email)
-VALUES ('bananaman', 'A Banana', 'Fruit Aisle', 'http://i.imgur.com/4Qcudbo.png', 'I AM A BANANAAAAAAAA', 'notripe@overripe.com');
+VALUES ('bananaman', 'A Banana', 'Fruit Aisle', 'source.unsplash.com/1600x900/?featured/?banana', 'I AM A BANANAAAAAAAA', 'notripe@overripe.com');
 
 INSERT INTO users (userHandle, userName, userLoc, photoUrl, bio, email)
-VALUES ('dontlisten', 'Bad Advice Mallard', 'Orlando, FL', 'http://i0.kym-cdn.com/photos/images/original/000/449/182/afe.jpg', 'It isn''t illegal if the cops don''t see you.', 'quack@me.com');
+VALUES ('dontlisten', 'Bad Advice Mallard', 'Orlando, FL', 'source.unsplash.com/1600x900/?featured/?mallard', 'It isn''t illegal if the cops don''t see you.', 'quack@me.com');
 
 INSERT INTO users (userHandle, userName, userLoc, photoUrl, bio, email)
-VALUES ('someoneelse', 'A. Nonymous', 'Chicago', 'http://news.unn.net/news/photo/201704/172721_53753_3145.jpg', 'lorem ipsum dolor sit amet', 'dhsdfgk@mcvdmnfnlfb.com');
+VALUES ('someoneelse', 'A. Nonymous', 'Chicago', 'source.unsplash.com/1600x900/?featured/?symbol', 'lorem ipsum dolor sit amet', 'dhsdfgk@mcvdmnfnlfb.com');
 
 INSERT INTO users (userHandle, userName, userLoc, photoUrl, bio, email)
-VALUES ('nyancat', 'Nyan Cat', 'Outer Space', 'https://pbs.twimg.com/profile_images/2370446440/6e2jwf7ztbr5t1yjq4c5.jpeg', 'Nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan', 'strawberry@poptart.com');
-
---------------------
+VALUES ('nyancat', 'Nyan Cat', 'Outer Space', 'source.unsplash.com/1600x900/?featured/?cat', 'Nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan', 'strawberry@poptart.com');
 
 INSERT INTO posts (users_id, postLoc, body, photoUrl)
-VALUES (6, 'The Park', 'my cousin', 'https://wallpaperbrowse.com/media/images/pictures-14.jpg');
+VALUES (6, 'The Park', 'my cousin', 'source.unsplash.com/1600x900/?featured/?park');
  
 INSERT INTO posts (users_id, postLoc, body, photoUrl)
-VALUES (2, 'Hawaii', 'vacation', 'https://wallpaperbrowse.com/media/images/pictures-8.jpg');
+VALUES (2, 'Hawaii', 'vacation', 'source.unsplash.com/1600x900/?featured/?island');
 
 INSERT INTO posts (users_id, postLoc, body, photoUrl)
-VALUES (3, 'here', 'om nom nom nom', 'https://wallpaperbrowse.com/media/images/2a565805f94d024f305f79fcdfa983c4--walpaper-iphone-cute-wallpapers.jpg');
+VALUES (3, 'here', 'om nom nom nom', 'source.unsplash.com/1600x900/?featured/?hotdog');
 
 INSERT INTO posts (users_id, postLoc, body, photoUrl)
-VALUES (4, 'The Pond', 'Hmmmmm', 'https://i.imgur.com/ZF8edvO.png');
+VALUES (4, 'The Pond', 'Hmmmmm', 'source.unsplash.com/1600x900/?featured/?pond');
 
 INSERT INTO posts (users_id, postLoc, body, photoUrl)
-VALUES (5, 'kitchen', 'lol wut', 'https://cdn.shopify.com/s/files/1/1829/4817/products/UVbitingpeargraphic.jpg');
+VALUES (5, 'kitchen', 'lol wut', 'source.unsplash.com/1600x900/?featured/?kitchen');
 CREATE TABLE IF NOT EXISTS login (
   id int not null AUTO_INCREMENT,
   username varchar(20),
   password varchar(20),
   PRIMARY KEY(id)
 );
-
-
-
+-- To run: open Terminal and start MySQL server:
+-- mysql.server stop | then | mysql.server start
+-- mysql -u root < server/schema.sql

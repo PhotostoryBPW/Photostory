@@ -19,7 +19,7 @@ const Controller = {
         if (err) { 
           console.log(err);
         } else {
-          res.sendStatus(201);
+          res.status(201).send(results);
         }
       });
     },

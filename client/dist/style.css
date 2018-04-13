@@ -3,6 +3,7 @@ body {
   font-family: 'PT Serif', sans-serif;
   margin: auto;
   background-color:white;
+  height: 100%;
 }
 
 button {
@@ -65,5 +66,50 @@ button {
 
 div.navBar div {
   display: inline-block;
-  float: left;
+  height: 50px;
+}
+
+.postOptions div {
+  display: inline-block;
+}
+
+html, body {
+  min-height:100%;
+  margin: 0;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.container {
+    min-height: calc(100vh - 70px);
+}
+footer, .navBar {
+   position:sticky;
+   bottom:0;
+   height:60px;   
+   width: auto;
+   margin: 0 auto;
+}
+
+.navBar {
+  width: auto;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+}
+
+.nav {
+  width: 100%;
+  background:#6cf;
+}
+
+div.postImage img {
+  display: block;
+  max-width: 100%;
+  width: auto;
+  height: auto;
 }
