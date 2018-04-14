@@ -15,7 +15,11 @@ button {
   background-color: rgb(0, 0, 0);
 }
 
-.addPost{
+img {
+  border-radius: 3px;
+}
+
+.addPost {
   border: none;
 }
 
@@ -36,7 +40,18 @@ button {
 }
 
 .profileMain {
-  border: none;
+  display: grid;
+  width: 500px;
+  margin: 10px 0px;
+  grid-gap: 10px;
+  grid-template-columns: 290px 190px;
+  grid-template-areas:
+  "header header"
+  "left-top right-top"
+  "left-bottom right-bottom"
+  "footer footer";
+  background-color: #fff;
+  color: #444;
 }
 
 .search {
@@ -47,17 +62,50 @@ button {
   border: none;
 }
 
-
 #edit {
-  border-radius: 4px;
+  cursor: pointer;
+  grid-area: right-bottom;
+  width: 150px;
+  height: 30px;
+  border-radius: 3px;
+  font-family: 'PT Serif', sans-serif;
+  font-size: medium;
+  color: #CCC;
+  background-color: rgb(0, 0, 0);
+  padding: 5px;
 }
 
 #handle {
-  background-color: #C44;
+  grid-area: header;
+  color: white;
+  width: 490px;
+  padding: 5px;
+  background-color: #800;
+  border-radius: 4px;
+  margin: 5px 0px;
+}
+
+#myPosts {
+  grid-area: footer;
+}
+
+#profileBio {
+  grid-area: left-bottom;
+  width: 300px;
+}
+
+#profilePhoto {
+  grid-area: left-top;
+  width: 290px;
+  border-radius: 3px;
 }
 
 #stats {
-  background-color: #E77;
+  grid-area: right-top;
+  width: 190px;
+  padding: 5px;
+  background-color: #F88;
+  border-radius: 3px;
 }
 
 #userPhoto {
