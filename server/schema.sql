@@ -71,20 +71,20 @@ VALUES ('someoneelse', 'A. Nonymous', 'Chicago', 'source.unsplash.com/1600x900/?
 INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email)
 VALUES ('nyancat', 'Nyan Cat', 'Outer Space', 'source.unsplash.com/1600x900/?featured/?cat', 'Nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan', 'strawberry@poptart.com');
 
-INSERT INTO posts (users_id, postLoc, body, photoUrl)
-VALUES (6, 'The Park', 'my cousin', 'source.unsplash.com/1600x900/?featured/?park');
+INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount)
+VALUES (6, 'The Park', 'my cousin', 'source.unsplash.com/1600x900/?featured/?park', 500);
  
-INSERT INTO posts (users_id, postLoc, body, photoUrl)
-VALUES (2, 'Hawaii', 'vacation', 'source.unsplash.com/1600x900/?featured/?island');
+INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount)
+VALUES (2, 'Hawaii', 'vacation', 'source.unsplash.com/1600x900/?featured/?island', 600);
 
-INSERT INTO posts (users_id, postLoc, body, photoUrl)
-VALUES (3, 'here', 'om nom nom nom', 'source.unsplash.com/1600x900/?featured/?hotdog');
+INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount)
+VALUES (3, 'here', 'om nom nom nom', 'source.unsplash.com/1600x900/?featured/?hotdog', 7000);
 
-INSERT INTO posts (users_id, postLoc, body, photoUrl)
-VALUES (4, 'The Pond', 'Hmmmmm', 'source.unsplash.com/1600x900/?featured/?pond');
+INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount)
+VALUES (4, 'The Pond', 'Hmmmmm', 'source.unsplash.com/1600x900/?featured/?pond', 1);
 
-INSERT INTO posts (users_id, postLoc, body, photoUrl)
-VALUES (5, 'kitchen', 'lol wut', 'source.unsplash.com/1600x900/?featured/?kitchen');
+INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount)
+VALUES (5, 'kitchen', 'lol wut', 'source.unsplash.com/1600x900/?featured/?kitchen', 20);
 CREATE TABLE IF NOT EXISTS login (
   id int not null AUTO_INCREMENT,
   username varchar(20),

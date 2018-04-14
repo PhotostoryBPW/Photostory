@@ -7,6 +7,7 @@ import Header from './Header.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Profile from './Profile.jsx';
+import Search from './Search.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -104,9 +105,14 @@ class App extends React.Component {
       return <ProfileEdit />
     } else if (view === 'create') {
       return <Create data={this.state.data} />
+    }  else if (view === 'search') {
+      return <Search posts={this.state.posts}/>
     } else {
       return <Post key={view._id} post={view} />
     }
+    // else {
+    //   return <Post key={view._id} post={view} />
+    // }
   }
 
   render() {

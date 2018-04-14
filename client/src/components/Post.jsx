@@ -14,9 +14,13 @@ class Post extends React.Component {
     }
   }
   
+  componentDidUpdate() {
+    this.nameInput.focus();
+  }
+
   renderComment() {
     if (this.state.clicked === true) {
-      return <div><input/><button>POST</button></div> 
+      return <div><input ref={(input) => { this.nameInput = input; }}/><button>POST</button></div> 
     } else {
       return 'Add a comment - click here to render a form to enter comment'
     }
@@ -54,7 +58,7 @@ class Post extends React.Component {
           </div>
         </div>
         <div className='likes'>
-          Liked by Judy, Meredith, and {this.props.post.like_counter} others.
+          Liked by Judy, Meredith, and {this.props.post.likesCount} others.
         </div>
         <div className='body'>
           {this.props.post.body}
