@@ -1,20 +1,6 @@
 const Models = require('./models');
 
 const Controller = {
-  Login: (req, res) => {
-    Models.login(req, res, (err, results) => {
-      if (err) {
-        console.log(err);
-      } else {
-        if (results === 'Welcome') {
-          console.log("success");
-          res.status(202).send(results);
-        } else {
-          res.status(201).send(results);
-        }
-      }
-    })
-  },
   Signup: (req, res) => {
     Models.signup(req, res, (err, results) => {
       if (err) {
@@ -63,7 +49,6 @@ const Controller = {
       });
     },
   },
-
   users: {
     create: (req, res) => {
       Models.users.create(params, function(err, results) {
@@ -85,8 +70,6 @@ const Controller = {
       });
     },
   }
-
-
 //   Search: (req, res) => {
 //     var name = req.body.username;
 //     Posts.find({})
@@ -131,6 +114,4 @@ const Controller = {
 //     req.body.followId
 //   }
 }
-  
-
 module.exports = Controller;

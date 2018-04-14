@@ -1,35 +1,33 @@
 const db = require('../DB');
-
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const passport = require('passport');
 const Models = {
-
-  login: (req, res, cb) => {
-    var username = req.query.username;
-    var password = req.query.password;
-    var queryStr = `select username from login where username = ${JSON.stringify(username)} AND password = ${JSON.stringify(password)}`;
-    db.query(queryStr, function(err, results) {
-      if (results.length > 0) {
-        results = "Welcome";
-      } else {
-        results = "Incorrect login";
-      }
-      cb(err, results);
-    })
-  },
 
   signup: (req, res, cb) => {
     var username = req.body.username;
     var password = req.body.password;
-    var queryToSeeIfUserExists = `select username from login where username = ${JSON.stringify(username)}`;
-    db.query(queryToSeeIfUserExists, (err, results) => {
-      if (results.length < 1) {
-        var query = `INSERT INTO login (username, password) VALUES (${JSON.stringify(username)}, ${JSON.stringify(password)})`;
-        db.query(query, (err, results) => {
-          cb(err, 'username and password added to database');
-        })
-      } else {
-        cb(err, 'username already exists');
-      }
-    })
+    bcrypt.hash(password, saltRounds, function(err, hash) {
+      var queryToSeeIfUserExists = `select username from login where username = ${JSON.stringify(username)}`;
+      db.query(queryToSeeIfUserExists, (err, results) => {
+        if (results.length < 1) {
+          var query = `INSERT INTO login (username, password) VALUES (${JSON.stringify(username)}, ${JSON.stringify(hash)})`;
+          db.query(query, (err, results) => {
+            db.query('SELECT LAST_INSERT_ID() as id', function(err, results, fields) {
+              if (err) throw error;
+              console.log(results[0]);
+              // req.login(results[0], function(err) {
+              //   cb(err, 'signed up');
+              // })
+              //keeping this code for future implementation of login on signup
+              cb(err, 'signed up');
+            })
+          })
+        } else {
+          cb(err, 'username already exists');
+        }
+      })
+    });
   },
 
   posts: {
@@ -108,4 +106,22 @@ const Models = {
   }
 };
 
+passport.serializeUser(function(id, done) {
+  done(null, id);
+});
+
+passport.deserializeUser(function(id, done) {
+  done(null, id);
+});
+
+function authenticationMiddleware() {
+
+  return (req, res, next) => {
+    console.log(`
+      req.session.passport.user: ${JSON.
+      stringify(req.session.passport)}`);
+    if (req.isAhthenticated()) return next();
+    res.status(200).send('inactive');
+  }
+}
 module.exports = Models;

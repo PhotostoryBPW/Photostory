@@ -1,7 +1,6 @@
 import React from 'react';
 import Post from './Post.jsx';
 
-
 class Feed extends React.Component {
   constructor(props) {
     super(props);

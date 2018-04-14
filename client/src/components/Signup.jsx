@@ -31,7 +31,12 @@ class Signup extends React.Component {
     console.log(payload);
     axios.post('http://localhost:3000/api/signup/', payload)
     .then((response) => {
-      console.log(response);
+      if (response !== 'username already exists') {
+        // this.props.isLoggedInHandler();
+        console.log(response);
+      } else {
+        console.log('congrats you have made an account yay');
+      }
     })
     .catch(({err})=> {
       console.log(err);
