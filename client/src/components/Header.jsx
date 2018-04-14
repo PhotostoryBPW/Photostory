@@ -14,7 +14,6 @@ const Header = (props) => {
     (props.view === 'createpost') ? <span>Post</span> :
     (props.view === 'notifications') ? <span>Notifications</span> : 
     <span>UserNameVar</span>
-
     }
   </div>
   );

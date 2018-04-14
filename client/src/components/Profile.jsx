@@ -16,8 +16,8 @@ const Profile = (props) => {
         <li className="statsItem">Users following: {props.data.followedByCount}</li>
       </ul>
     </div>
-    <div id="edit" onClick={props.handleClick.bind(this)} className="profileEdit">Edit...</div>
-    <div id="myPosts"><MyPosts /></div>
+    <div id="edit">Edit</div>
+    <MyPosts/>
   </div>
   )
 }
