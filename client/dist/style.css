@@ -141,6 +141,7 @@ footer, .navBar {
    height:40px;   
    width: auto;
    margin: 0 auto;
+   clear: both;
 }
 
 div .navBar {
@@ -180,15 +181,20 @@ div.userImage img {
   height: 50px;
   border-radius: 25px;
   float: left;
-  margin-right: 10px;
-  margin-bottom: 5px;
+  margin: 5px 10px 5px 0;
 }
 
 .userHandle {
   float: left;
+  font-weight: 600;
 }
 
 .postLocation {
   float: left;
 }
 
+div.searchThumb img {
+  width: 33%;
+  float: left;
+  height: auto;
+}

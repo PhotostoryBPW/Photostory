@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Controller = require('../Controller');
 
-router.get('/feed', Controller.posts.all);
+router.get('/feed', Controller.posts.friends);
+router.get('/search', Controller.posts.all);
+router.get('/search/:username', Controller.users.find);
 
 router.post('/post', Controller.posts.create);
 
