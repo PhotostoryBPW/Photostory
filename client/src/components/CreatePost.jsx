@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import dropzone from 'dropzone';
+import cloudinary from 'cloudinary';
 
 class CreatePost extends React.Component {
   constructor(props) {
