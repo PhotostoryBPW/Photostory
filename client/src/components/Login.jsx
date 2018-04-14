@@ -28,13 +28,16 @@ class Login extends React.Component {
     {username: this.state.username, 
      password: this.state.password,
     }
-    console.log(payload);
     axios.get('http://localhost:3000/api/login/', {params: {
       username: payload.username,
       password: payload.password
     }})
     .then((response) => {
-      console.log(response);
+      if (response.data === 'Welcome') {
+        this.props.toggleLoggedIn();
+      } else {
+        console.log('incorrect login');
+      }
     })
     .catch(({err})=> {
       console.log(err);
@@ -57,6 +60,7 @@ class Login extends React.Component {
               <input type="password" name="name" value={this.state.password} onChange={this.handlePasswordChange}/>
             </label>
             <button type="button" onClick={this.handleLogin} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Login</button>
+            <button type="button" onClick={() => {this.props.toggleSignup()}} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Sign up</button>
           </form>
       </div>
     );
