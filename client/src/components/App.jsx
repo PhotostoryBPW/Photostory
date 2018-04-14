@@ -6,16 +6,25 @@ import sample from '../sample_data.js';
 import Header from './Header.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
+import Profile from './Profile.jsx';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      data: '',
       view: 'feed',
       posts: '',
       users: '',
       isLoggedIn: false,
       signupView: false,
+      user: { userHandle : 'kfgdkfjghkj',
+              userPhotoUrl: 'http://source.unsplash.com/1600x900/?featured/?banana',
+              userBio: 'Lorem ipsum dolor sit amet, melius pertinax ut mea. Quo odio verear appareat te, voluptaria dissentias no his, in vix ceteros lucilius lobortis. Eruditi appellantur eu sed, splendide consequuntur duo ei. Vim et sonet nonumy offendit, suas accusam reprehendunt vim ad.',
+              postCount: 1,
+              followsCount: 1,
+              followedByCount: 1,
+            },
     }
   }
 
@@ -58,10 +67,9 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getFeed();
-    this.testEntry({ users_id: 1, body: "blah blah blah blah", postLoc: "test location", photoUrl: "source.unsplash.com/1600x900/?featured/?space", createdAt: Date.now() } );
   }
 
-  testEntry(data) {
+  createPost(data) {
     axios.post('api/post', data)
       .then( response => {
         console.log('post success ', response.body);
@@ -89,17 +97,18 @@ class App extends React.Component {
     if (view === 'feed') {
       return <Feed handleClick={(() => this.changeView(view)) } posts={this.state.posts} users={this.state.users} view={this.state.view}/>
     } else if (view === 'profile') {
-      return <Profile data={this.state.data} />
+      return <Profile data={this.state.user} handleClick={this.changeView.bind(this)} />
     } else if (view === 'signup') {
       return <Signup/>
-    } 
-    // else if (view === 'create') {
-    //   return <Create data={this.state.data} />
-    // } else {
-    //   return <Post key={view._id} post={view} />
-    // }
+    } else if (view === 'profileEdit') {
+      return <ProfileEdit />
+    } else if (view === 'create') {
+      return <Create data={this.state.data} />
+    } else {
+      return <Post key={view._id} post={view} />
+    }
   }
-  
+
   render() {
     return (
       <div>
