@@ -31,7 +31,6 @@ class Post extends React.Component {
   }
 
   render() {
-    console.log('got here to posts')
     return (
       <div>
         <div className='userImage'>
