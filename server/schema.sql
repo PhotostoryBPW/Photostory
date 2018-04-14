@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS posts (
   parent_id int,
   likesCount int,
   likes_id int,
-  createdAt int,
+  createdAt bigint,
+  filt varchar(50),
   PRIMARY KEY (id)
 );
 CREATE TABLE IF NOT EXISTS followers (

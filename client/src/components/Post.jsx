@@ -15,7 +15,7 @@ class Post extends React.Component {
   }
   
   componentDidUpdate() {
-    this.nameInput.focus();
+    this.nameInput && this.nameInput.focus();
   }
 
   renderComment() {

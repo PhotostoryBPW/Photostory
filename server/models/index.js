@@ -46,7 +46,8 @@ const Models = {
       });
     },
     create: function (params, cb) {
-      var queryStr = 'insert into posts (users_id, body, postLoc, photoUrl) values (?, ?, ?, ?)';
+      console.log(params);
+      var queryStr = 'insert into posts (users_id, body, postLoc, photoUrl, createdAt, filt, likesCount) values (?, ?, ?, ?, ?, ?, 0)';
       db.query(queryStr, Object.values(params), function(err, results) {
         cb(err, results);
       });

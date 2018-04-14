@@ -8,6 +8,7 @@ import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Profile from './Profile.jsx';
 import Search from './Search.jsx';
+import CreatePost from './CreatePost.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -103,8 +104,8 @@ class App extends React.Component {
       return <Signup/>
     } else if (view === 'profileEdit') {
       return <ProfileEdit />
-    } else if (view === 'create') {
-      return <Create data={this.state.data} />
+    } else if (view === 'createpost') {
+      return <CreatePost />
     }  else if (view === 'search') {
       return <Search posts={this.state.posts}/>
     } else {

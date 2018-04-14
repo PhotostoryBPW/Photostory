@@ -11,7 +11,7 @@ const Header = (props) => {
     {
       (props.view === 'feed') ? <span>Photostory</span> : 
     (props.view === 'search') ? <span>Search</span> :
-    (props.view === 'post') ? <span>Post</span> :
+    (props.view === 'createpost') ? <span>Post</span> :
     (props.view === 'notifications') ? <span>Notifications</span> : 
     <span>UserNameVar</span>
 

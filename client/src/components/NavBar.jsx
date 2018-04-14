@@ -2,7 +2,7 @@ import React from 'react';
 
 const NavBar = (props) => {
   const clickHandler = (e) => {
-    console.log(e.target.className);
+    console.log('This is the current view: ', e.target.className);
     props.clickHandler(e.target.className);
   };
 
@@ -14,7 +14,7 @@ const NavBar = (props) => {
     <div onClick={clickHandler.bind(this)} className="search">
       <img/> SEARCH
     </div>
-    <div onClick={clickHandler.bind(this)} className="post">
+    <div onClick={clickHandler.bind(this)} className="createpost">
       <img/> POST
     </div>
     <div onClick={clickHandler.bind(this)} className="notifications">
