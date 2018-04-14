@@ -28,12 +28,12 @@ class Login extends React.Component {
     {username: this.state.username, 
      password: this.state.password,
     }
-    axios.get('http://localhost:3000/api/login/', {params: {
+    axios.post('http://localhost:3000/api/login/', {
       username: payload.username,
       password: payload.password
-    }})
+    })
     .then((response) => {
-      if (response.data === 'Welcome') {
+      if (response.data === 'active') {
         this.props.toggleLoggedIn();
       } else {
         console.log('incorrect login');
@@ -49,19 +49,15 @@ class Login extends React.Component {
       <div>
         <h1>Photostory</h1>
         <h2>Username</h2>
-        <form>
-          <label style={{marginRight: '5px'}}>
-            <input type="text" name="name" value={this.state.username} onChange={this.handleUsernameChange}/>
-          </label>
-        </form>
+        <label style={{marginRight: '5px'}}>
+          <input type="text" name="name" value={this.state.username} onChange={this.handleUsernameChange}/>
+        </label>
         <h2>Password</h2>
-          <form>
-            <label style={{marginRight: '5px'}}>
-              <input type="password" name="name" value={this.state.password} onChange={this.handlePasswordChange}/>
-            </label>
-            <button type="button" onClick={this.handleLogin} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Login</button>
-            <button type="button" onClick={() => {this.props.toggleSignup()}} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Sign up</button>
-          </form>
+          <label style={{marginRight: '5px'}}>
+            <input type="password" name="name" value={this.state.password} onChange={this.handlePasswordChange}/>
+          </label>
+          <button type="button" onClick={this.handleLogin} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Login</button>
+          <button type="button" onClick={() => {this.props.toggleSignup()}} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Sign up</button>
       </div>
     );
   }

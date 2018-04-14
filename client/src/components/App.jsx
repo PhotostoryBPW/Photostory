@@ -48,14 +48,27 @@ class App extends React.Component {
     })
   }
 
-
   componentDidMount() {
-    this.setState({
-      posts: sample.posts,
-      users: sample.users
+    axios.get('api/checksession')
+    .then( response => {
+      if (response.data === 'active') {
+        this.setState({
+          isLoggedIn: true,
+          posts: sample.posts,
+          users: sample.users
+        })
+      } else {
+        this.setState({
+          isLoggedIn: false,
+        })
+      }
     })
+    .catch( err => {
+      console.log(err);
+    })
+    this.getFeed();
   }
-
+  
   changeView(option) {
     this.setState({
       view: option
@@ -66,10 +79,6 @@ class App extends React.Component {
     this.setState({
       url: page
     });
-  }
-
-  componentDidMount() {
-    this.getFeed();
   }
 
   createPost(data) {
@@ -85,7 +94,6 @@ class App extends React.Component {
   getFeed() {
     axios.get('api/feed')
       .then( response => {
-        console.log('response', response)
         this.setState({ 
           posts: response.data
         })
@@ -104,9 +112,9 @@ class App extends React.Component {
     } else if (view === 'signup') {
       return <Signup/>
     } else if (view === 'profileEdit') {
-      return <ProfileEdit />
-    } else if (view === 'createpost') {
-      return <CreatePost />
+      return <ProfileEdit/>
+    } else if (view === 'create') {
+      return <Create data={this.state.data} />
     }  else if (view === 'search') {
       return <Search posts={this.state.posts}/>
     } else {
@@ -139,7 +147,7 @@ class App extends React.Component {
           <div>
             {this.state.signupView ?
               <div>
-                <Signup toggleLogin={this.toggleLogin.bind(this)}/>
+                <Signup isLoggedInHandler={this.isLoggedInHandler.bind(this)} toggleLogin={this.toggleLogin.bind(this)}/>
               </div>
                 :
               <div>

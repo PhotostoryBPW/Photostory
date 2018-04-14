@@ -89,7 +89,7 @@ VALUES (5, 'kitchen', 'lol wut', 'source.unsplash.com/1600x900/?featured/?kitche
 CREATE TABLE IF NOT EXISTS login (
   id int not null AUTO_INCREMENT,
   username varchar(20),
-  password varchar(20),
+  password varchar(100),
   PRIMARY KEY(id)
 );
 -- To run: open Terminal and start MySQL server:
