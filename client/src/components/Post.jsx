@@ -15,7 +15,7 @@ class Post extends React.Component {
   }
   
   componentDidUpdate() {
-    this.nameInput.focus();
+    this.nameInput && this.nameInput.focus();
   }
 
   renderComment() {
@@ -31,7 +31,6 @@ class Post extends React.Component {
   }
 
   render() {
-    console.log('got here to posts')
     return (
       <div>
         <div className='userImage'>

@@ -193,8 +193,30 @@ div.userImage img {
   float: left;
 }
 
-div.searchThumb img {
+div.thumb img {
   width: 33%;
   float: left;
   height: auto;
+}
+
+div.filters div {
+  height: 81.5198811288339px;
+  width: 81.5198811288339px;
+  float: left;
+  background-color: cyan;
+  border: thin solid pink 
+}
+
+form.dropzone {
+  height: 100px;
+  width: 100%;
+  background-color: gray;
+}
+
+textarea.postBody {
+  width: 100%;
+}
+
+input.location {
+  width:100%;
 }

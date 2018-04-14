@@ -44,8 +44,8 @@ const Controller = {
       });
     },
     create: (req, res) => {
-      console.log(req);
-      Models.posts.create(req.body, function(err, results) {
+      console.log(req.body);
+      Models.posts.create(req.body.params, function(err, results) {
         if (err) { 
           console.log(err);
         } else {

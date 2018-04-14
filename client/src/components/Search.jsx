@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import Thumbnail from './Thumbnail.jsx';
+import Post from './Post.jsx';
 
 class Search extends React.Component {
   constructor(props) {
@@ -7,11 +9,15 @@ class Search extends React.Component {
     
     this.state = {
       search: '',
-      searchData: this.props.posts
+      searchData: this.props.posts,
+      post: false
     }
   }
 
-  
+  componentWillUnmount() {
+    this.setState({post: false});
+  }
+
   componentDidMount(){
     axios.get('/api/search')
     .then( response => {
@@ -42,6 +48,11 @@ class Search extends React.Component {
       console.log(err);
     })
   }
+
+  onPostThumbClickHandler(e) {
+    this.setState({post: e})
+    console.log(e);
+  }
   
   onChangeHandler(e) {
     this.setState({search: e.target.value})  
@@ -49,17 +60,23 @@ class Search extends React.Component {
   }
 
   render() {
+    console.log(this.state.post);
     return (
+      
+      
       <div>
         <input onChange={this.onChangeHandler.bind(this)}/><button onClick={this.onClickHandler.bind(this)}>Search</button>
         {
+        !this.state.post ?  
           this.state.searchData.map(post => 
-            <div className='searchThumb'>
-            <img src={`http://${post.photoUrl}`}/>
-            </div>
+            <Thumbnail post={post} onClick={this.onPostThumbClickHandler.bind(this)} postState={this.state.post}/>
           )
+        :
+          <Post post={this.state.post}/>  
         }
       </div>
+      
+
     );
   }
 }
