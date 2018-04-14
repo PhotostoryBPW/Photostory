@@ -2,7 +2,6 @@ const Models = require('./models');
 
 const Controller = {
   Login: (req, res) => {
-    console.log('hello from controller');
     Models.login(req, res, (err, results) => {
       if (err) {
         console.log(err);
@@ -28,6 +27,15 @@ const Controller = {
   posts: {
     all: (req, res) => {
       Models.posts.all(function(err, results) {
+        if (err) { 
+          console.log(err);
+        } else {
+          res.status(201).send(results);
+        }
+      });
+    },
+    friends: (req, res) => {
+      Models.posts.friends(function(err, results) {
         if (err) { 
           console.log(err);
         } else {
@@ -67,11 +75,12 @@ const Controller = {
       });
     },
     find: (req, res) => {
-      Models.users.find(params, function(err, results) {
+      Models.users.find(req.params, function(err, results) {
+        console.log('made it to find');
         if (err) { 
           console.log(err);
         } else {
-          res.sendStatus(201);
+          res.status(201).send(results);
         }
       });
     },

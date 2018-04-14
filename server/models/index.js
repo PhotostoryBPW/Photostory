@@ -34,6 +34,12 @@ const Models = {
 
   posts: {
     all: function(cb) {
+      var queryStr = 'select * from posts left join users on posts.users_id=users.id order by -likesCount limit 30';
+      db.query(queryStr, function(err, results) {
+        cb(err, results);
+      });
+    },
+    friends: function(cb) {
       var queryStr = 'select * from posts left join users on posts.users_id=users.id';
       db.query(queryStr, function(err, results) {
         cb(err, results);
@@ -81,8 +87,8 @@ const Models = {
       });
     },
     find: function (params, cb) {
-      var queryStr = 'select from users where userHandle = ?';
-      db.query(queryStr, params, function(err, results) {
+      var queryStr = 'select * from users inner join posts on users.id = posts.users_id where userHandle=(?)';
+      db.query(queryStr, Object.values(params), function(err, results) {
         cb(err, results);
       });
     },

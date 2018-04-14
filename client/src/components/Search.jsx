@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Search extends React.Component {
   constructor(props) {
@@ -6,25 +7,53 @@ class Search extends React.Component {
     
     this.state = {
       search: '',
+      searchData: this.props.posts
     }
   }
 
-  onClickHandler() {
-    
+  
+  componentDidMount(){
+    axios.get('/api/search')
+    .then( response => {
+      console.log('response', response)
+      this.setState({ 
+        searchData: response.data
+      })
+    })
+    .catch( err => {
+      console.log(err);
+    })
   }
-
+  
+  onClickHandler() {
+    console.log('we are searching for username: ')
+    axios.get(`http://localhost:3000/api/search/${this.state.search}`, {
+      params: {
+        search: this.state.search
+      }
+    })
+    .then( response => {
+      console.log('response', response)
+      this.setState({ 
+        searchData: response.data
+      })
+    })
+    .catch( err => {
+      console.log(err);
+    })
+  }
+  
   onChangeHandler(e) {
-    console.log(e.target.value);
     this.setState({search: e.target.value})  
+    console.log(this.state.search);
   }
 
   render() {
-    console.log('got here to posts')
     return (
       <div>
-        <input onChange={this.onChangeHandler.bind(this)}/><button onClick={this.onClickHandler}>Search</button>
+        <input onChange={this.onChangeHandler.bind(this)}/><button onClick={this.onClickHandler.bind(this)}>Search</button>
         {
-          this.props.posts.map(post => 
+          this.state.searchData.map(post => 
             <div className='searchThumb'>
             <img src={`http://${post.photoUrl}`}/>
             </div>
