@@ -41,7 +41,7 @@ class Signup extends React.Component {
   render() {
     return (
       <div>
-        <h1>Photostory</h1>
+        <h1>Sign Up Here!</h1>
         <h2>Username</h2>
         <form>
           <label style={{marginRight: '5px'}}>
@@ -54,6 +54,7 @@ class Signup extends React.Component {
               <input type="password" name="name" value={this.state.password} onChange={this.handlePasswordChange}/>
             </label>
             <button type="button" onClick={this.handleSignup} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Sign Up</button>
+            <button type="button" onClick={() => {this.props.toggleLogin()}} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Back to login</button>
           </form>
       </div>
     );

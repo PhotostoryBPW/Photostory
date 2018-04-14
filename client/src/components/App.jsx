@@ -4,6 +4,8 @@ import Feed from './Feed.jsx'
 import axios from 'axios';
 import sample from '../sample_data.js';
 import Header from './Header.jsx';
+import Login from './Login.jsx';
+import Signup from './Signup.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -11,10 +13,29 @@ class App extends React.Component {
     this.state = {
       view: 'feed',
       posts: '',
-      users: ''
+      users: '',
+      isLoggedIn: false,
+      signupView: false,
     }
-    
   }
+
+  isLoggedInHandler() {
+    this.setState({ isLoggedIn: true});
+    console.log('this is the app log in state', this.state.isLoggedIn);
+  }
+
+  toggleSignup() {
+    this.setState({
+      signupView: true
+    })
+  }
+
+  toggleLogin() {
+    this.setState({
+      signupView: false
+    })
+  }
+
 
   componentDidMount() {
     this.setState({
@@ -67,9 +88,10 @@ class App extends React.Component {
     const {view} = this.state;
     if (view === 'feed') {
       return <Feed handleClick={(() => this.changeView(view)) } posts={this.state.posts} users={this.state.users} view={this.state.view}/>
-    }
-     else if (view === 'profile') {
+    } else if (view === 'profile') {
       return <Profile data={this.state.data} />
+    } else if (view === 'signup') {
+      return <Signup/>
     } 
     // else if (view === 'create') {
     //   return <Create data={this.state.data} />
@@ -80,19 +102,36 @@ class App extends React.Component {
   
   render() {
     return (
-      <div className="container">
-        <div className="wrapper">
-          <header>
-            <Header view={this.state.view}/>
-          </header>  
-          <div className="main">
-            {this.renderView()}
-          </div>
-          <footer className="nav">
-            <NavBar clickHandler={this.changeView.bind(this)}/>
-          </footer>
-        </div>
-      </div>  
+      <div>
+        {
+          this.state.isLoggedIn ?
+          <div className="container">
+            <div className="wrapper">
+              <header>
+                <Header view={this.state.view}/>
+              </header>  
+              <div className="main">
+                {this.renderView()}
+              </div>
+              <footer className="nav">
+                <NavBar clickHandler={this.changeView.bind(this)}/>
+              </footer>
+            </div>
+          </div> 
+          :
+          <div>
+            {this.state.signupView ?
+              <div>
+                <Signup toggleLogin={this.toggleLogin.bind(this)}/>
+              </div>
+                :
+              <div>
+                <Login toggleLoggedIn={this.isLoggedInHandler.bind(this)} toggleSignup={this.toggleSignup.bind(this)}/>
+              </div>
+            }
+          </div> 
+        }
+      </div>
     );
   }
 }

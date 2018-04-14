@@ -3,13 +3,16 @@ const Models = require('./models');
 const Controller = {
   Login: (req, res) => {
     console.log('hello from controller');
-    console.log(Models, 'models models');
     Models.login(req, res, (err, results) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(results);
-        res.status(200).send(results);
+        if (results === 'Welcome') {
+          console.log("success");
+          res.status(202).send(results);
+        } else {
+          res.status(201).send(results);
+        }
       }
     })
   },
@@ -18,7 +21,7 @@ const Controller = {
       if (err) {
         console.log(err);
       } else {
-        res.status(201).send(results);
+        res.status(200).send(results);
       }
     })
   },
