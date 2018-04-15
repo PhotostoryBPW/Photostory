@@ -56,6 +56,12 @@ const Models = {
         cb(err, results)
       });
     },
+    mine: function(params, cb) {
+      var queryStr = 'select * from posts inner join users on posts.users_id = users.id where users.userHandle=(?)';
+      db.query(queryStr, Object.values(params), function(err, results) {
+        cb(err, results);
+      });
+    },
     // find: function (cb) {
     //   var queryStr = 'select posts.id, posts.body, posts.photoUrl, posts.postLoc from \
     //                   posts left outer join users on (posts.users_id = users.id) \
@@ -87,6 +93,13 @@ const Models = {
     },
     find: function (params, cb) {
       var queryStr = 'select * from users inner join posts on users.id = posts.users_id where userHandle=(?)';
+      db.query(queryStr, Object.values(params), function(err, results) {
+        cb(err, results);
+      });
+    },
+    info: function (params, cb) {
+      console.log('params: ', params);
+      var queryStr = 'select * from users where userHandle=(?)';
       db.query(queryStr, Object.values(params), function(err, results) {
         cb(err, results);
       });

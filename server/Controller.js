@@ -48,6 +48,16 @@ const Controller = {
         }
       });
     },
+    mine: (req, res) => {
+      console.log(req.params, ' req.params');
+      Models.posts.mine(req.params, function(err, results) {
+        if (err) { 
+          console.log(err);
+        } else {
+          res.status(201).send(results);
+        }
+      });
+    },
   },
   users: {
     create: (req, res) => {
@@ -66,6 +76,17 @@ const Controller = {
           console.log(err);
         } else {
           res.status(201).send(results);
+        }
+      });
+    },
+    info: (req, res) => {
+      Models.users.info(req.params, function(err, results) {
+        if (err) { 
+          console.log(err);
+          console.log('error in user info');
+        } else {
+          res.status(201).send(results);
+          console.log('success in user info');
         }
       });
     },
