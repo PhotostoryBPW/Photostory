@@ -9,6 +9,7 @@ import Signup from './Signup.jsx';
 import Profile from './Profile.jsx';
 import Search from './Search.jsx';
 import CreatePost from './CreatePost.jsx';
+import Post from './Post.jsx'
 
 
 class App extends React.Component {
@@ -55,7 +56,7 @@ class App extends React.Component {
     })
   }
 
-  componentDidMount() {
+  componentWillMount() {
     axios.get('api/checksession')
     .then( response => {
       if (response.data === 'active') {
@@ -64,6 +65,7 @@ class App extends React.Component {
           posts: sample.posts,
           users: sample.users
         })
+        this.getFeed();
       } else {
         this.setState({
           isLoggedIn: false,
@@ -73,7 +75,7 @@ class App extends React.Component {
     .catch( err => {
       console.log(err);
     })
-    this.getFeed();
+    
   }
   
   changeView(option) {
@@ -120,16 +122,18 @@ class App extends React.Component {
       return <Signup/>
     } else if (view === 'profileEdit') {
       return <ProfileEdit/>
-    } else if (view === 'create') {
-      return <Create data={this.state.data} />
+    } else if (view === 'createpost') {
+      return <CreatePost />
     }  else if (view === 'search') {
       return <Search posts={this.state.posts}/>
-    } else {
-      return <Post key={view._id} post={view} />
-    }
+    } 
+    // else {
+    //   return <Post key={view._id} post={view} />
+    // }
   }
 
   render() {
+    console.log(localStorage)
     return (
       <div>
         {
