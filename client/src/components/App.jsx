@@ -21,19 +21,26 @@ class App extends React.Component {
       users: '',
       isLoggedIn: false,
       signupView: false,
-      user: { userHandle : 'kfgdkfjghkj',
-              userPhotoUrl: 'http://source.unsplash.com/1600x900/?featured/?banana',
-              userBio: 'Lorem ipsum dolor sit amet, melius pertinax ut mea. Quo odio verear appareat te, voluptaria dissentias no his, in vix ceteros lucilius lobortis. Eruditi appellantur eu sed, splendide consequuntur duo ei. Vim et sonet nonumy offendit, suas accusam reprehendunt vim ad.',
-              postCount: 1,
-              followsCount: 1,
-              followedByCount: 1,
-            },
+      currentUser: '',
+      // user: { userHandle : 'kfgdkfjghkj',
+      //         userPhotoUrl: 'http://source.unsplash.com/1600x900/?featured/?banana',
+      //         userBio: 'Lorem ipsum dolor sit amet, melius pertinax ut mea. Quo odio verear appareat te, voluptaria dissentias no his, in vix ceteros lucilius lobortis. Eruditi appellantur eu sed, splendide consequuntur duo ei. Vim et sonet nonumy offendit, suas accusam reprehendunt vim ad.',
+      //         postCount: 1,
+      //         followsCount: 1,
+      //         followedByCount: 1,
+      //       },
     }
   }
 
   isLoggedInHandler() {
     this.setState({ isLoggedIn: true});
     console.log('this is the app log in state', this.state.isLoggedIn);
+  }
+
+  setCurrent(userLoggedIn) {
+    this.setState({ 
+      currentUser: userLoggedIn,
+    })
   }
 
   toggleSignup() {
@@ -108,7 +115,7 @@ class App extends React.Component {
     if (view === 'feed') {
       return <Feed handleClick={(() => this.changeView(view)) } posts={this.state.posts} users={this.state.users} view={this.state.view}/>
     } else if (view === 'profile') {
-      return <Profile data={this.state.user} handleClick={this.changeView.bind(this)} />
+      return <Profile posts={this.state.posts} user={this.state.currentUser} handleClick={this.changeView.bind(this)}/>
     } else if (view === 'signup') {
       return <Signup/>
     } else if (view === 'profileEdit') {
@@ -120,9 +127,6 @@ class App extends React.Component {
     } else {
       return <Post key={view._id} post={view} />
     }
-    // else {
-    //   return <Post key={view._id} post={view} />
-    // }
   }
 
   render() {
@@ -134,7 +138,7 @@ class App extends React.Component {
             <div className="wrapper">
               <header>
                 <Header view={this.state.view}/>
-              </header>  
+              </header>
               <div className="main">
                 {this.renderView()}
               </div>
@@ -151,7 +155,7 @@ class App extends React.Component {
               </div>
                 :
               <div>
-                <Login toggleLoggedIn={this.isLoggedInHandler.bind(this)} toggleSignup={this.toggleSignup.bind(this)}/>
+                <Login setCurrent={this.setCurrent.bind(this)} toggleLoggedIn={this.isLoggedInHandler.bind(this)} toggleSignup={this.toggleSignup.bind(this)}/>
               </div>
             }
           </div> 

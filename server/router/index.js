@@ -4,11 +4,12 @@ const Controller = require('../Controller');
 const passport = require('passport');
 
 router.get('/feed', Controller.posts.friends);
+router.get('/feed/:username', Controller.posts.mine);
 router.get('/search', Controller.posts.all);
 router.get('/search/:username', Controller.users.find);
-router.post('/post', Controller.posts.create);
+router.get('/profile/:username', Controller.users.info);
 
-// router.get('/find', Controller.Users.Find);
+router.post('/post', Controller.posts.create);
 
 router.post('/signup', (req, res) => {
     Controller.Signup(req, res);

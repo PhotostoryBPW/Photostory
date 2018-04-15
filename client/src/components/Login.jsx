@@ -35,6 +35,7 @@ class Login extends React.Component {
     .then((response) => {
       if (response.data === 'active') {
         this.props.toggleLoggedIn();
+        this.props.setCurrent(this.state.username);
       } else {
         console.log('incorrect login');
       }

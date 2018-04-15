@@ -1,4 +1,5 @@
 import React from 'react';
+import PostHeader from './PostHeader.jsx';
 import moment from 'moment';
 
 
@@ -10,6 +11,7 @@ class Post extends React.Component {
 
     this.state = {
       post: '',
+      username: '',
       clicked: false
     }
   }
@@ -32,36 +34,40 @@ class Post extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className='userImage'>
-          <img src={`http://${this.props.post.userPhotoUrl}`}/>
+      <div className='postMain'>
+        <div> 
+          <div> {
+            this.state.post && this.props.view !== 'profile' ?
+            <PostHeader post={this.state.post} /> :
+            <div></div>
+          }
+          </div>
         </div>
-        <div className='userHandle'>
-          {this.props.post.userHandle}
-        </div><br/>
-        <div className='postLocation'>
+        <div className='postLocation'>  
           {this.props.post.postLoc}
         </div>
         <div className='postImage'>
           <img src={`http://${this.props.post.photoUrl}`}/>
         </div>
         <div className='postOptions'>
-          <div className='like'>
+      <div className='like'><button class="buttonRed">
             <img /> LIKE
-          </div>
-          <div className='addComment'>
+          </button></div>
+          <div className='addComment'><button class="buttonRed">
             <img /> COMMENT
-          </div>
-          <div className='share'>
+          </button></div>
+          <div className='share'><button class="buttonRed">
             <img /> SHARE
-          </div>
-        </div>
+          </button></div>
+        </div>  
         <div className='likes'>
           Liked by Judy, Meredith, and {this.props.post.likesCount} others.
         </div>
+        <br />
         <div className='body'>
           {this.props.post.body}
         </div>
+        <br />
         <div className='addComment2' onClick={this.clickHandler}>
           {this.renderComment()}
         </div>
