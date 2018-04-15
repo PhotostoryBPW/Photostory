@@ -122,13 +122,14 @@ class App extends React.Component {
       return <Signup/>
     } else if (view === 'profileEdit') {
       return <ProfileEdit/>
-    } else if (view === 'create') {
-      return <Create data={this.state.data} />
+    } else if (view === 'createpost') {
+      return <CreatePost />
     }  else if (view === 'search') {
       return <Search posts={this.state.posts}/>
-    } else {
-      return <Post key={view._id} post={view} />
-    }
+    } 
+    // else {
+    //   return <Post key={view._id} post={view} />
+    // }
   }
 
   render() {
