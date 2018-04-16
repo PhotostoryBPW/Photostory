@@ -13,15 +13,13 @@ const Models = {
         if (results.length < 1) {
           var query = `INSERT INTO login (username, password) VALUES (${JSON.stringify(username)}, ${JSON.stringify(hash)})`;
           db.query(query, (err, results) => {
-            db.query('SELECT LAST_INSERT_ID() as id', function(err, results, fields) {
-              if (err) throw error;
-              console.log(results[0]);
-              // req.login(results[0], function(err) {
-              //   cb(err, 'signed up');
-              // })
-              //keeping this code for future implementation of login on signup
-              cb(err, 'signed up');
-            })
+            var query = `INSERT INTO users (userHandle, userName, email) VALUES (${JSON.stringify(username)}, ${JSON.stringify(username)}, ${JSON.stringify(username)})`;
+            db.query(query, (err, results) => {
+              if (err) {
+                throw err;
+              };
+              cb(null, 'signed up');
+            });
           })
         } else {
           cb(err, 'username already exists');
@@ -138,3 +136,14 @@ function authenticationMiddleware() {
   }
 }
 module.exports = Models;
+
+
+// db.query('SELECT LAST_INSERT_ID() as id', function(err, results, fields) {
+//   if (err) throw error;
+//   console.log(results[0]);
+//    req.login(results[0], function(err) {
+//      cb(err, 'signed up');
+//    })
+//   keeping this code for future implementation of login on signup
+//   cb(err, 'signed up');
+// })
