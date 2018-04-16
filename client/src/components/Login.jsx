@@ -6,7 +6,9 @@ class Login extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      toggleIncorrectCredentialsMessage: false,
+      toggleSuccessMessage: false,
     }
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -34,9 +36,13 @@ class Login extends React.Component {
     })
     .then((response) => {
       if (response.data === 'active') {
+        this.setState({toggleSuccessMessage: true});
+        this.setState({toggleIncorrectCredentialsMessage: false});
         this.props.toggleLoggedIn();
         this.props.setCurrent(this.state.username);
       } else {
+        this.setState({toggleIncorrectCredentialsMessage: true});
+        this.setState({toggleSuccessMessage: false});
         console.log('incorrect login');
       }
     })
@@ -59,6 +65,26 @@ class Login extends React.Component {
           </label>
           <button type="button" onClick={this.handleLogin} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Login</button>
           <button type="button" onClick={() => {this.props.toggleSignup()}} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Sign up</button>
+          <div>
+            {this.state.toggleIncorrectCredentialsMessage ?
+              <div>
+                Incorrect Username and/or password
+              </div>
+                :
+              <div>
+              </div>
+            }
+          </div>
+          <div>
+            {this.state.toggleSuccessMessage ?
+              <div>
+                Logging in...
+              </div>
+                :
+              <div>
+              </div>
+            }
+          </div> 
       </div>
     );
   }

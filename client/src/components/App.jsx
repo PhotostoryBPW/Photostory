@@ -11,7 +11,6 @@ import Search from './Search.jsx';
 import CreatePost from './CreatePost.jsx';
 import Post from './Post.jsx'
 
-
 class App extends React.Component {
   constructor() {
     super();
@@ -20,20 +19,21 @@ class App extends React.Component {
       view: 'feed',
       posts: '',
       users: '',
-      isLoggedIn: false,
+      isLoggedIn: localStorage.hasOwnProperty('isLoggedIn'),
       signupView: false,
-      currentUser: '',
-      // user: { userHandle : 'kfgdkfjghkj',
-      //         userPhotoUrl: 'http://source.unsplash.com/1600x900/?featured/?banana',
-      //         userBio: 'Lorem ipsum dolor sit amet, melius pertinax ut mea. Quo odio verear appareat te, voluptaria dissentias no his, in vix ceteros lucilius lobortis. Eruditi appellantur eu sed, splendide consequuntur duo ei. Vim et sonet nonumy offendit, suas accusam reprehendunt vim ad.',
-      //         postCount: 1,
-      //         followsCount: 1,
-      //         followedByCount: 1,
-      //       },
+      currentUser: 'nyancat',
+      user: { userHandle : 'nyancat',
+              userPhotoUrl: 'http://source.unsplash.com/1600x900/?featured/?banana',
+              userBio: 'Lorem ipsum dolor sit amet, melius pertinax ut mea. Quo odio verear appareat te, voluptaria dissentias no his, in vix ceteros lucilius lobortis. Eruditi appellantur eu sed, splendide consequuntur duo ei. Vim et sonet nonumy offendit, suas accusam reprehendunt vim ad.',
+              postCount: 1,
+              followsCount: 1,
+              followedByCount: 1,
+            },
     }
   }
 
   isLoggedInHandler() {
+    localStorage['isLoggedIn'] = true;
     this.setState({ isLoggedIn: true});
     console.log('this is the app log in state', this.state.isLoggedIn);
   }
@@ -57,16 +57,20 @@ class App extends React.Component {
   }
 
   componentWillMount() {
+    this.getFeed();
     axios.get('api/checksession')
     .then( response => {
       if (response.data === 'active') {
-        this.setState({
-          isLoggedIn: true,
-          posts: sample.posts,
-          users: sample.users
-        })
-        this.getFeed();
+        localStorage['isLoggedIn'] = true;
+          this.setState({ 
+            posts: sample.posts,
+            users: sample.users,
+            isLoggedIn: true
+          })
       } else {
+        if (localStorage.hasOwnProperty('isLoggedIn')) {
+          delete localStorage.isLoggedIn;
+        }
         this.setState({
           isLoggedIn: false,
         })
@@ -75,7 +79,6 @@ class App extends React.Component {
     .catch( err => {
       console.log(err);
     })
-    
   }
   
   changeView(option) {
@@ -112,12 +115,23 @@ class App extends React.Component {
       })
   }
 
+  handleLogoutButtonClick() {
+    axios.get('api/logout')
+      .then( response => {
+        delete localStorage.isLoggedIn;
+        this.setState({isLoggedIn: false});
+      })
+      .catch( err => {
+        console.log(err);
+      })
+  }
+
   renderView() {
     const {view} = this.state;
     if (view === 'feed') {
       return <Feed handleClick={(() => this.changeView(view)) } posts={this.state.posts} users={this.state.users} view={this.state.view}/>
     } else if (view === 'profile') {
-      return <Profile posts={this.state.posts} user={this.state.currentUser} handleClick={this.changeView.bind(this)}/>
+      return <Profile posts={this.state.posts} user={this.state.currentUser} handleClick={this.changeView.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)}/>
     } else if (view === 'signup') {
       return <Signup/>
     } else if (view === 'profileEdit') {
@@ -133,7 +147,7 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(localStorage)
+    // console.log(localStorage)
     return (
       <div>
         {

@@ -50,13 +50,13 @@ class Post extends React.Component {
           <img src={`http://${this.props.post.photoUrl}`}/>
         </div>
         <div className='postOptions'>
-      <div className='like'><button class="buttonRed">
+      <div className='like'><button className="buttonRed">
             <img /> LIKE
           </button></div>
-          <div className='addComment'><button class="buttonRed">
+          <div className='addComment'><button className="buttonRed">
             <img /> COMMENT
           </button></div>
-          <div className='share'><button class="buttonRed">
+          <div className='share'><button className="buttonRed">
             <img /> SHARE
           </button></div>
         </div>  
