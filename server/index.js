@@ -50,12 +50,12 @@ passport.use(new LocalStrategy(
       function(err, results, fields) {
         if (err) {done(err)}
           if (results.length  === 0) {
-            done(null, false);
+            return done(null, false);
           }
-        const hash = results[0].password.toString();
-        bcrypt.compare(password, hash, function(err, response) {
+          const hash = results[0].password.toString();
+          bcrypt.compare(password, hash, function(err, response) {
           if (response === true) {
-            return done(null, {id: results[0].id});
+            return done(null, username);
           } else {
             return done(null, false);
           }

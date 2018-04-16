@@ -62,8 +62,6 @@ class Search extends React.Component {
   render() {
     console.log(this.state.post);
     return (
-      
-      
       <div>
         <input onChange={this.onChangeHandler.bind(this)}/><button onClick={this.onClickHandler.bind(this)}>Search</button>
         {
@@ -75,8 +73,6 @@ class Search extends React.Component {
           <Post post={this.state.post}/>  
         }
       </div>
-      
-
     );
   }
 }

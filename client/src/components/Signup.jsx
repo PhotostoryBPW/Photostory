@@ -6,7 +6,9 @@ class Signup extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      toggleUsernameTakenMessage: false,
+      toggleAccountSuccessfullyCreatedMessage: false
     }
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -31,10 +33,14 @@ class Signup extends React.Component {
     console.log(payload);
     axios.post('http://localhost:3000/api/signup/', payload)
     .then((response) => {
-      if (response !== 'username already exists') {
+      if (response.data === 'username already exists') {
+        this.setState({toggleUsernameTakenMessage: true});
+        this.setState({toggleAccountSuccessfullyCreatedMessage: false});
         // this.props.isLoggedInHandler();
-        console.log(response);
+        console.log('username already exists');
       } else {
+        this.setState({toggleUsernameTakenMessage: false});
+        this.setState({toggleAccountSuccessfullyCreatedMessage: true});
         console.log('congrats you have made an account yay');
       }
     })
@@ -61,6 +67,26 @@ class Signup extends React.Component {
             <button type="button" onClick={this.handleSignup} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Sign Up</button>
             <button type="button" onClick={() => {this.props.toggleLogin()}} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Back to login</button>
           </form>
+          <div>
+            {this.state.toggleUsernameTakenMessage ?
+              <div>
+                Username already exists
+              </div>
+                :
+              <div>
+              </div>
+            }
+          </div>
+          <div>
+            {this.state.toggleAccountSuccessfullyCreatedMessage ?
+              <div>
+                Success! Welcome to Photostory
+              </div>
+                :
+              <div>
+              </div>
+            }
+          </div>
       </div>
     );
   }
