@@ -30,8 +30,8 @@ const Controller = {
       });
     },
     create: (req, res) => {
-      console.log(req.body);
-      Models.posts.create(req.body.params, function(err, results) {
+
+      Models.posts.create(req.body.params, req.session.passport.user, function(err, results) {
         if (err) { 
           console.log(err);
         } else {
@@ -90,6 +90,10 @@ const Controller = {
         }
       });
     },
+  },
+  file_upload: (req, res) => {
+    console.log('made it to file_upload');
+    console.log('this is the files: ', req.files);
   }
 //   Search: (req, res) => {
 //     var name = req.body.username;

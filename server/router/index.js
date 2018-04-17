@@ -20,6 +20,11 @@ router.post('/signup', (req, res) => {
     Controller.Signup(req, res);
 });
 
+router.post('/file-upload', (req, res) => {
+    console.log('made it to file-upload route')
+    Controller.file_upload(req, res);
+});
+
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
