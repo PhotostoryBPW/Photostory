@@ -15,7 +15,7 @@ button {
   background-color: rgb(0, 0, 0);
 }
 
-buttonRed {
+.buttonRed {
   cursor: pointer;
   border: none;
   border-radius: 3px;
@@ -23,7 +23,8 @@ buttonRed {
   font-size: medium;
   color: #CCC;
   background-color: #722;
-  padding: 5px 5px 5px 5px;
+  padding: 5px;
+  margin: 5px;
 }
 
 hr {
@@ -42,7 +43,8 @@ img {
 }
 
 .addComment {
-  margin: 5px 5px;
+  display: block;
+  float: left;
 }
 
 .container {
@@ -54,7 +56,8 @@ img {
 }
 
 .like {
-  margin: 5px 5px;
+  display: block;
+  float: left;
 }
 
 .main {
@@ -73,8 +76,8 @@ img {
   font-style: italic;
 }
 
-.postOptions div {
-  margin: 5px;
+.postOptions {
+  margin: auto;
 }
 
 .profile {
@@ -102,7 +105,8 @@ img {
 }
 
 .share {
-  margin: 5px 5px;
+  display: block;
+  float: left;
 }
 
 .statsItem {
@@ -112,7 +116,6 @@ img {
 .tooltip {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted black;
 }
 
 .tooltip .tooltiptext {
@@ -143,6 +146,11 @@ img {
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+.unlike {
+  display: block;
+  float: left;
 }
 
 .wrapper {

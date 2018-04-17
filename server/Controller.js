@@ -58,25 +58,25 @@ const Controller = {
       });
     },
     like: (req, res) => {
-      Models.posts.like(req.params, function(err, results) {
+      Models.posts.like(req.body, req.session.passport.user, function(err, results) {
         if (err) {
           console.log(err);
         } else {
-          res.sendStatus(201);
+          res.status(201).send(results);
         }
       });
     },
     unlike: (req, res) => {
-      Models.posts.unlike(req.params, function(err, results) {
+      Models.posts.unlike(req.params, req.session.passport.user, function(err, results) {
         if (err) {
           console.log(err);
         } else {
-          res.sendStatus(201);
+          res.status(201).send(results);
         }
       });
     },
     likes: (req, res) => {
-      Models.posts.likes(req.session.passport.user, function(err, results) {
+      Models.posts.likes(req.params, req.session.passport.user, function(err, results) {
         if (err) {
           console.log(err);
         } else {

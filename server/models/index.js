@@ -72,27 +72,26 @@ const Models = {
     delete: function(cb) {
       var queryStr = 'delete from posts where posts_id = ?';
       db.query(queryStr, params, function(err, results) {
-        cb(err, results)
+        cb(err, results);
       });
     },
-    like: function(cb) {
-      var queryStr = 'insert into likes (posts_id, users_id) values (?, ?)';
-      db.query(queryStr, Object.values(params), function(err, results) {
-        cb(err, results)
+    like: function(data, user, cb) {
+      console.log('data: ', data, 'user: ', user);
+      var queryStr = 'insert into likes (posts_id, user) values (?, ?)';
+      db.query(queryStr, Object.keys(data), function(err, results) {
+        cb(err, results);
       });
     },
-    likes: function(params, cb) {
-      console.log('in likes');
-      console.log(params);
+    likes: function(params, user, cb) {
       var queryStr = 'select * from likes inner join users on likes.users_id = users.id where users.userHandle=(?)';
       db.query(queryStr, params, function(err, results) {
-        cb(err, results)
+        cb(err, results);
       });
     },
-    unlike: function(cb) {
+    unlike: function(params, user, cb) {
       var queryStr = 'delete from likes where posts_id = ? and users_id = ?';
       db.query(queryStr, Object.values(params), function(err, results) {
-        cb(err, results)
+        cb(err, results);
       });
     },
     mine: function(params, cb) {

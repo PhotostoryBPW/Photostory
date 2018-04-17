@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import PostHeader from './PostHeader.jsx';
 import moment from 'moment';
 import axios from 'axios';
@@ -22,15 +23,11 @@ class Post extends React.Component {
   }
 
   checkLike() {
-    console.log('liked: ' , this.props.liked);
-    if (this.props.liked.length > 0) {
-      this.setState({hasLiked: true});
-      console.log('set liked to true');
+    if (this.props.liked.indexOf(this.props.post.ID) > -1) {
+      this.state.hasLiked = true;
+    } else {
+      this.state.hasLiked = false
     }
-  }
-
-  componentDidMount() {
-    this.checkLike()
   }
   
   componentDidUpdate() {
@@ -65,6 +62,26 @@ class Post extends React.Component {
     console.log(e.target.value);
     this.setState({commentText: e.target.value});
   }
+  
+  setLike() {
+    axios.post('api/like', this.props.post.ID)
+      .then( response => {
+        console.log('post success ', response.body);
+      })
+      .catch( err => {
+        console.log(err);
+      })
+  }
+
+  clearLike() {
+    axios.post('api/unlike', this.props.post.ID)
+      .then( response => {
+        console.log('post success ', response.body);
+      })
+      .catch( err => {
+        console.log(err);
+      })
+  }
 
   renderComment() {
     if (this.state.clicked === true) {
@@ -75,7 +92,8 @@ class Post extends React.Component {
   }
 
   toggleLike() {
-    this.state.hasLiked ? this.setState({hasLiked: false}) : this.setState({hasLiked: true}); 
+    this.state.hasLiked ? (this.setState({hasLiked: false}), this.clearLike()) : (this.setState({hasLiked: true}), this.setLike()); 
+    this.checkLike();
   }
 
   clickHandler() {
@@ -99,16 +117,17 @@ class Post extends React.Component {
         <div className='postImage'>
           <img src={`http://${this.props.post.photoUrl}`}/>
         </div>
+        {this.checkLike()}
         <div className='postOptions'>
-        <div className="like" className="tooltip">
-          <button className="buttonRed" onClick={this.toggleLike}>
-          <img />
-          { this.state.hasLiked === false ? 
-            <span className="tooltiptext">Like this post</span> :
-            <span className="tooltiptext">You have already liked this post.</span> }
-          { this.state.hasLiked === false ? <span>LIKE</span> : <span>UNLIKE</span> }
-          </button>
-        </div>
+          { this.state.hasLiked === false ? <div className="like" className="tooltip"> <button className="buttonRed" onClick={this.toggleLike}>
+              <img />
+              <span className="tooltiptext">Like this post</span> 
+              LIKE
+              </button></div> : <div className="unlike" className="tooltip"> <button className="buttonRed" onClick={this.toggleLike}>
+              <img />
+              <span className="tooltiptext">You have already liked this post.</span> 
+              UNLIKE
+              </button></div> }
           <div className="addComment" className="tooltip"> <button className="buttonRed">
             <img /> 
             <span className="tooltiptext">Comment on this post</span> 
