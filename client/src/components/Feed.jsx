@@ -8,6 +8,7 @@ class Feed extends React.Component {
       posts: '',
       users: '',
     }
+    console.log('this is the props view from feed: ', this.props.view)
   }
 
   render() {
@@ -17,7 +18,7 @@ class Feed extends React.Component {
         this.props.posts.length > 0
         ?
         this.props.posts.map(post =>  
-          <Post key={post.ID} post={post} />
+          <Post key={post.ID} post={post} view={this.props.view}/>
         )
         :
         <div>

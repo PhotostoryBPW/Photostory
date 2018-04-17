@@ -15,6 +15,7 @@ router.get('/logout', function(req, res) {
 })
 
 router.post('/post', Controller.posts.create);
+router.post('/comment', Controller.posts.comment);
 
 router.post('/signup', (req, res) => {
     Controller.Signup(req, res);

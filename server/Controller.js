@@ -30,7 +30,6 @@ const Controller = {
       });
     },
     create: (req, res) => {
-
       Models.posts.create(req.body.params, req.session.passport.user, function(err, results) {
         if (err) { 
           console.log(err);
@@ -39,6 +38,16 @@ const Controller = {
         }
       });
     },
+    comment: (req, res) => {
+      Models.posts.comment(req.body.params, req.session.passport.user, function(err, results) {
+        if (err) { 
+          console.log(err);
+        } else {
+          res.sendStatus(201);
+        }
+      });
+    },
+
     delete: (req, res) => {
       Models.posts.delete(req.body, function(err, results) {
         if (err) { 

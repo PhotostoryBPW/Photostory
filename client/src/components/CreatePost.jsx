@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import cloudinary from 'cloudinary-react';
-import dotenv from 'dotenv'
 import Zone from './Zone.jsx';
 import Dropzone from 'react-dropzone';
 import config from '../config.js';
@@ -30,7 +29,7 @@ class CreatePost extends React.Component {
 
     axios.post(`api/post/`, {
       params: {
-        user_id: 25,  
+        users_id: null,  
         body: this.state.body,
         postLoc: this.state.location,
         photoUrl: this.state.url,
