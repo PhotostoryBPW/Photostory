@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import cloudinary from 'cloudinary-react';
-import dotenv from 'dotenv'
 import Dropzone from 'react-dropzone';
 import config from '../config.js';
 
