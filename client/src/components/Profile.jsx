@@ -16,30 +16,13 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    this.getUserInfo();
-    // this.props.get(this.state.currentUser);
     this.state.posts = this.props.posts;
   }
 
   componentWillMount() {
     this.setState({
       currentUser: this.props.user,
-    })
-  }
-
-  getUserInfo() {
-    axios.get(`http://localhost:3000/api/profile/${this.state.currentUser}`, {
-      params: {
-        currentUser: this.state.currentUser
-      }
-    })
-    .then( response => {
-      this.setState({ 
-        userInfo: response.data[0],
-      })
-    })
-    .catch( err => {
-      console.log(err);
+      userInfo: this.props.userInfo,
     })
   }
   
