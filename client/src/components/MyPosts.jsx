@@ -2,9 +2,7 @@ import React from 'react';
 import Post from './Post.jsx';
 
 const MyPosts = (props) => {
-  // const getPosts = (user) => {
 
-  // }
   return (
   <div className="myPosts">
     <div>

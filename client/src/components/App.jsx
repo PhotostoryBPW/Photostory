@@ -9,7 +9,7 @@ import Signup from './Signup.jsx';
 import Profile from './Profile.jsx';
 import Search from './Search.jsx';
 import CreatePost from './CreatePost.jsx';
-import Post from './Post.jsx'
+import Post from './Post.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -18,10 +18,12 @@ class App extends React.Component {
       data: '',
       view: 'feed',
       posts: '',
+      liked: [],
       users: '',
       isLoggedIn: localStorage.hasOwnProperty('isLoggedIn'),
       signupView: false,
       currentUser: 'nyancat',
+      userInfo: {},
       user: { userHandle : 'nyancat',
               userPhotoUrl: 'http://source.unsplash.com/1600x900/?featured/?banana',
               userBio: 'Lorem ipsum dolor sit amet, melius pertinax ut mea. Quo odio verear appareat te, voluptaria dissentias no his, in vix ceteros lucilius lobortis. Eruditi appellantur eu sed, splendide consequuntur duo ei. Vim et sonet nonumy offendit, suas accusam reprehendunt vim ad.',
@@ -44,6 +46,22 @@ class App extends React.Component {
     })
   }
 
+  getUserInfo() {
+    axios.get(`http://localhost:3000/api/profile/${this.state.currentUser}`, {
+      params: {
+        currentUser: this.state.currentUser
+      }
+    })
+    .then( response => {
+      this.setState({ 
+        userInfo: response.data[0],
+      })
+    })
+    .catch( err => {
+      console.log(err);
+    })
+  }
+
   toggleSignup() {
     this.setState({
       signupView: true
@@ -62,11 +80,13 @@ class App extends React.Component {
     .then( response => {
       if (response.data === 'active') {
         localStorage['isLoggedIn'] = true;
-          this.setState({ 
-            posts: sample.posts,
-            users: sample.users,
-            isLoggedIn: true
-          })
+        this.getUserInfo();
+        this.getLikes();
+        this.setState({ 
+          // posts: sample.posts,
+          // users: sample.users,
+          isLoggedIn: true
+        })
       } else {
         if (localStorage.hasOwnProperty('isLoggedIn')) {
           delete localStorage.isLoggedIn;
@@ -115,6 +135,40 @@ class App extends React.Component {
       })
   }
 
+  getLikes() {
+    axios.get('api/likes')
+      .then( response => {
+        var results = [];
+        response.data.forEach(function(post) {
+          results.indexOf(post.id) < 0 && results.push(post.id);
+        })
+        this.setState({liked: results});
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  setLike(post, user) {
+    axios.post('api/like', post, user)
+      .then( response => {
+        console.log('setLike success')
+      })
+      .catch(err => {
+        console.log('setLike error: ', err);
+      })
+  }
+
+  unLike(post, user) {
+    axios.post('api/unlike', post, user)
+      .then( response => {
+        console.log('unLike success')
+      })
+      .catch(err => {
+        console.log('unLike error: ', err);
+      })
+  }
+
   handleLogoutButtonClick() {
     axios.get('api/logout')
       .then( response => {
@@ -129,9 +183,9 @@ class App extends React.Component {
   renderView() {
     const {view} = this.state;
     if (view === 'feed') {
-      return <Feed handleClick={(() => this.changeView(view)) } posts={this.state.posts} users={this.state.users} view={this.state.view}/>
+      return <Feed handleClick={(() => this.changeView(view)) } posts={this.state.posts} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view} liked={this.state.liked} />
     } else if (view === 'profile') {
-      return <Profile posts={this.state.posts} user={this.state.currentUser} handleClick={this.changeView.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)}/>
+      return <Profile posts={this.state.posts} user={this.state.currentUser} userInfo={this.state.userInfo} liked={this.state.liked} handleClick={this.changeView.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)}/>
     } else if (view === 'signup') {
       return <Signup/>
     } else if (view === 'profileEdit') {
@@ -141,13 +195,12 @@ class App extends React.Component {
     }  else if (view === 'search') {
       return <Search posts={this.state.posts}/>
     } 
-    // else {
-    //   return <Post key={view._id} post={view} />
+      // else {
+    //   return <Post user={this.state.userInfo} key={view._id} post={view} />
     // }
   }
 
   render() {
-    // console.log(localStorage)
     return (
       <div>
         {

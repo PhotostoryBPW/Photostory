@@ -54,6 +54,26 @@ const Models = {
         cb(err, results)
       });
     },
+    like: function(cb) {
+      var queryStr = 'insert into likes (posts_id, users_id) values (?, ?)';
+      db.query(queryStr, Object.values(params), function(err, results) {
+        cb(err, results)
+      });
+    },
+    likes: function(params, cb) {
+      console.log('in likes');
+      console.log(params);
+      var queryStr = 'select * from likes inner join users on likes.users_id = users.id where users.userHandle=(?)';
+      db.query(queryStr, params, function(err, results) {
+        cb(err, results)
+      });
+    },
+    unlike: function(cb) {
+      var queryStr = 'delete from likes where posts_id = ? and users_id = ?';
+      db.query(queryStr, Object.values(params), function(err, results) {
+        cb(err, results)
+      });
+    },
     mine: function(params, cb) {
       var queryStr = 'select * from posts inner join users on posts.users_id = users.id where users.userHandle=(?)';
       db.query(queryStr, Object.values(params), function(err, results) {
@@ -96,7 +116,6 @@ const Models = {
       });
     },
     info: function (params, cb) {
-      console.log('params: ', params);
       var queryStr = 'select * from users where userHandle=(?)';
       db.query(queryStr, Object.values(params), function(err, results) {
         cb(err, results);
