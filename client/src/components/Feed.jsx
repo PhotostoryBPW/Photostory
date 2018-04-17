@@ -12,12 +12,6 @@ class Feed extends React.Component {
     console.log('this is the props for feed: ', this.props.posts);
   }
 
-  getLikes() {
-    if (this.props.liked.indexOf(this.props.posts.ID) > -1) {
-      
-    }
-  }
-
   render() {
     return (
       <div>

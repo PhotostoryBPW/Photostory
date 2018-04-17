@@ -83,8 +83,8 @@ class App extends React.Component {
         this.getUserInfo();
         this.getLikes();
         this.setState({ 
-          // posts: sample.posts,
-          // users: sample.users,
+          posts: sample.posts,
+          users: sample.users,
           isLoggedIn: true
         })
       } else {
@@ -171,7 +171,7 @@ class App extends React.Component {
       .then( response => {
         var results = [];
         response.data.forEach(function(post) {
-          results.indexOf(post.id) < 0 && results.push(post.id);
+          results.indexOf(post.posts_id) < 0 && results.push(post.posts_id);
         })
         this.setState({liked: results});
       })
