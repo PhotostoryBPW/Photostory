@@ -9,14 +9,28 @@ class Post extends React.Component {
     super(props);
     
     this.clickHandler = this.clickHandler.bind(this);
+    this.toggleLike = this.toggleLike.bind(this);
 
     this.state = {
       post: '',
       username: '',
       clicked: false,
-      commentText: ''
+      commentText: '',
+      hasLiked: false
     }
     console.log(this.props);
+  }
+
+  checkLike() {
+    console.log('liked: ' , this.props.liked);
+    if (this.props.liked.length > 0) {
+      this.setState({hasLiked: true});
+      console.log('set liked to true');
+    }
+  }
+
+  componentDidMount() {
+    this.checkLike()
   }
   
   componentDidUpdate() {
@@ -60,6 +74,10 @@ class Post extends React.Component {
     }
   }
 
+  toggleLike() {
+    this.state.hasLiked ? this.setState({hasLiked: false}) : this.setState({hasLiked: true}); 
+  }
+
   clickHandler() {
     this.setState({clicked: true})
   }
@@ -82,14 +100,24 @@ class Post extends React.Component {
           <img src={`http://${this.props.post.photoUrl}`}/>
         </div>
         <div className='postOptions'>
-      <div className='like'><button className="buttonRed">
-            <img /> LIKE
+        <div className="like" className="tooltip">
+          <button className="buttonRed" onClick={this.toggleLike}>
+          <img />
+          { this.state.hasLiked === false ? 
+            <span className="tooltiptext">Like this post</span> :
+            <span className="tooltiptext">You have already liked this post.</span> }
+          { this.state.hasLiked === false ? <span>LIKE</span> : <span>UNLIKE</span> }
+          </button>
+        </div>
+          <div className="addComment" className="tooltip"> <button className="buttonRed">
+            <img /> 
+            <span className="tooltiptext">Comment on this post</span> 
+            COMMENT 
           </button></div>
-          <div className='addComment'><button className="buttonRed">
-            <img /> COMMENT
-          </button></div>
-          <div className='share'><button className="buttonRed">
-            <img /> SHARE
+          <div className='share' className="tooltip"> <button className="buttonRed">
+            <img /> 
+            <span className="tooltiptext">Share this post</span>
+            SHARE 
           </button></div>
         </div>  
         <div className='likes'>
@@ -106,6 +134,8 @@ class Post extends React.Component {
         <div className='postMoment'>
           {moment(this.props.post.createdAt).fromNow()}
         </div>
+        <br />
+        <hr />
       </div>
     );
   }

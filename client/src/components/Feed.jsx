@@ -11,6 +11,12 @@ class Feed extends React.Component {
     console.log('this is the props view from feed: ', this.props.view)
   }
 
+  getLikes() {
+    if (this.props.liked.indexOf(this.props.posts.ID) > -1) {
+      
+    }
+  }
+
   render() {
     return (
       <div>
@@ -18,13 +24,14 @@ class Feed extends React.Component {
         this.props.posts.length > 0
         ?
         this.props.posts.map(post =>  
-          <Post key={post.ID} post={post} view={this.props.view}/>
+          <Post key={post.ID} post={post} view={this.props.view} liked={this.props.liked}/>
         )
         :
         <div>
           No posts to display.
         </div>
         }
+        {console.log('props liked in feed ', this.props.liked)}
       </div>
     )
   }

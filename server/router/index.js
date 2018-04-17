@@ -5,6 +5,7 @@ const passport = require('passport');
 
 router.get('/feed', Controller.posts.friends);
 router.get('/feed/:username', Controller.posts.mine);
+router.get('/likes', Controller.posts.likes);
 router.get('/search', Controller.posts.all);
 router.get('/search/:username', Controller.users.find);
 router.get('/profile/:username', Controller.users.info);
@@ -15,8 +16,13 @@ router.get('/logout', function(req, res) {
 })
 
 router.post('/post', Controller.posts.create);
+<<<<<<< HEAD
 router.post('/comment', Controller.posts.comment);
 
+=======
+router.post('/like', Controller.posts.like);
+router.post('/unlike', Controller.posts.unlike);
+>>>>>>> Begin building Like functionality
 router.post('/signup', (req, res) => {
     Controller.Signup(req, res);
 });

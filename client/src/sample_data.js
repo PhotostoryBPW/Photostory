@@ -32,7 +32,7 @@ const sampleData = {
         ID: 1,
         users_id: 1,
         postLoc: 'The harbor',
-        body: 'I visited the harbor. It was brown.',
+        body: 'I visited the harbor. IT WAS BROWN.',
         photoUrl: 'source.unsplash.com/1600x900/?featured/?cat,robots',
         like_counter: 14,
         createdAt: Date.now()
