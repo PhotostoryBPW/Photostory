@@ -23,7 +23,7 @@ class Post extends React.Component {
     }
     
     this.onSubmitCommentHandler = this.onSubmitCommentHandler.bind(this);
-    console.log('props from POST', this.props);
+    
   }
   
   checkLike() {
@@ -34,16 +34,14 @@ class Post extends React.Component {
     }
   }
 
-  checkLike() {
-    if (this.props.liked.indexOf(this.props.post.id) > -1) {
-      this.state.hasLiked = true;
-    } else {
-      this.state.hasLiked = false;
-    }
-  }
   
   componentDidUpdate() {
     this.nameInput && this.nameInput.focus();
+    console.log('children in post', this.state.children);
+  }
+
+  componentDidMount() {
+    this.setState({children: this.props.post.children});
   }
 
   onSubmitCommentHandler() {
@@ -60,7 +58,7 @@ class Post extends React.Component {
     })
     .then( response => {
       oldChildrenState = this.state.children;
-      console.log('response', response, response.config.data);
+      console.log('response config data', response.config.data);
       this.setState({clicked: false})
       console.log('this is old children state before updating', oldChildrenState);
       // JSON.parse(response.config.data.userPhotoUrl).userPhotoUrl = this.props.post.userPhotoUrl
@@ -71,8 +69,11 @@ class Post extends React.Component {
       }
     })
     .then( () => {
-      oldChildrenState[0].userPhotoUrl = this.props.post.userPhotoUrl;
+      oldChildrenState[0].userPhotoUrl = this.props.currentUserProfilePhoto;
       console.log('this is old children state updated', oldChildrenState);
+    })
+    .then( () => {
+      console.log('this is the new children state right before updating', oldChildrenState);
       this.setState({children: oldChildrenState});
     })
     .catch( err => {
@@ -208,14 +209,16 @@ class Post extends React.Component {
         <br />
         <div className='addComment2' onClick={this.addCommentClickHandler}>
           {this.renderComment()}
+        </div>
+        <div>  
           {
-            !!this.state.children ?
+            !!this.state.children && !!this.state.children.length ?
             this.state.children.map(child => 
               <div>
                 <img className='commentPic' src={`http://${child.userPhotoUrl}`}/>
                 <p className='commentUser'>{child.userHandle}</p>
                 <p className='commentBody'>{child.body}</p>
-              </div>
+              </div> 
             )
             :
             <div/>

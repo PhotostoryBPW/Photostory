@@ -13,7 +13,7 @@ class Feed extends React.Component {
     console.log('this is the props for feed: ', this.props.posts);
   }
 
-  render() {
+  render(props) {
     return (
       <div>
         {  
@@ -22,7 +22,7 @@ class Feed extends React.Component {
         this.props.posts.map(post =>
           !post.parent_id  
           ?
-          <Post key={post.id} post={post} view={this.props.view} liked={this.props.liked}/>
+          <Post key={post.id} post={post} view={this.props.view} liked={this.props.liked} currentUserProfilePhoto={this.props.userInfo.userPhotoUrl}/>
           :
           <div/>
         )
@@ -31,7 +31,6 @@ class Feed extends React.Component {
           No posts to display.
         </div>
         }
-        {console.log('props liked in feed ', this.props.liked)}
       </div>
     )
   }

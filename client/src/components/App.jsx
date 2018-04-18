@@ -129,7 +129,6 @@ class App extends React.Component {
         console.log('got feed with the current data: ', response.data)
         response.data.forEach(data => {
           if (data.parent_id) {
-            console.log('this data is getting parsed into the comments array', data);
             comments.push(data)
           } else {
             posts.push(data);
@@ -216,7 +215,6 @@ class App extends React.Component {
 
   renderView() {
     const {view} = this.state;
-    console.log('in App renderView ', this.state);
     if (view === 'feed') {
       return <Feed handleClick={() => this.changeView(view)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view} liked={this.state.liked}/>;
     } else if (view === 'profile') {
