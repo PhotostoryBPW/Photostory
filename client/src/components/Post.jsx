@@ -2,8 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import PostHeader from './PostHeader.jsx';
 import moment from 'moment';
-import axios from 'axios';
-
 
 class Post extends React.Component {
   constructor(props) {
@@ -24,9 +22,12 @@ class Post extends React.Component {
       hasLiked: false
 >>>>>>> Begin building Like functionality
     }
+<<<<<<< HEAD
     
     this.onSubmitCommentHandler = this.onSubmitCommentHandler.bind(this);
     console.log('props from POST', this.props);
+=======
+>>>>>>> Save likes/unlikes to DB
   }
 
 <<<<<<< HEAD
@@ -73,7 +74,6 @@ class Post extends React.Component {
     })
   }
   
-
   onTypeHandler(e) {
     console.log(e.target.value);
     this.setState({commentText: e.target.value});
@@ -83,6 +83,7 @@ class Post extends React.Component {
     axios.post('api/like', this.props.post.ID)
       .then( response => {
         console.log('post success ', response.body);
+        this.setState({hasLiked: true});
       })
       .catch( err => {
         console.log(err);
@@ -93,6 +94,7 @@ class Post extends React.Component {
     axios.post('api/unlike', this.props.post.ID)
       .then( response => {
         console.log('post success ', response.body);
+        this.setState({hasLiked: false});
       })
       .catch( err => {
         console.log(err);
@@ -109,7 +111,6 @@ class Post extends React.Component {
 
   toggleLike() {
     this.state.hasLiked ? (this.setState({hasLiked: false}), this.clearLike()) : (this.setState({hasLiked: true}), this.setLike()); 
-    this.checkLike();
   }
 
   clickHandler() {

@@ -67,7 +67,7 @@ const Controller = {
       });
     },
     unlike: (req, res) => {
-      Models.posts.unlike(req.params, req.session.passport.user, function(err, results) {
+      Models.posts.unlike(req.body, req.session.passport.user, function(err, results) {
         if (err) {
           console.log(err);
         } else {
