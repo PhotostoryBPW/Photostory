@@ -182,6 +182,15 @@ const Models = {
         cb(err, newName);
       })
     },
+    updatebio: function(params, newBio, cb) {
+      var queryStr = `update users set bio=${JSON.stringify(newBio.bio)} where userHandle=${JSON.stringify(params)}`;
+      db.query(queryStr, (err, results) => {
+        if (err) {
+          console.log(err);
+        }
+        cb(err, newBio);
+      })
+    },
     updateemail: function(params, newEmail, cb) {
       console.log(newEmail);
       var queryStr = `update users set email=${JSON.stringify(newEmail.email)} where userHandle=${JSON.stringify(params)}`;

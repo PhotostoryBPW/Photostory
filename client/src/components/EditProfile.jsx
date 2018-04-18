@@ -14,6 +14,7 @@ class EditProfile extends React.Component {
             bio: '',
             email: '',
             nameForm: '',
+            bioForm: '',
             emailForm: '',
             userPhotoUrl: '',
             showNameInput: false,
@@ -21,6 +22,7 @@ class EditProfile extends React.Component {
             showBioInput: false,
             showEmailInput: false,
             showDropzone: false,
+            initialUsername: '',
             url: '',
         }
         this.handleNamePencilIconClick = this.handleNamePencilIconClick.bind(this);
@@ -32,6 +34,7 @@ class EditProfile extends React.Component {
         this.handleBioSaveIconClick = this.handleBioSaveIconClick.bind(this);
         this.handleEmailSaveIconClick = this.handleEmailSaveIconClick.bind(this);
         this.handleNameFormChange = this.handleNameFormChange.bind(this);
+        this.handleBioFormChange = this.handleBioFormChange.bind(this);
         this.handleEmailFormChange = this.handleEmailFormChange.bind(this);
     };
 
@@ -43,9 +46,11 @@ class EditProfile extends React.Component {
                 nameForm: response.data[0].userName,
                 username: response.data[0].userHandle,
                 bio: response.data[0].bio,
+                bioForm: response.data[0].bio || '',
                 email: response.data[0].email,
                 emailForm: response.data[0].email,
                 userPhotoUrl: response.data[0].userPhotoUrl,
+                initalUsername: response.data[0].userHandle,
             });
         })
         .catch (err => {
@@ -93,8 +98,21 @@ class EditProfile extends React.Component {
     }
 
     handleBioSaveIconClick() {
-        console.log('save clicked');
-        this.setState({showBioInput: false});
+        var payload = {
+            bio: this.state.bioForm
+        }
+        console.log(payload);
+        axios
+            .put('/api/updatebio', payload)
+            .then(response => {
+                this.setState({
+                    showBioInput: false,
+                    bio: response.data.bio
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     handleEmailSaveIconClick() {
@@ -119,9 +137,16 @@ class EditProfile extends React.Component {
         this.setState({nameForm: e.target.value});
     }
 
+    handleUsernameFormChange(e) {
+        this.setState({logoutRequired: true});
+    }
+
+    handleBioFormChange(e) {
+        this.setState({bioForm: e.target.value});
+    }
+
     handleEmailFormChange(e) {
         this.setState({emailForm: e.target.value});
-        console.log(this.state.emailForm);
     }
 
     handleProfilePicChange(e) {
@@ -181,12 +206,22 @@ class EditProfile extends React.Component {
                         <input className = "profEditInput" maxLength="25" type="text" name="fullname"/>
                     </label>
                     <span onClick ={this.handleUsernameSaveIconClick} className="saveProfIcon"><a href="#"><i className="fa fa-save fa-lg"></i></a></span>
+                    <ul>
+                        <li>
+                        Changing your username will require you to log back in
+                        </li>
+                    </ul>
                     </div>
                     :
                     <div className = 'attributeRow'>
                     <span className="userAttribute">Username: </span>
                     <span className="userAttributeValue">{this.state.username}</span>
                     <span onClick={this.handleUsernamePencilIconClick} className="editProfIcon"><a href="#"><i className="fa fa-pencil fa-lg"></i></a></span>
+                    <ul>
+                        <li>
+                        Changing your username will require you to log back in
+                        </li>
+                    </ul>
                     </div>
                 }
                 {
@@ -194,7 +229,7 @@ class EditProfile extends React.Component {
                     <div className = 'attributeRow'>
                     <span className="userAttribute">Bio: </span>
                     <label style={{marginRight: '5px'}}>
-                        <input className = "profEditInput" maxLength="500" type="text" name="fullname"/>
+                        <input className = "profEditInput profBioInput" maxLength="500" type="text" name="fullname" autoFocus value={this.state.bioForm} onChange={this.handleBioFormChange}/>
                     </label>
                     <span onClick ={this.handleBioSaveIconClick} className="saveProfIcon"><a href="#"><i className="fa fa-save fa-lg"></i></a></span>
                     </div>
