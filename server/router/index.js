@@ -9,12 +9,15 @@ router.get('/likes', Controller.posts.likes);
 router.get('/search', Controller.posts.all);
 router.get('/search/:username', Controller.users.find);
 router.get('/profile/:username', Controller.users.info);
+router.get('/userprofileinfo', Controller.users.userprofileinfo);
 router.get('/logout', function(req, res) {
     req.logout(); 
     req.session.destroy();
     res.status(200).send('destroyed');
 })
 
+router.put('/updatename', Controller.users.updatefullname);
+router.put('/updateemail', Controller.users.updateemail);
 router.post('/post', Controller.posts.create);
 router.post('/comment', Controller.posts.comment);
 router.post('/follow', Controller.users.follow);
@@ -48,7 +51,6 @@ router.post('/login', (req, res, next) => {
 });
 
 router.get('/checksession', (req, res) => {
-  console.log(req.session);
   if (req.session.hasOwnProperty('passport')) {
     res.status(200).send('active');
   }

@@ -9,10 +9,11 @@ const Header = (props) => {
   return (
   <div className="header">
     {
-      (props.view === 'feed') ? <span>Photostory</span> : 
+    (props.view === 'feed') ? <span>Photostory</span> : 
     (props.view === 'search') ? <span>Search</span> :
     (props.view === 'createpost') ? <span>Post</span> :
     (props.view === 'notifications') ? <span>Notifications</span> : 
+    (props.view === 'editprofile') ? <span>Edit Profile</span> :
     <span>UserNameVar</span>
     }
   </div>

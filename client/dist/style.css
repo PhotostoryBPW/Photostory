@@ -357,3 +357,48 @@ p.commentBody {
   margin: 0px 10px 0px 0px;
   float: left;
 }
+.editProfIcon {
+	padding-top: 7px;	
+	padding-right: 7px;
+  position: relative;
+  float: right;
+	right: 0;
+	top: 0;
+	display: block;
+}
+
+.editProfIcon a {
+	color: #000;
+}
+
+.saveProfIcon {
+	padding-top: 7px;	
+	padding-right: 7px;
+  position: relative;
+  float: right;
+	right: 0;
+	top: 0;
+	display: block;
+}
+
+.saveProfIcon a {
+	color: #000;
+}
+
+.attributeRow {
+  margin-bottom: 10px;
+}
+
+.profEditInput {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  margin-bottom: -1px;
+  box-sizing: border-box;
+}
+
+.profEditInput:focus
+{
+  outline:none;
+}  
+
