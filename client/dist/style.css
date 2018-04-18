@@ -15,7 +15,7 @@ button {
   background-color: rgb(0, 0, 0);
 }
 
-.buttonRed {
+buttonRed {
   cursor: pointer;
   border: none;
   border-radius: 3px;
@@ -24,6 +24,13 @@ button {
   color: #CCC;
   background-color: #722;
   padding: 5px 5px 5px 5px;
+}
+
+hr {
+  border:none;
+  border-top:3px dotted black;
+  height:3px;
+  width:60%;
 }
 
 img {
@@ -36,6 +43,10 @@ img {
 
 .addComment {
   margin: 5px 5px;
+}
+
+.container {
+  min-height: calc(100vh - 50px);
 }
 
 .home {
@@ -61,6 +72,10 @@ img {
 .postMoment {
   font-style: italic;
   clear: both;
+}
+
+.postOptions div {
+  margin: 5px;
 }
 
 .profile {
@@ -93,6 +108,48 @@ img {
 
 .statsItem {
   border: none;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 #edit {
@@ -163,24 +220,11 @@ div.navBar div {
   height: 50px;
 }
 
-.postOptions div {
-  display: inline-block;
-}
-
 html, body {
   min-height:100%;
   margin: 0;
 }
 
-.wrapper {
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-.container {
-    min-height: calc(100vh - 50px);
-}
 footer, .navBar {
    position:sticky;
    bottom:0;

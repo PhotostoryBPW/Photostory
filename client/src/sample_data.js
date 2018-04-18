@@ -31,8 +31,13 @@ const sampleData = {
       {
         id: 1,
         users_id: 1,
+<<<<<<< HEAD
         postLoc: 'CLIENT SIDE DATA: The harbor',
         body: 'I visited the harbor. It was brown.',
+=======
+        postLoc: 'The harbor',
+        body: 'I visited the harbor. IT WAS BROWN.',
+>>>>>>> Begin building Like functionality
         photoUrl: 'source.unsplash.com/1600x900/?featured/?cat,robots',
         like_counter: 14,
         createdAt: Date.now()
