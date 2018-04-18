@@ -407,6 +407,10 @@ div.commentUser {
   box-sizing: border-box;
 }
 
+.profBioInput {
+  width: 80%;
+}
+
 .profEditInput:focus
 {
   outline:none;

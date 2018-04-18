@@ -150,6 +150,16 @@ const Controller = {
         }
       })
     },
+    updatebio: (req, res) => {
+      console.log(req.body);
+      Models.users.updatebio(req.session.passport.user, req.body, (err, results) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(200).send(results);
+        }
+      })
+    },
     userprofileinfo: (req, res) => {
       Models.users.userprofileinfo(req.session.passport.user, (err, results) => {
         if (err) {
