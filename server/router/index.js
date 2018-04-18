@@ -18,6 +18,7 @@ router.get('/logout', function(req, res) {
 
 router.put('/updatename', Controller.users.updatefullname);
 router.put('/updateemail', Controller.users.updateemail);
+router.put('/updateprofilepic', Controller.users.updateprofilepic);
 router.post('/post', Controller.posts.create);
 router.post('/comment', Controller.posts.comment);
 router.post('/follow', Controller.users.follow);

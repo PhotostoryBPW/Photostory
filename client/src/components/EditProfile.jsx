@@ -1,5 +1,9 @@
 import React from 'react';
-const axios = require('axios');
+import axios from 'axios';
+import cloudinary from 'cloudinary-react';
+import Zone from './Zone.jsx';
+import Dropzone from 'react-dropzone';
+import config from '../config.js';
 
 class EditProfile extends React.Component {
     constructor(props) {
@@ -11,10 +15,13 @@ class EditProfile extends React.Component {
             email: '',
             nameForm: '',
             emailForm: '',
+            userPhotoUrl: '',
             showNameInput: false,
             showUsernameInput: false,
             showBioInput: false,
             showEmailInput: false,
+            showDropzone: false,
+            url: '',
         }
         this.handleNamePencilIconClick = this.handleNamePencilIconClick.bind(this);
         this.handleUsernamePencilIconClick = this.handleUsernamePencilIconClick.bind(this);
@@ -38,6 +45,7 @@ class EditProfile extends React.Component {
                 bio: response.data[0].bio,
                 email: response.data[0].email,
                 emailForm: response.data[0].email,
+                userPhotoUrl: response.data[0].userPhotoUrl,
             });
         })
         .catch (err => {
@@ -116,9 +124,39 @@ class EditProfile extends React.Component {
         console.log(this.state.emailForm);
     }
 
+    handleProfilePicChange(e) {
+        this.setState({showDropzone: true});
+    }
+
+    harvestProfileUrl(url) { 
+        var payload = {
+            userPhotoUrl: url
+        }
+        axios.put('/api/updateprofilepic/', payload)
+        .then(response => {
+            console.log('this is the response to the harvest profile url function: ', response.data.userPhotoUrl);
+            this.setState({
+              userPhotoUrl: response.data.userPhotoUrl,
+              showDropzone: false,
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
     render() {
         return(
             <div>
+                {
+                this.state.showDropzone ?
+                <Zone drop={this.harvestProfileUrl.bind(this)}/>
+                :
+                <div onClick={this.handleProfilePicChange.bind(this)}>
+                  <img className='editProfilePic' src={`http://${this.state.userPhotoUrl}`}/>
+                  <span className='centerText'>Click to update profile pic</span>
+                </div>  
+                }
                 {
                     this.state.showNameInput ? 
                     <div className = 'attributeRow'>

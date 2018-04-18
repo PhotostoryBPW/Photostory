@@ -53,7 +53,7 @@ class Post extends React.Component {
         users_id: null,  
         body: this.state.commentText,
         postLoc: null,
-        photoUrl: null,
+        userPhotoUrl: this.props.post.userPhotoUrl,
         createdAt: Date.now(),
         filt: null,
         parent_id: this.props.post.id
@@ -168,7 +168,7 @@ class Post extends React.Component {
           {this.props.post.postLoc}
         </div>
         <div className='postImage'>
-          <img src={`http://${this.props.post.photoUrl}`}/>
+          <img src={`http://${this.props.post.userPhotoUrl}`}/>
         </div>
         {this.checkLike()}
         <div className='postOptions'>
@@ -211,7 +211,7 @@ class Post extends React.Component {
             !!this.state.children ?
             this.state.children.map(child => 
               <div>
-                <img className='commentPic' src={`http://${child.photoUrl}`}/>
+                <img className='commentPic' src={`http://${child.userPhotoUrl}`}/>
                 <p className='commentUser'>{child.userHandle}</p>
                 <p className='commentBody'>{child.body}</p>
               </div>

@@ -159,6 +159,15 @@ const Controller = {
         }
       })
     },
+    updateprofilepic: (req, res) => {
+      Models.users.updateprofilepic(req.session.passport.user, req.body, (err, results) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(201).send(results);
+        }
+      })
+    },
   },
   
   file_upload: (req, res) => {
