@@ -212,14 +212,10 @@ class App extends React.Component {
   }
 
   renderView() {
-    const {view} = this.state;
-
+    const {view} = this.state.view;
+    console.log('in App renderView ', this.state);
     if (view === 'feed') {
-<<<<<<< HEAD
-      return <Feed handleClick={() => this.changeView(view)} posts={this.state.data} view={this.state.view}/>;
-=======
-      return <Feed handleClick={(() => this.changeView(view)) } posts={this.state.posts} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view} liked={this.state.liked} />
->>>>>>> Begin building Like functionality
+      return <Feed handleClick={() => this.changeView(view)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={view} liked={this.state.liked} />
     } else if (view === 'profile') {
       return <Profile posts={this.state.posts} user={this.state.currentUser} userInfo={this.state.userInfo} liked={this.state.liked} handleClick={this.changeView.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)}/>
     } else if (view === 'signup') {

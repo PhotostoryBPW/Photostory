@@ -73,7 +73,7 @@ INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email)
 VALUES ('nyancat', 'Nyan Cat', 'Outer Space', 'source.unsplash.com/1600x900/?featured/?cat', 'Nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan', 'strawberry@poptart.com');
 
 INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email) 
-VALUES ('nyandog', 'Nyan Dog', 'Underwater', 'source.unsplash.com/1600x900/?featured/?dog', 'arf arf arf', 'dkgdjhf@nfdgkjf.com')
+VALUES ('nyandog', 'Nyan Dog', 'Underwater', 'source.unsplash.com/1600x900/?featured/?dog', 'arf arf arf', 'dkgdjhf@nfdgkjf.com');
 
 INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount)
 VALUES (6, 'The Park', 'my cousin', 'source.unsplash.com/1600x900/?featured/?park', 500);

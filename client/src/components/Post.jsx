@@ -17,27 +17,15 @@ class Post extends React.Component {
       username: '',
       clicked: false,
       commentText: '',
-<<<<<<< HEAD
-<<<<<<< HEAD
       children: this.props.post.children || '',
-      view: this.props.view 
-=======
-      hasLiked: false
->>>>>>> Begin building Like functionality
-=======
-      hasLiked: ''
->>>>>>> rebase
+      view: this.props.view, 
+      hasLiked: '',
     }
-<<<<<<< HEAD
     
     this.onSubmitCommentHandler = this.onSubmitCommentHandler.bind(this);
     console.log('props from POST', this.props);
-=======
->>>>>>> Save likes/unlikes to DB
   }
 
-<<<<<<< HEAD
-=======
   checkLike() {
     if (this.props.liked.indexOf(this.props.post.id) > -1) {
       this.state.hasLiked = true;
@@ -46,7 +34,6 @@ class Post extends React.Component {
     }
   }
   
->>>>>>> Begin building Like functionality
   componentDidUpdate() {
     this.nameInput && this.nameInput.focus();
   }
