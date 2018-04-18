@@ -117,7 +117,7 @@ class App extends React.Component {
     this.setState({
       view: option
     })
-    if (this.state.view === 'createpost' || this.state.view === 'feed') {
+    if (this.state.view === 'createpost' || this.props.view === 'createpost' || this.state.view === 'feed') {
       this.getFeed();
     }
   }
