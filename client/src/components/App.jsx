@@ -9,7 +9,7 @@ import Signup from './Signup.jsx';
 import Profile from './Profile.jsx';
 import Search from './Search.jsx';
 import CreatePost from './CreatePost.jsx';
-import Post from './Post.jsx'
+import Post from './Post.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -57,6 +57,22 @@ class App extends React.Component {
     })
   }
 
+  getUserInfo() {
+    axios.get(`http://localhost:3000/api/profile/${this.state.currentUser}`, {
+      params: {
+        currentUser: this.state.currentUser
+      }
+    })
+    .then( response => {
+      this.setState({ 
+        userInfo: response.data[0],
+      })
+    })
+    .catch( err => {
+      console.log(err);
+    })
+  }
+
   toggleSignup() {
     this.setState({
       signupView: true
@@ -75,11 +91,13 @@ class App extends React.Component {
     .then( response => {
       if (response.data === 'active') {
         localStorage['isLoggedIn'] = true;
-          this.setState({ 
-            posts: sample.posts,
-            users: sample.users,
-            isLoggedIn: true
-          })
+        this.getUserInfo();
+        this.getLikes();
+        this.setState({ 
+          posts: sample.posts,
+          users: sample.users,
+          isLoggedIn: true
+        })
       } else {
         if (localStorage.hasOwnProperty('isLoggedIn')) {
           delete localStorage.isLoggedIn;
@@ -206,8 +224,8 @@ class App extends React.Component {
   }
 
   renderView() {
-    const {view} = this.state;
-
+    const {view} = this.state.view;
+    console.log('in App renderView ', this.state);
     if (view === 'feed') {
       return <Feed handleClick={() => this.changeView(view)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view} liked={this.state.liked}/>;
     } else if (view === 'profile') {
@@ -221,13 +239,12 @@ class App extends React.Component {
     }  else if (view === 'search') {
       return <Search posts={this.state.data } liked={this.state.liked}/>
     } 
-    // else {
-    //   return <Post key={view._id} post={view} />
+      // else {
+    //   return <Post user={this.state.userInfo} key={view._id} post={view} />
     // }
   }
 
   render() {
-    // console.log(localStorage)
     return (
       <div>
         {

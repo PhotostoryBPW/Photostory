@@ -1,8 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 import PostHeader from './PostHeader.jsx';
 import moment from 'moment';
-import axios from 'axios';
-
 
 class Post extends React.Component {
   constructor(props) {
@@ -35,6 +34,14 @@ class Post extends React.Component {
     }
   }
 
+  checkLike() {
+    if (this.props.liked.indexOf(this.props.post.id) > -1) {
+      this.state.hasLiked = true;
+    } else {
+      this.state.hasLiked = false;
+    }
+  }
+  
   componentDidUpdate() {
     this.nameInput && this.nameInput.focus();
   }
@@ -72,10 +79,31 @@ class Post extends React.Component {
     })
   }
   
-
   onTypeHandler(e) {
     console.log(e.target.value);
     this.setState({commentText: e.target.value});
+  }
+  
+  setLike() {
+    axios.post('api/like', this.props.post.id)
+      .then( response => {
+        console.log('post success ', response.body);
+      })
+      .catch( err => {
+        console.log(err);
+      })
+    this.checkLike();
+  }
+
+  clearLike() {
+    axios.post('api/unlike', this.props.post.id)
+      .then( response => {
+        console.log('post success ', response.body);
+        })
+      .catch( err => {
+        console.log(err);
+      })
+    this.checkLike();
   }
 
   setLike() {
@@ -167,6 +195,7 @@ class Post extends React.Component {
               SHARE
             </button>
           </div>
+
         </div>  
         <div className='likes'>
           Liked by Judy, Meredith, and {this.props.post.likesCount} others.
@@ -194,6 +223,8 @@ class Post extends React.Component {
         <div className='postMoment'>
           {moment(this.props.post.createdAt).fromNow()}
         </div>
+        <br />
+        <hr />
       </div>
     );
   }

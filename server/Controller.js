@@ -85,7 +85,6 @@ const Controller = {
       });
     },
     mine: (req, res) => {
-      console.log(req.params, ' req.params');
       Models.posts.mine(req.params, function(err, results) {
         if (err) { 
           console.log(err);
@@ -129,10 +128,8 @@ const Controller = {
       Models.users.info(req.params, function(err, results) {
         if (err) { 
           console.log(err);
-          console.log('error in user info');
         } else {
           res.status(201).send(results);
-          console.log('success in user info');
         }
       });
     },
@@ -161,23 +158,6 @@ const Controller = {
 //         } else {
 //           res.status(202).send(data);
 //         }
-//       })
-//   }
-
-//   Signup: (req, res) => {
-//     var user = new Users({
-//       userId: req.body.userId,
-//       name: req.body.name,
-//       email: req.body.email,
-//       photo: req.body.photo,
-//       bio: req.body.bio
-//     });
-//     user.save()
-//       .then(result => {
-//         res.status(201).send('Added');
-//       })
-//       .catch( err => {
-//         res.status(400).send('Error');
 //       })
 //   }
 

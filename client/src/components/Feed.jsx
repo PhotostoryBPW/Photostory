@@ -31,6 +31,7 @@ class Feed extends React.Component {
           No posts to display.
         </div>
         }
+        {console.log('props liked in feed ', this.props.liked)}
       </div>
     )
   }

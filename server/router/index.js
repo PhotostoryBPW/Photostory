@@ -10,7 +10,7 @@ router.get('/search', Controller.posts.all);
 router.get('/search/:username', Controller.users.find);
 router.get('/profile/:username', Controller.users.info);
 router.get('/logout', function(req, res) {
-    req.logout();
+    req.logout(); 
     req.session.destroy();
     res.status(200).send('destroyed');
 })
@@ -20,7 +20,6 @@ router.post('/comment', Controller.posts.comment);
 router.post('/follow', Controller.users.follow);
 router.post('/like', Controller.posts.like);
 router.post('/unlike', Controller.posts.unlike);
-
 router.post('/signup', (req, res) => {
     Controller.Signup(req, res);
 });

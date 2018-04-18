@@ -23,7 +23,15 @@ button {
   font-size: medium;
   color: #CCC;
   background-color: #722;
-  padding: 5px 5px 5px 5px;
+  padding: 5px;
+  margin: 5px;
+}
+
+hr {
+  border:none;
+  border-top:3px dotted black;
+  height:3px;
+  width:60%;
 }
 
 hr {
@@ -42,7 +50,12 @@ img {
 }
 
 .addComment {
-  margin: 5px 5px;
+  display: block;
+  float: left;
+}
+
+.container {
+  min-height: calc(100vh - 50px);
 }
 
 .home {
@@ -64,6 +77,10 @@ img {
 .postMoment {
   font-style: italic;
   clear: both;
+}
+
+.postOptions {
+  margin: auto;
 }
 
 .profile {
@@ -91,7 +108,8 @@ img {
 }
 
 .share {
-  margin: 5px 5px;
+  display: block;
+  float: left;
 }
 
 .statsItem {
@@ -131,6 +149,12 @@ img {
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 #edit {
@@ -201,24 +225,11 @@ div.navBar div {
   height: 50px;
 }
 
-.postOptions div {
-  display: inline-block;
-}
-
 html, body {
   min-height:100%;
   margin: 0;
 }
 
-.wrapper {
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-.container {
-    min-height: calc(100vh - 50px);
-}
 footer, .navBar {
    position:sticky;
    bottom:0;

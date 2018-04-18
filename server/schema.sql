@@ -72,6 +72,9 @@ VALUES ('someoneelse', 'A. Nonymous', 'Chicago', 'source.unsplash.com/1600x900/?
 INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email)
 VALUES ('nyancat', 'Nyan Cat', 'Outer Space', 'source.unsplash.com/1600x900/?featured/?cat', 'Nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan', 'strawberry@poptart.com');
 
+INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email) 
+VALUES ('nyandog', 'Nyan Dog', 'Underwater', 'source.unsplash.com/1600x900/?featured/?dog', 'arf arf arf', 'dkgdjhf@nfdgkjf.com');
+
 INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount)
 VALUES (6, 'The Park', 'my cousin', 'source.unsplash.com/1600x900/?featured/?park', 500);
  
@@ -86,6 +89,10 @@ VALUES (4, 'The Pond', 'Hmmmmm', 'source.unsplash.com/1600x900/?featured/?pond',
 
 INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount)
 VALUES (5, 'kitchen', 'lol wut', 'source.unsplash.com/1600x900/?featured/?kitchen', 20);
+
+INSERT INTO likes (users_id, posts_id)
+VALUES (1, 1), (1, 2), (1, 3), (2, 2), (2, 4), (3, 1), (3, 4), (4, 2), (5, 2), (5, 3), (6, 1), (6, 3), (7, 4);
+
 CREATE TABLE IF NOT EXISTS login (
   id int not null AUTO_INCREMENT,
   username varchar(20),
