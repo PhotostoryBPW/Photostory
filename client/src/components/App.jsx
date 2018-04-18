@@ -171,7 +171,7 @@ class App extends React.Component {
     } else if (view === 'createpost') {
       return <CreatePost />
     }  else if (view === 'search') {
-      return <Search posts={this.state.posts}/>
+      return <Search posts={this.state.data}/>
     } 
     // else {
     //   return <Post key={view._id} post={view} />

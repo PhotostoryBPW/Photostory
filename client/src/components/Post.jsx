@@ -41,11 +41,15 @@ class Post extends React.Component {
       }
     })
     .then( response => {
-      console.log('response', response)
-      this.setState({clicked: false})
       oldChildrenState = this.state.children;
-      // if (oldChildrenState.length
-      // oldChildrenState = (!!oldChildrenState.length ? oldChildrenState.push(response.config.data.params) : [response.config.data.params]);
+      console.log('response', response, response.config.data);
+      this.setState({clicked: false})
+      console.log('this is old children state before updating', oldChildrenState);
+      if (!!oldChildrenState && oldChildrenState.length > 0) {
+        oldChildrenState.push((JSON.parse(response.config.data)).params);
+      } else {
+      oldChildrenState = [JSON.parse(response.config.data).params];
+      }
     })
     .then( () => {
       console.log('this is old children state updated', oldChildrenState);
