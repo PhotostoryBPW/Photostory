@@ -21,7 +21,7 @@ class Feed extends React.Component {
         this.props.posts.map(post =>
           !post.parent_id  
           ?
-          <Post key={post.id} post={post} view={this.props.view}/>
+          <Post key={post.id} post={post} view={this.props.view} liked={this.props.liked}/>
           :
           <div/>
         )
@@ -30,6 +30,7 @@ class Feed extends React.Component {
           No posts to display.
         </div>
         }
+        {console.log('props liked in feed ', this.props.liked)}
       </div>
     )
   }

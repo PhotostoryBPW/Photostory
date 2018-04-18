@@ -57,8 +57,34 @@ const Controller = {
         }
       });
     },
+    like: (req, res) => {
+      Models.posts.like(req.body, req.session.passport.user, function(err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(201).send(results);
+        }
+      });
+    },
+    unlike: (req, res) => {
+      Models.posts.unlike(req.body, req.session.passport.user, function(err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(201).send(results);
+        }
+      });
+    },
+    likes: (req, res) => {
+      Models.posts.likes(req.params, req.session.passport.user, function(err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(201).send(results);
+        }
+      });
+    },
     mine: (req, res) => {
-      console.log(req.params, ' req.params');
       Models.posts.mine(req.params, function(err, results) {
         if (err) { 
           console.log(err);
@@ -88,14 +114,22 @@ const Controller = {
         }
       });
     },
+    follow: (req, res) => {
+      Models.users.follow(req.params, req.session.passport.user, function(err, results) {
+        console.log('follow - controller');
+        if (err) { 
+          console.log(err);
+        } else {
+          res.status(201).send(results);
+        }
+      });
+    },
     info: (req, res) => {
       Models.users.info(req.params, function(err, results) {
         if (err) { 
           console.log(err);
-          console.log('error in user info');
         } else {
           res.status(201).send(results);
-          console.log('success in user info');
         }
       });
     },
@@ -124,23 +158,6 @@ const Controller = {
 //         } else {
 //           res.status(202).send(data);
 //         }
-//       })
-//   }
-
-//   Signup: (req, res) => {
-//     var user = new Users({
-//       userId: req.body.userId,
-//       name: req.body.name,
-//       email: req.body.email,
-//       photo: req.body.photo,
-//       bio: req.body.bio
-//     });
-//     user.save()
-//       .then(result => {
-//         res.status(201).send('Added');
-//       })
-//       .catch( err => {
-//         res.status(400).send('Error');
 //       })
 //   }
 
