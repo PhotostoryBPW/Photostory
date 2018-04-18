@@ -57,6 +57,33 @@ const Controller = {
         }
       });
     },
+    like: (req, res) => {
+      Models.posts.like(req.body, req.session.passport.user, function(err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(201).send(results);
+        }
+      });
+    },
+    unlike: (req, res) => {
+      Models.posts.unlike(req.body, req.session.passport.user, function(err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(201).send(results);
+        }
+      });
+    },
+    likes: (req, res) => {
+      Models.posts.likes(req.params, req.session.passport.user, function(err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(201).send(results);
+        }
+      });
+    },
     mine: (req, res) => {
       console.log(req.params, ' req.params');
       Models.posts.mine(req.params, function(err, results) {
@@ -81,6 +108,16 @@ const Controller = {
     find: (req, res) => {
       Models.users.find(req.params, function(err, results) {
         console.log('made it to find');
+        if (err) { 
+          console.log(err);
+        } else {
+          res.status(201).send(results);
+        }
+      });
+    },
+    follow: (req, res) => {
+      Models.users.follow(req.params, req.session.passport.user, function(err, results) {
+        console.log('follow - controller');
         if (err) { 
           console.log(err);
         } else {

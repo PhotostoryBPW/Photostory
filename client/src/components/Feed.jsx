@@ -5,7 +5,8 @@ class Feed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: {},
+      posts: '',
+      users: '',
       children: '',
     };
     console.log('this is the props view from feed: ', this.props.view);
@@ -21,7 +22,7 @@ class Feed extends React.Component {
         this.props.posts.map(post =>
           !post.parent_id  
           ?
-          <Post key={post.id} post={post} view={this.props.view}/>
+          <Post key={post.id} post={post} view={this.props.view} liked={this.props.liked}/>
           :
           <div/>
         )

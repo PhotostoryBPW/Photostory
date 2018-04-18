@@ -8,7 +8,10 @@ class Post extends React.Component {
   constructor(props) {
     super(props);
     
-    this.clickHandler = this.clickHandler.bind(this);
+    this.addCommentClickHandler = this.addCommentClickHandler.bind(this);
+    this.setLike = this.setLike.bind(this);
+    this.clearLike = this.clearLike.bind(this);
+    this.toggleLike = this.toggleLike.bind(this);
 
     this.state = {
       post: this.props.post,
@@ -16,11 +19,20 @@ class Post extends React.Component {
       clicked: false,
       commentText: '',
       children: this.props.post.children || '',
-      view: this.props.view 
+      view: this.props.view,
+      hasLiked: ''
     }
     
     this.onSubmitCommentHandler = this.onSubmitCommentHandler.bind(this);
     console.log('props from POST', this.props);
+  }
+  
+  checkLike() {
+    if (this.props.liked.indexOf(this.props.post.id) > -1) {
+      this.state.hasLiked = true;
+    } else {
+      this.state.hasLiked = false;
+    }
   }
 
   componentDidUpdate() {
@@ -66,6 +78,28 @@ class Post extends React.Component {
     this.setState({commentText: e.target.value});
   }
 
+  setLike() {
+    axios.post('api/like', this.props.post.id)
+      .then( response => {
+        console.log('post success ', response.body);
+      })
+      .catch( err => {
+        console.log(err);
+      })
+    this.checkLike();
+  }
+
+  clearLike() {
+    axios.post('api/unlike', this.props.post.id)
+      .then( response => {
+        console.log('post success ', response.body);
+        })
+      .catch( err => {
+        console.log(err);
+      })
+    this.checkLike();
+  }
+
   renderComment() {
     if (this.state.clicked === true) {
       return <div><input ref={(input) => { this.nameInput = input; }} onChange={this.onTypeHandler.bind(this)}/><button onClick={this.onSubmitCommentHandler}>POST</button></div> 
@@ -74,7 +108,19 @@ class Post extends React.Component {
     }    
   }
 
-  clickHandler() {
+  toggleLike() {
+    this.state.hasLiked ? (this.setState({hasLiked: false}), this.clearLike()) : (this.setState({hasLiked: true}), this.setLike()); 
+  }
+
+  likeText() {
+    return this.state.hasLiked === false ? 'LIKE' : 'UNLIKE';
+  }
+
+  likeTip() {
+    return this.state.hasLiked === false ? 'Like this post' : 'You have already liked this post';
+  }
+
+  addCommentClickHandler() {
     this.setState({clicked: true})
   }
 
@@ -96,16 +142,31 @@ class Post extends React.Component {
         <div className='postImage'>
           <img src={`http://${this.props.post.photoUrl}`}/>
         </div>
+        {this.checkLike()}
         <div className='postOptions'>
-      <div className='like'><button className="buttonRed">
-            <img /> LIKE
-          </button></div>
-          <div className='addComment'><button className="buttonRed">
-            <img /> COMMENT
-          </button></div>
-          <div className='share'><button className="buttonRed">
-            <img /> SHARE
-          </button></div>
+          <div className="tooltip">
+            <div className='like'>
+              <button className="buttonRed" onClick={this.toggleLike}>
+                <img /> 
+                <span className="tooltiptext">{this.likeTip()}</span>
+                <span>{this.likeText()}</span>
+              </button>
+            </div>
+          </div>  
+          <div className='addComment tooltip'>
+            <button className="buttonRed">
+              <img /> 
+              <span className="tooltiptext">Comment on this post</span> 
+              COMMENT
+            </button>
+          </div>
+          <div className='share tooltip'>
+            <button className="buttonRed">
+              <img /> 
+              <span className="tooltiptext">Share this post</span>
+              SHARE
+            </button>
+          </div>
         </div>  
         <div className='likes'>
           Liked by Judy, Meredith, and {this.props.post.likesCount} others.
@@ -115,7 +176,7 @@ class Post extends React.Component {
           {this.props.post.body}
         </div>
         <br />
-        <div className='addComment2' onClick={this.clickHandler}>
+        <div className='addComment2' onClick={this.addCommentClickHandler}>
           {this.renderComment()}
           {
             !!this.state.children ?
