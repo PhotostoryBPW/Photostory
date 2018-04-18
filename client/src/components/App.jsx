@@ -117,7 +117,9 @@ class App extends React.Component {
     this.setState({
       view: option
     })
-    this.getFeed();
+    if (this.state.view === 'createpost' || this.state.view === 'feed') {
+      this.getFeed();
+    }
   }
 
   navBarClickHandler(page) {
@@ -242,7 +244,7 @@ class App extends React.Component {
     } else if (view === 'editprofile') {
       return <EditProfile/>
     } else if (view === 'createpost') {
-      return <CreatePost />
+      return <CreatePost onSubmit={this.changeView.bind(this)}/>
     }  else if (view === 'search') {
       return <Search posts={this.state.data } liked={this.state.liked}/>
     } 

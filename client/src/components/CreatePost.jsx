@@ -16,7 +16,7 @@ class CreatePost extends React.Component {
       filt: 'nofilter',
       accepted: [],
       rejected: [],
-      url: ''
+      photoUrl: ''
     }
 
   }
@@ -32,16 +32,16 @@ class CreatePost extends React.Component {
         users_id: null,  
         body: this.state.body,
         postLoc: this.state.location,
-        photoUrl: this.state.url,
+        photoUrl: this.state.photoUrl,
         createdAt: Date.now(),
         filt: this.state.filt,
       }
     })
     .then( response => {
       console.log('response', response)
-      this.setState({ 
-        searchData: response.data
-      })
+    })
+    .then (() => {
+      this.props.onSubmit('feed');
     })
     .catch( err => {
       console.log(err);
@@ -50,7 +50,7 @@ class CreatePost extends React.Component {
   
   showSubmit(url) {
     this.setState({showSubmit: true});
-    this.setState({url: url});
+    this.setState({photoUrl: url});
     console.log(this.state);
   }
 

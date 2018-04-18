@@ -168,7 +168,7 @@ class Post extends React.Component {
           {this.props.post.postLoc}
         </div>
         <div className='postImage'>
-          <img src={`http://${this.props.post.userPhotoUrl}`}/>
+          <img src={`http://${this.props.post.photoUrl}`}/>
         </div>
         {this.checkLike()}
         <div className='postOptions'>
