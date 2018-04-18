@@ -11,19 +11,24 @@ class Post extends React.Component {
     this.clickHandler = this.clickHandler.bind(this);
 
     this.state = {
-      post: '',
+      post: this.props.post,
       username: '',
       clicked: false,
-      commentText: ''
+      commentText: '',
+      children: this.props.post.children || '',
+      view: this.props.view 
     }
-    console.log(this.props);
+    
+    this.onSubmitCommentHandler = this.onSubmitCommentHandler.bind(this);
+    console.log('props from POST', this.props);
   }
-  
+
   componentDidUpdate() {
     this.nameInput && this.nameInput.focus();
   }
 
   onSubmitCommentHandler() {
+    var oldChildrenState
     axios.post(`api/comment/`, {
       params: {
         users_id: null,  
@@ -32,14 +37,19 @@ class Post extends React.Component {
         photoUrl: null,
         createdAt: Date.now(),
         filt: null,
-        parent_id: this.props.postId
+        parent_id: this.props.post.id
       }
     })
     .then( response => {
       console.log('response', response)
-      this.setState({ 
-        searchData: response.data
-      })
+      this.setState({clicked: false})
+      oldChildrenState = this.state.children;
+      // if (oldChildrenState.length
+      // oldChildrenState = (!!oldChildrenState.length ? oldChildrenState.push(response.config.data.params) : [response.config.data.params]);
+    })
+    .then( () => {
+      console.log('this is old children state updated', oldChildrenState);
+      this.setState({children: oldChildrenState});
     })
     .catch( err => {
       console.log(err);
@@ -54,10 +64,10 @@ class Post extends React.Component {
 
   renderComment() {
     if (this.state.clicked === true) {
-      return <div><input ref={(input) => { this.nameInput = input; }} onChange={this.onTypeHandler.bind(this)}/><button onClick={this.onSubmitCommentHandler.bind(this)}>POST</button></div> 
+      return <div><input ref={(input) => { this.nameInput = input; }} onChange={this.onTypeHandler.bind(this)}/><button onClick={this.onSubmitCommentHandler}>POST</button></div> 
     } else {
       return 'Add a comment - click here to render a form to enter comment'
-    }
+    }    
   }
 
   clickHandler() {
@@ -69,8 +79,9 @@ class Post extends React.Component {
       <div className='postMain'>
         <div> 
           <div> {
-            !!this.state.post && this.props.view !== 'profile' ?
-            <PostHeader post={this.state.post} /> :
+            !!this.state.post && this.state.view !== 'profile' ?
+            <PostHeader userPhotoUrl={this.props.post.userPhotoUrl} userHandle={this.props.post.userHandle}/> 
+            :
             <div></div>
           }
           </div>
@@ -102,6 +113,18 @@ class Post extends React.Component {
         <br />
         <div className='addComment2' onClick={this.clickHandler}>
           {this.renderComment()}
+          {
+            !!this.state.children ?
+            this.state.children.map(child => 
+              <div>
+                <img className='commentPic' src={`http://${child.photoUrl}`}/>
+                <p className='commentUser'>{child.userHandle}</p>
+                <p className='commentBody'>{child.body}</p>
+              </div>
+            )
+            :
+            <div/>
+          }
         </div>
         <div className='postMoment'>
           {moment(this.props.post.createdAt).fromNow()}

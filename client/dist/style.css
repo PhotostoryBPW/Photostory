@@ -60,6 +60,7 @@ img {
 
 .postMoment {
   font-style: italic;
+  clear: both;
 }
 
 .profile {
@@ -291,4 +292,19 @@ textarea.postBody {
 
 input.location {
   width:100%;
+}
+
+img.commentPic {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border-radius: 25px;
+  float: left;
+  margin: 5px 10px 5px 0;
+  clear: both;
+}
+
+p.commentBody {
+  margin: 0px 10px 0px 0px;
+  float: left;
 }

@@ -15,7 +15,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      data: '',
+      data: sample.posts,
       view: 'feed',
       posts: '',
       users: '',
@@ -104,10 +104,41 @@ class App extends React.Component {
   }
 
   getFeed() {
+    let posts = [];
+    let comments = [];
     axios.get('api/feed')
       .then( response => {
-        this.setState({ 
-          posts: response.data
+        posts = [];
+        comments = [];
+        console.log('got feed with the current data: ', response.data)
+        response.data.forEach(data => {
+          if (data.parent_id) {
+            comments.push(data)
+          } else {
+            posts.push(data);
+          }
+        })
+      })
+      .then(() => {
+        console.log('this is the posts array', posts),
+        console.log('this is the comments array', comments),
+        
+        posts.map(post => {
+          comments.forEach(comment => {
+            console.log(comment.parent_id ===post.id);
+            if (comment.parent_id === post.id) {
+              if (!post.children) {
+                post.children = [comment];
+              } else {
+                post.children.push(comment);
+              }
+            }
+          })
+        })
+      })
+      .then(() => {
+        this.setState({
+          data: posts,
         })
       })
       .catch( err => {
@@ -128,8 +159,9 @@ class App extends React.Component {
 
   renderView() {
     const {view} = this.state;
+
     if (view === 'feed') {
-      return <Feed handleClick={(() => this.changeView(view)) } posts={this.state.posts} users={this.state.users} view={this.state.view}/>
+      return <Feed handleClick={() => this.changeView(view)} posts={this.state.data} view={this.state.view}/>;
     } else if (view === 'profile') {
       return <Profile posts={this.state.posts} user={this.state.currentUser} handleClick={this.changeView.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)}/>
     } else if (view === 'signup') {

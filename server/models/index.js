@@ -57,14 +57,13 @@ const Models = {
     },
     comment: function (params, user, cb) {
       console.log(params);
-      console.log('this is user', user);
+      console.log('this is user on comment', user);
       var queryStr = 'select id from users where users.userHandle=?'
       db.query(queryStr, user, function(err, result) {
-        console.log('this is the result of the query for user id: ', result[0].id);
+        console.log('this is the result of the query for user id on comment: ', result[0].id);
         params.users_id = result[0].id;
-        console.log('this is params after updating the user id: ', params);
-        var queryStr = 'insert into posts (users_id, body, postLoc, photoUrl, createdAt, filt, parent_id, likesCount) values (?, ?, ?, ?, ?, ?, ?, 0)';
-        db.query(queryStr, Object.values(params), function(err, results) {
+        console.log('this is params after updating the user id on comment: ', params);
+        db.query('insert into posts (users_id, body, postLoc, photoUrl, createdAt, filt, parent_id, likesCount) values (?, ?, ?, ?, ?, ?, ?, 0)', Object.values(params), function(err, results) {
           cb(err, results);
         });
       })
