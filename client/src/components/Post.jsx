@@ -8,6 +8,8 @@ class Post extends React.Component {
     super(props);
     
     this.clickHandler = this.clickHandler.bind(this);
+    this.setLike = this.setLike.bind(this);
+    this.clearLike = this.clearLike.bind(this);
     this.toggleLike = this.toggleLike.bind(this);
 
     this.state = {
@@ -15,15 +17,15 @@ class Post extends React.Component {
       username: '',
       clicked: false,
       commentText: '',
-      hasLiked: false
+      hasLiked: ''
     }
   }
 
   checkLike() {
-    if (this.props.liked.indexOf(this.props.post.ID) > -1) {
+    if (this.props.liked.indexOf(this.props.post.id) > -1) {
       this.state.hasLiked = true;
     } else {
-      this.state.hasLiked = false
+      this.state.hasLiked = false;
     }
   }
   
@@ -60,25 +62,25 @@ class Post extends React.Component {
   }
   
   setLike() {
-    axios.post('api/like', this.props.post.ID)
+    axios.post('api/like', this.props.post.id)
       .then( response => {
         console.log('post success ', response.body);
-        this.setState({hasLiked: true});
       })
       .catch( err => {
         console.log(err);
       })
+    this.checkLike();
   }
 
   clearLike() {
-    axios.post('api/unlike', this.props.post.ID)
+    axios.post('api/unlike', this.props.post.id)
       .then( response => {
         console.log('post success ', response.body);
-        this.setState({hasLiked: false});
-      })
+        })
       .catch( err => {
         console.log(err);
       })
+    this.checkLike();
   }
 
   renderComment() {
@@ -91,6 +93,14 @@ class Post extends React.Component {
 
   toggleLike() {
     this.state.hasLiked ? (this.setState({hasLiked: false}), this.clearLike()) : (this.setState({hasLiked: true}), this.setLike()); 
+  }
+
+  likeText() {
+    return this.state.hasLiked === false ? 'LIKE' : 'UNLIKE';
+  }
+
+  likeTip() {
+    return this.state.hasLiked === false ? 'Like this post' : 'You have already liked this post';
   }
 
   clickHandler() {
@@ -115,16 +125,15 @@ class Post extends React.Component {
           <img src={`http://${this.props.post.photoUrl}`}/>
         </div>
         {this.checkLike()}
-        <div className='postOptions'>
-          { this.state.hasLiked === false ? <div className="like" className="tooltip"> <button className="buttonRed" onClick={this.toggleLike}>
-              <img />
-              <span className="tooltiptext">Like this post</span> 
-              LIKE
-              </button></div> : <div className="unlike" className="tooltip"> <button className="buttonRed" onClick={this.toggleLike}>
-              <img />
-              <span className="tooltiptext">You have already liked this post.</span> 
-              UNLIKE
-              </button></div> }
+        <div className="postOptions">
+        <div className="tooltip">
+          <button className="buttonRed" onClick={this.toggleLike}>
+          {this.checkLike()}
+          <img />
+          <span className="tooltiptext">{this.likeTip()}</span>
+          <span>{this.likeText()}</span>
+          </button>
+        </div>
           <div className="addComment" className="tooltip"> <button className="buttonRed">
             <img /> 
             <span className="tooltiptext">Comment on this post</span> 

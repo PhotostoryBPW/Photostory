@@ -11,7 +11,7 @@ const MyPosts = (props) => {
       ?
       props.posts.map(post => 
         (post.users_id === props.user.id) &&
-         <Post key={post.ID} post={post} view='profile'/>
+         <Post key={post.id} post={post} view='profile'/>
       )
       :
       <div>

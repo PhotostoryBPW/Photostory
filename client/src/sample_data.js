@@ -2,7 +2,7 @@ const sampleData = {
   users: 
     [
       {
-        ID: 1,
+        id: 1,
         userHandle: 'samplemuser',
         userName: 'SUZIES.',
         userLoc: 'New York, NY',
@@ -14,7 +14,7 @@ const sampleData = {
         hashtags: ['food', 'cheese']
       },
       {
-        ID: 2,  
+        id: 2,  
         userHandle: 'gusCheeserson',
         userName: 'GusPopstar',
         userLoc: 'Washington',
@@ -29,16 +29,16 @@ const sampleData = {
   posts:
     [
       {
-        ID: 1,
+        id: 1,
         users_id: 1,
         postLoc: 'The harbor',
-        body: 'I visited the harbor. IT WAS BROWN.',
+        body: 'I visited the harbor. It was brown.',
         photoUrl: 'source.unsplash.com/1600x900/?featured/?cat,robots',
         like_counter: 14,
         createdAt: Date.now()
       },
       {
-        ID: 2,
+        id: 2,
         users_id: 1,
         postLoc: 'West Virginia',
         body: 'The place where I belong.',
@@ -47,7 +47,7 @@ const sampleData = {
         createdAt: Date.now()
       },
       {
-        ID: 3,
+        id: 3,
         users_id: 2,
         postLoc: 'The English Channel',
         body: 'There\'s so much static here!',
@@ -56,7 +56,7 @@ const sampleData = {
         createdAt: Date.now()
       },   
       {
-        ID: 4,
+        id: 4,
         users_id: 2,
         postLoc: 'Meryl\'s playpen',
         body: 'This place is like disneyland for the obese',

@@ -193,7 +193,7 @@ class App extends React.Component {
     } else if (view === 'createpost') {
       return <CreatePost />
     }  else if (view === 'search') {
-      return <Search posts={this.state.posts}/>
+      return <Search posts={this.state.posts} liked={this.state.liked}/>
     } 
       // else {
     //   return <Post user={this.state.userInfo} key={view._id} post={view} />

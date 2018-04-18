@@ -18,7 +18,7 @@ class Feed extends React.Component {
         this.props.posts.length > 0
         ?
         this.props.posts.map(post =>  
-          <Post key={post.ID} post={post} view={this.props.view} liked={this.props.liked}/>
+          <Post key={post.id} post={post} view={this.props.view} liked={this.props.liked}/>
         )
         :
         <div>

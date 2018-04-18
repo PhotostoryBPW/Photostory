@@ -114,6 +114,16 @@ const Controller = {
         }
       });
     },
+    follow: (req, res) => {
+      Models.users.follow(req.params, req.session.passport.user, function(err, results) {
+        console.log('follow - controller');
+        if (err) { 
+          console.log(err);
+        } else {
+          res.status(201).send(results);
+        }
+      });
+    },
     info: (req, res) => {
       Models.users.info(req.params, function(err, results) {
         if (err) { 
