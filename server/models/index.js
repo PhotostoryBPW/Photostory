@@ -32,8 +32,9 @@ const Models = {
 
   posts: {
     all: function(cb) {
-      var queryStr = 'select * from posts left join users on posts.users_id=users.id order by -likesCount limit 30';
+      var queryStr = 'select p.*, u.userHandle, u.userName, u.userLoc, u.userPhotoUrl, u.bio, u.email, u.followedCount, u.followed_id, u.followersCount, u.follows_id  from posts as p left join users as u on p.users_id=u.id order by -createdAt';
       db.query(queryStr, function(err, results) {
+        // console.log(results);
         cb(err, results);
       });
     },
@@ -65,7 +66,8 @@ const Models = {
         console.log('this is the result of the query for user id on comment: ', result[0].id);
         params.users_id = result[0].id;
         console.log('this is params after updating the user id on comment: ', params);
-        db.query('insert into posts (users_id, body, postLoc, userPhotoUrl, createdAt, filt, parent_id, likesCount) values (?, ?, ?, ?, ?, ?, ?, 0)', Object.values(params), function(err, results) {
+        var queryStr = 'insert into posts (users_id, body, postLoc, createdAt, filt, parent_id, likesCount) values (?, ?, ?, ?, ?, ?, 0)';
+        db.query(queryStr, Object.values(params), function(err, results) {
           cb(err, results);
         });
       })

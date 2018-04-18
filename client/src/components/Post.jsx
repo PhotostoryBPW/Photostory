@@ -53,7 +53,6 @@ class Post extends React.Component {
         users_id: null,  
         body: this.state.commentText,
         postLoc: null,
-        userPhotoUrl: this.props.post.userPhotoUrl,
         createdAt: Date.now(),
         filt: null,
         parent_id: this.props.post.id
@@ -64,6 +63,7 @@ class Post extends React.Component {
       console.log('response', response, response.config.data);
       this.setState({clicked: false})
       console.log('this is old children state before updating', oldChildrenState);
+      // JSON.parse(response.config.data.userPhotoUrl).userPhotoUrl = this.props.post.userPhotoUrl
       if (!!oldChildrenState && oldChildrenState.length > 0) {
         oldChildrenState.push((JSON.parse(response.config.data)).params);
       } else {
@@ -71,6 +71,7 @@ class Post extends React.Component {
       }
     })
     .then( () => {
+      oldChildrenState[0].userPhotoUrl = this.props.post.userPhotoUrl;
       console.log('this is old children state updated', oldChildrenState);
       this.setState({children: oldChildrenState});
     })

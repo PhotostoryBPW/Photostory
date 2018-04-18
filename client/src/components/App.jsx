@@ -129,6 +129,7 @@ class App extends React.Component {
         console.log('got feed with the current data: ', response.data)
         response.data.forEach(data => {
           if (data.parent_id) {
+            console.log('this data is getting parsed into the comments array', data);
             comments.push(data)
           } else {
             posts.push(data);

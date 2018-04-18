@@ -37,9 +37,6 @@ class CreatePost extends React.Component {
         filt: this.state.filt,
       }
     })
-    .then( response => {
-      console.log('response', response)
-    })
     .then (() => {
       this.props.onSubmit('feed');
     })
