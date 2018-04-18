@@ -65,7 +65,7 @@ const Models = {
         console.log('this is the result of the query for user id on comment: ', result[0].id);
         params.users_id = result[0].id;
         console.log('this is params after updating the user id on comment: ', params);
-        db.query('insert into posts (users_id, body, postLoc, photoUrl, createdAt, filt, parent_id, likesCount) values (?, ?, ?, ?, ?, ?, ?, 0)', Object.values(params), function(err, results) {
+        db.query('insert into posts (users_id, body, postLoc, userPhotoUrl, createdAt, filt, parent_id, likesCount) values (?, ?, ?, ?, ?, ?, ?, 0)', Object.values(params), function(err, results) {
           cb(err, results);
         });
       })
@@ -188,6 +188,16 @@ const Models = {
           console.log(err);
         }
         cb(err, newEmail);
+      })
+    },
+    updateprofilepic: function(params, newProfilePic, cb) {
+      console.log(newProfilePic);
+      var queryStr = `update users set userPhotoUrl=${JSON.stringify(newProfilePic.userPhotoUrl)} where userHandle=${JSON.stringify(params)}`;
+      db.query(queryStr, (err, results) => {
+        if (err) {
+          console.log(err);
+        }
+        cb(err, newProfilePic);
       })
 
     }
