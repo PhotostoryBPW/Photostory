@@ -25,8 +25,7 @@ class App extends React.Component {
       signupView: false,
       currentUser: '',
       userInfo: {},
-    }
-    
+    } 
   }
 
   isLoggedInHandler() {
@@ -37,16 +36,17 @@ class App extends React.Component {
 
   setCurrent(userLoggedIn) {
     this.setState({ 
-      currentUser: userLoggedIn,
+      currentUser: userLoggedIn.data,
     })
     console.log('This is the current logged in user on the App', this.state.currentUser)
   }
 
   getUserInfo() {
-    axios.get(`http://localhost:3000/api/profile/:${this.state.currentUser}`)
+    axios.get(`http://localhost:3000/api/profile`)
     .then( response => {
       this.setState({ 
-        userInfo: response.data[0],
+        userInfo: response.data,
+        currentUser: response.data.userHandle
       })
       console.log('this is the users info :', this.state.userInfo)
     })
@@ -242,7 +242,7 @@ class App extends React.Component {
           <div className="container">
             <div className="wrapper">
               <header>
-                <Header view={this.state.view}/>
+                <Header view={this.state.view} currentUserHandle={this.state.userInfo.userHandle}/>
               </header>
               <div className="main">
                 {this.renderView()}

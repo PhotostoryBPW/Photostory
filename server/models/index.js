@@ -152,9 +152,7 @@ const Models = {
     },
     info: function (params, cb) {
       var queryStr = 'select * from users where userHandle=(?)';
-      console.log('this is params in the info query', params);
       db.query(queryStr, Object.values(params), function(err, results) {
-        console.log('this is the user info', results[0])
         cb(err, results[0]);
       });
     },
