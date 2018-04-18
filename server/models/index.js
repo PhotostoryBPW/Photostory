@@ -104,27 +104,6 @@ const Models = {
         cb(err, results);
       });
     },
-    // find: function (cb) {
-    //   var queryStr = 'select posts.id, posts.body, posts.photoUrl, posts.postLoc from \
-    //                   posts left outer join users on (posts.users_id = users.id) \
-    //                   order by posts.id desc';
-    //   db.query(queryStr, function(err, results) {
-    //     cb(err, results);
-    //   });
-    // },
-    // like: function(cb) {
-    //   var queryStr = 'select * from posts where posts.id = ?), ?)';
-    //   // to do
-    //   db.query(queryStr, params, function(err, results) {
-    //     cb(err, results)
-    //   });
-    // },
-    // unlike: function(cb) {
-    //   var queryStr = 'select * from posts where posts.id = ?), ?)';
-    //   db.query(queryStr, params, function(err, results) {
-    //     cb(err, results)
-    //   });
-    // },
   },
   users: {
     create: function (params, cb) {
@@ -135,6 +114,12 @@ const Models = {
     },
     find: function (params, cb) {
       var queryStr = 'select * from users inner join posts on users.id = posts.users_id where userHandle=(?)';
+      db.query(queryStr, Object.values(params), function(err, results) {
+        cb(err, results);
+      });
+    },
+    follow: function (params, user, cb) {
+      var queryStr = 'insert into followers (user, params); insert into following (params, user)';
       db.query(queryStr, Object.values(params), function(err, results) {
         cb(err, results);
       });

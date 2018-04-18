@@ -36,8 +36,12 @@ const sampleData = {
         body: 'I visited the harbor. It was brown.',
 =======
         postLoc: 'The harbor',
+<<<<<<< HEAD
         body: 'I visited the harbor. IT WAS BROWN.',
 >>>>>>> Begin building Like functionality
+=======
+        body: 'I visited the harbor. It was brown.',
+>>>>>>> rebase
         photoUrl: 'source.unsplash.com/1600x900/?featured/?cat,robots',
         like_counter: 14,
         createdAt: Date.now()

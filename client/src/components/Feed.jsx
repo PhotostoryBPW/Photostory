@@ -27,8 +27,12 @@ class Feed extends React.Component {
           <div/>
 =======
         this.props.posts.map(post =>  
+<<<<<<< HEAD
           <Post key={post.ID} post={post} view={this.props.view} liked={this.props.liked}/>
 >>>>>>> Begin building Like functionality
+=======
+          <Post key={post.id} post={post} view={this.props.view} liked={this.props.liked}/>
+>>>>>>> rebase
         )
         :
         <div>

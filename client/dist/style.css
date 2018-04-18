@@ -55,11 +55,6 @@ img {
   margin: auto;
 }
 
-.like {
-  display: block;
-  float: left;
-}
-
 .main {
   background-color: white;
 }
@@ -147,11 +142,6 @@ img {
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-}
-
-.unlike {
-  display: block;
-  float: left;
 }
 
 .wrapper {
