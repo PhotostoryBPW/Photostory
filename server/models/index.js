@@ -7,13 +7,15 @@ const Models = {
   signup: (req, res, cb) => {
     var username = req.body.username;
     var password = req.body.password;
+    var fullname = req.body.fullname;
+    var email = req.body.email;
     bcrypt.hash(password, saltRounds, function(err, hash) {
       var queryToSeeIfUserExists = `select username from login where username = ${JSON.stringify(username)}`;
       db.query(queryToSeeIfUserExists, (err, results) => {
         if (results.length < 1) {
           var query = `INSERT INTO login (username, password) VALUES (${JSON.stringify(username)}, ${JSON.stringify(hash)})`;
           db.query(query, (err, results) => {
-            var query = `INSERT INTO users (userHandle, userName, email) VALUES (${JSON.stringify(username)}, ${JSON.stringify(username)}, ${JSON.stringify(username)})`;
+            var query = `INSERT INTO users (userHandle, userName, email) VALUES (${JSON.stringify(username)}, ${JSON.stringify(fullname)}, ${JSON.stringify(email)})`;
             db.query(query, (err, results) => {
               if (err) {
                 throw err;
@@ -160,6 +162,47 @@ const Models = {
         cb(err, results);
       });
     },
+    userprofileinfo: function (params, cb) {
+      var queryStr = `select * from users where userHandle = ${JSON.stringify(params)}`;
+      db.query(queryStr, (err, results) => {
+        if (err) {
+          console.log(err);
+        }
+        cb(err, results);
+      });
+    },
+    updatefullname: function(params, newName, cb) {
+      var queryStr = `update users set userName=${JSON.stringify(newName.fullname)} where userHandle=${JSON.stringify(params)}`;
+      db.query(queryStr, (err, results) => {
+        if (err) {
+          console.log(err);
+        }
+        cb(err, newName);
+      })
+    },
+    updateemail: function(params, newEmail, cb) {
+      console.log(newEmail);
+      var queryStr = `update users set email=${JSON.stringify(newEmail.email)} where userHandle=${JSON.stringify(params)}`;
+      db.query(queryStr, (err, results) => {
+        if (err) {
+          console.log(err);
+        }
+        cb(err, newEmail);
+      })
+
+    }
+    // follow: function(params, cb) {
+    //   var queryStr = 'select * from users where users.id = ? limit 1), ?)';
+    //   db.query(queryStr, params, function(err, results) {
+    //     cb(err, results);
+    //   });
+    // },
+    // unfollow: function(params, cb) {
+    //   var queryStr = 'select * from users where users.id = ? limit 1), ?)';
+    //   db.query(queryStr, params, function(err, results) {
+    //     cb(err, results);
+    //   });
+    // },
   }
 };
 

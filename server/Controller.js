@@ -106,7 +106,6 @@ const Controller = {
     },
     find: (req, res) => {
       Models.users.find(req.params, function(err, results) {
-        console.log('made it to find');
         if (err) { 
           console.log(err);
         } else {
@@ -133,11 +132,39 @@ const Controller = {
         }
       });
     },
+    updatefullname: (req, res) => {
+      Models.users.updatefullname(req.session.passport.user, req.body, (err, results) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(200).send(results);
+        }
+      })
+    },
+    updateemail: (req, res) => {
+      Models.users.updateemail(req.session.passport.user, req.body, (err, results) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(200).send(results);
+        }
+      })
+    },
+    userprofileinfo: (req, res) => {
+      Models.users.userprofileinfo(req.session.passport.user, (err, results) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(201).send(results);
+        }
+      })
+    },
   },
+  
   file_upload: (req, res) => {
     console.log('made it to file_upload');
     console.log('this is the files: ', req.files);
-  }
+  },
 //   Search: (req, res) => {
 //     var name = req.body.username;
 //     Posts.find({})

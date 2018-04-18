@@ -9,7 +9,8 @@ import Signup from './Signup.jsx';
 import Profile from './Profile.jsx';
 import Search from './Search.jsx';
 import CreatePost from './CreatePost.jsx';
-import Post from './Post.jsx';
+import Post from './Post.jsx'
+import EditProfile from './EditProfile.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -116,6 +117,7 @@ class App extends React.Component {
     this.setState({
       view: option
     })
+    this.getFeed();
   }
 
   navBarClickHandler(page) {
@@ -223,17 +225,22 @@ class App extends React.Component {
       })
   }
 
+  handleEditButtonClick() {
+    console.log('edit clicked!');
+    this.setState({view: 'editprofile'});
+  }
+
   renderView() {
-    const {view} = this.state.view;
+    const {view} = this.state;
     console.log('in App renderView ', this.state);
     if (view === 'feed') {
       return <Feed handleClick={() => this.changeView(view)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view} liked={this.state.liked}/>;
     } else if (view === 'profile') {
-      return <Profile posts={this.state.posts} user={this.state.currentUser} handleClick={this.changeView.bind(this)} userInfo={this.state.userInfo} liked={this.state.liked} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)}/>
+      return <Profile posts={this.state.posts} user={this.state.currentUser} userInfo={this.state.userInfo} liked={this.state.liked} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)}/>
     } else if (view === 'signup') {
       return <Signup/>
-    } else if (view === 'profileEdit') {
-      return <ProfileEdit/>
+    } else if (view === 'editprofile') {
+      return <EditProfile/>
     } else if (view === 'createpost') {
       return <CreatePost />
     }  else if (view === 'search') {

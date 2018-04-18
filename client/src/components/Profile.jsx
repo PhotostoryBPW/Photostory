@@ -37,7 +37,7 @@ class Profile extends React.Component {
             <div className="statsItem">Users followed: {this.state.userInfo.followedCount}</div>
             <div className="statsItem">Users following: {this.state.userInfo.followersCount}</div>
         </div>
-        <div id="edit" onClick={this.props.handleClick.bind(this)} className="profileEdit">Edit...</div>
+        <div id="edit" onClick={this.props.handleEditButtonClick} className="profileEdit">Edit...</div>
         <button id="logoutbtn" onClick={this.props.handleLogoutButtonClick} type="button" >Logout</button>
         <div id="myPosts"><MyPosts posts={this.state.posts} user={this.state.userInfo}/></div>
       </div>
