@@ -3,7 +3,7 @@ import React from 'react';
 const NavBar = (props) => {
   const clickHandler = (e) => {
     console.log('This is the current view: ', e.target.className);
-    props.clickHandler(e.target.className);
+    props.navBarClickHandler(e.target.className);
   };
 
   return (
