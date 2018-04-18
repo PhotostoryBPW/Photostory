@@ -43,31 +43,12 @@ class App extends React.Component {
   }
 
   getUserInfo() {
-    axios.get(`http://localhost:3000/api/profile/${this.state.currentUser}`, {
-      params: {
-        currentUser: this.state.currentUser
-      }
-    })
+    axios.get(`http://localhost:3000/api/profile/:${this.state.currentUser}`)
     .then( response => {
       this.setState({ 
         userInfo: response.data[0],
       })
-    })
-    .catch( err => {
-      console.log(err);
-    })
-  }
-
-  getUserInfo() {
-    axios.get(`http://localhost:3000/api/profile/${this.state.currentUser}`, {
-      params: {
-        currentUser: this.state.currentUser
-      }
-    })
-    .then( response => {
-      this.setState({ 
-        userInfo: response.data[0],
-      })
+      console.log('this is the users info :', this.state.userInfo)
     })
     .catch( err => {
       console.log(err);

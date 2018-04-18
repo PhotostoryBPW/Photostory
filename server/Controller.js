@@ -124,7 +124,7 @@ const Controller = {
       });
     },
     info: (req, res) => {
-      Models.users.info(req.params, function(err, results) {
+      Models.users.info(req.session.passport, function(err, results) {
         if (err) { 
           console.log(err);
         } else {
