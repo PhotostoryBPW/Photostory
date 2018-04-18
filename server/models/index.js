@@ -32,7 +32,7 @@ const Models = {
 
   posts: {
     all: function(cb) {
-      var queryStr = 'select p.*, u.userHandle, u.userName, u.userLoc, u.userPhotoUrl, u.bio, u.email, u.followedCount, u.followed_id, u.followersCount, u.follows_id  from posts as p left join users as u on p.users_id=u.id order by -createdAt';
+      var queryStr = 'select p.*, u.userHandle, u.userName, u.userLoc, u.userPhotoUrl, u.bio, u.email, u.followedCount, u.followed_id, u.followersCount, u.follows_id  from posts as p inner join users as u on p.users_id=u.id order by -createdAt';
       db.query(queryStr, function(err, results) {
         // console.log(results);
         cb(err, results);

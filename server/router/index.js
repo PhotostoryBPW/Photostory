@@ -3,7 +3,7 @@ const router = express.Router();
 const Controller = require('../Controller');
 const passport = require('passport');
 
-router.get('/feed', Controller.posts.friends);
+router.get('/feed', Controller.posts.all);
 router.get('/feed/:username', Controller.posts.mine);
 router.get('/likes', Controller.posts.likes);
 router.get('/search', Controller.posts.all);
