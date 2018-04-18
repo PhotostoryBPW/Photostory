@@ -150,11 +150,6 @@ const Controller = {
         }
       })
     },
-  },
-  
-  file_upload: (req, res) => {
-    console.log('made it to file_upload');
-    console.log('this is the files: ', req.files);
     userprofileinfo: (req, res) => {
       Models.users.userprofileinfo(req.session.passport.user, (err, results) => {
         if (err) {
@@ -163,7 +158,12 @@ const Controller = {
           res.status(201).send(results);
         }
       })
-    }
+    },
+  },
+  
+  file_upload: (req, res) => {
+    console.log('made it to file_upload');
+    console.log('this is the files: ', req.files);
   },
 //   Search: (req, res) => {
 //     var name = req.body.username;

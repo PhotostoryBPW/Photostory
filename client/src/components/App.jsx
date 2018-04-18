@@ -117,6 +117,7 @@ class App extends React.Component {
     this.setState({
       view: option
     })
+    this.getFeed();
   }
 
   navBarClickHandler(page) {
@@ -230,7 +231,7 @@ class App extends React.Component {
   }
 
   renderView() {
-    const {view} = this.state.view;
+    const {view} = this.state;
     console.log('in App renderView ', this.state);
     if (view === 'feed') {
       return <Feed handleClick={() => this.changeView(view)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view} liked={this.state.liked}/>;
