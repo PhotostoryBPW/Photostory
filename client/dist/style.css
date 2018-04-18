@@ -34,6 +34,13 @@ hr {
   width:60%;
 }
 
+hr {
+  border:none;
+  border-top:3px dotted black;
+  height:3px;
+  width:60%;
+}
+
 img {
   border-radius: 3px;
 }

@@ -17,7 +17,7 @@ router.get('/logout', function(req, res) {
 
 router.post('/post', Controller.posts.create);
 router.post('/comment', Controller.posts.comment);
-router.post('./follow', Controller.users.follow);
+router.post('/follow', Controller.users.follow);
 router.post('/like', Controller.posts.like);
 router.post('/unlike', Controller.posts.unlike);
 router.post('/signup', (req, res) => {

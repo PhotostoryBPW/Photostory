@@ -22,16 +22,10 @@ class App extends React.Component {
       users: '',
       isLoggedIn: localStorage.hasOwnProperty('isLoggedIn'),
       signupView: false,
-      currentUser: 'nyancat',
+      currentUser: '',
       userInfo: {},
-      user: { userHandle : 'nyancat',
-              userPhotoUrl: 'http://source.unsplash.com/1600x900/?featured/?banana',
-              userBio: 'Lorem ipsum dolor sit amet, melius pertinax ut mea. Quo odio verear appareat te, voluptaria dissentias no his, in vix ceteros lucilius lobortis. Eruditi appellantur eu sed, splendide consequuntur duo ei. Vim et sonet nonumy offendit, suas accusam reprehendunt vim ad.',
-              postCount: 1,
-              followsCount: 1,
-              followedByCount: 1,
-            },
     }
+    
   }
 
   isLoggedInHandler() {
@@ -43,6 +37,23 @@ class App extends React.Component {
   setCurrent(userLoggedIn) {
     this.setState({ 
       currentUser: userLoggedIn,
+    })
+    console.log('This is the current logged in user on the App', this.state.currentUser)
+  }
+
+  getUserInfo() {
+    axios.get(`http://localhost:3000/api/profile/${this.state.currentUser}`, {
+      params: {
+        currentUser: this.state.currentUser
+      }
+    })
+    .then( response => {
+      this.setState({ 
+        userInfo: response.data[0],
+      })
+    })
+    .catch( err => {
+      console.log(err);
     })
   }
 
@@ -107,7 +118,7 @@ class App extends React.Component {
     })
   }
 
-  clickHandler(page) {
+  navBarClickHandler(page) {
     this.setState({
       url: page
     });
@@ -140,12 +151,12 @@ class App extends React.Component {
         })
       })
       .then(() => {
-        console.log('this is the posts array', posts),
-        console.log('this is the comments array', comments),
+        console.log('this is the posts array', posts)
+        console.log('this is the comments array', comments)
         
         posts.map(post => {
           comments.forEach(comment => {
-            console.log(comment.parent_id ===post.id);
+            console.log(comment.parent_id === post.id);
             if (comment.parent_id === post.id) {
               if (!post.children) {
                 post.children = [comment];
@@ -157,6 +168,7 @@ class App extends React.Component {
         })
       })
       .then(() => {
+        console.log('this is posts after it is done compiling children', posts);
         this.setState({
           data: posts,
         })
@@ -215,9 +227,9 @@ class App extends React.Component {
     const {view} = this.state.view;
     console.log('in App renderView ', this.state);
     if (view === 'feed') {
-      return <Feed handleClick={() => this.changeView(view)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={view} liked={this.state.liked} />
+      return <Feed handleClick={() => this.changeView(view)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view} liked={this.state.liked}/>;
     } else if (view === 'profile') {
-      return <Profile posts={this.state.posts} user={this.state.currentUser} userInfo={this.state.userInfo} liked={this.state.liked} handleClick={this.changeView.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)}/>
+      return <Profile posts={this.state.posts} user={this.state.currentUser} handleClick={this.changeView.bind(this)} userInfo={this.state.userInfo} liked={this.state.liked} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)}/>
     } else if (view === 'signup') {
       return <Signup/>
     } else if (view === 'profileEdit') {
@@ -225,7 +237,7 @@ class App extends React.Component {
     } else if (view === 'createpost') {
       return <CreatePost />
     }  else if (view === 'search') {
-      return <Search posts={this.state.posts} liked={this.state.liked}/>
+      return <Search posts={this.state.data } liked={this.state.liked}/>
     } 
       // else {
     //   return <Post user={this.state.userInfo} key={view._id} post={view} />
@@ -246,7 +258,7 @@ class App extends React.Component {
                 {this.renderView()}
               </div>
               <footer className="nav">
-                <NavBar clickHandler={this.changeView.bind(this)}/>
+                <NavBar navBarClickHandler={this.changeView.bind(this)}/>
               </footer>
             </div>
           </div> 

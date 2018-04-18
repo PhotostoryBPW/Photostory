@@ -40,6 +40,7 @@ class Login extends React.Component {
         this.setState({toggleIncorrectCredentialsMessage: false});
         this.props.toggleLoggedIn();
         this.props.setCurrent(this.state.username);
+        console.log('this is the username on the login component', this.state.username);
       } else {
         this.setState({toggleIncorrectCredentialsMessage: true});
         this.setState({toggleSuccessMessage: false});

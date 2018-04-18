@@ -7,7 +7,7 @@ class Post extends React.Component {
   constructor(props) {
     super(props);
     
-    this.clickHandler = this.clickHandler.bind(this);
+    this.addCommentClickHandler = this.addCommentClickHandler.bind(this);
     this.setLike = this.setLike.bind(this);
     this.clearLike = this.clearLike.bind(this);
     this.toggleLike = this.toggleLike.bind(this);
@@ -18,12 +18,20 @@ class Post extends React.Component {
       clicked: false,
       commentText: '',
       children: this.props.post.children || '',
-      view: this.props.view, 
-      hasLiked: '',
+      view: this.props.view,
+      hasLiked: ''
     }
     
     this.onSubmitCommentHandler = this.onSubmitCommentHandler.bind(this);
     console.log('props from POST', this.props);
+  }
+  
+  checkLike() {
+    if (this.props.liked.indexOf(this.props.post.id) > -1) {
+      this.state.hasLiked = true;
+    } else {
+      this.state.hasLiked = false;
+    }
   }
 
   checkLike() {
@@ -52,11 +60,15 @@ class Post extends React.Component {
       }
     })
     .then( response => {
-      console.log('response', response)
-      this.setState({clicked: false})
       oldChildrenState = this.state.children;
-      // if (oldChildrenState.length
-      // oldChildrenState = (!!oldChildrenState.length ? oldChildrenState.push(response.config.data.params) : [response.config.data.params]);
+      console.log('response', response, response.config.data);
+      this.setState({clicked: false})
+      console.log('this is old children state before updating', oldChildrenState);
+      if (!!oldChildrenState && oldChildrenState.length > 0) {
+        oldChildrenState.push((JSON.parse(response.config.data)).params);
+      } else {
+      oldChildrenState = [JSON.parse(response.config.data).params];
+      }
     })
     .then( () => {
       console.log('this is old children state updated', oldChildrenState);
@@ -72,6 +84,28 @@ class Post extends React.Component {
     this.setState({commentText: e.target.value});
   }
   
+  setLike() {
+    axios.post('api/like', this.props.post.id)
+      .then( response => {
+        console.log('post success ', response.body);
+      })
+      .catch( err => {
+        console.log(err);
+      })
+    this.checkLike();
+  }
+
+  clearLike() {
+    axios.post('api/unlike', this.props.post.id)
+      .then( response => {
+        console.log('post success ', response.body);
+        })
+      .catch( err => {
+        console.log(err);
+      })
+    this.checkLike();
+  }
+
   setLike() {
     axios.post('api/like', this.props.post.id)
       .then( response => {
@@ -114,7 +148,7 @@ class Post extends React.Component {
     return this.state.hasLiked === false ? 'Like this post' : 'You have already liked this post';
   }
 
-  clickHandler() {
+  addCommentClickHandler() {
     this.setState({clicked: true})
   }
 
@@ -137,25 +171,31 @@ class Post extends React.Component {
           <img src={`http://${this.props.post.photoUrl}`}/>
         </div>
         {this.checkLike()}
-        <div className="postOptions">
-        <div className="tooltip">
-          <button className="buttonRed" onClick={this.toggleLike}>
-          {this.checkLike()}
-          <img />
-          <span className="tooltiptext">{this.likeTip()}</span>
-          <span>{this.likeText()}</span>
-          </button>
-        </div>
-          <div className="addComment" className="tooltip"> <button className="buttonRed">
-            <img /> 
-            <span className="tooltiptext">Comment on this post</span> 
-            COMMENT 
-          </button></div>
-          <div className='share' className="tooltip"> <button className="buttonRed">
-            <img /> 
-            <span className="tooltiptext">Share this post</span>
-            SHARE 
-          </button></div>
+        <div className='postOptions'>
+          <div className="tooltip">
+            <div className='like'>
+              <button className="buttonRed" onClick={this.toggleLike}>
+                <img /> 
+                <span className="tooltiptext">{this.likeTip()}</span>
+                <span>{this.likeText()}</span>
+              </button>
+            </div>
+          </div>  
+          <div className='addComment tooltip'>
+            <button className="buttonRed">
+              <img /> 
+              <span className="tooltiptext">Comment on this post</span> 
+              COMMENT
+            </button>
+          </div>
+          <div className='share tooltip'>
+            <button className="buttonRed">
+              <img /> 
+              <span className="tooltiptext">Share this post</span>
+              SHARE
+            </button>
+          </div>
+
         </div>  
         <div className='likes'>
           Liked by Judy, Meredith, and {this.props.post.likesCount} others.
@@ -165,7 +205,7 @@ class Post extends React.Component {
           {this.props.post.body}
         </div>
         <br />
-        <div className='addComment2' onClick={this.clickHandler}>
+        <div className='addComment2' onClick={this.addCommentClickHandler}>
           {this.renderComment()}
           {
             !!this.state.children ?

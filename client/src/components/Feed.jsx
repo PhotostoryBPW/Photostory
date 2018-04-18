@@ -5,7 +5,8 @@ class Feed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: {},
+      posts: '',
+      users: '',
       children: '',
     };
     console.log('this is the props view from feed: ', this.props.view);

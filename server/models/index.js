@@ -98,6 +98,30 @@ const Models = {
         });
       });
     },
+    like: function(data, user, cb) {
+      var queryStr = 'select * from users where users.userHandle=(?)';
+      db.query(queryStr, user, function(err, results) {
+        var queryStr = `insert into likes (posts_id, users_id) values (${Object.keys(data)[0]}, ${results[0].id})`;
+        db.query(queryStr, data, function(err, results) {
+          cb(err, results);
+        });
+      });
+    },
+    likes: function(params, user, cb) {
+      var queryStr = `select * from likes inner join users on likes.users_id = users.id where users.userHandle=${JSON.stringify(user)}`;
+      db.query(queryStr, Object.values(params), function(err, results) {
+        cb(err, results);
+      });
+    },
+    unlike: function(data, user, cb) {
+      var queryStr = 'select * from users where users.userHandle=(?)';
+      db.query(queryStr, user, function(err, results) {
+        var queryStr = `delete from likes where posts_id=(${Object.keys(data)[0]}) and users_id=(${results[0].id})`;
+        db.query(queryStr, data, function(err, results) {
+          cb(err, results);
+        });
+      });
+    },
     mine: function(params, cb) {
       var queryStr = 'select * from posts inner join users on posts.users_id = users.id where users.userHandle=(?)';
       db.query(queryStr, Object.values(params), function(err, results) {
@@ -130,18 +154,12 @@ const Models = {
         cb(err, results);
       });
     },
-    // follow: function(params, cb) {
-    //   var queryStr = 'select * from users where users.id = ? limit 1), ?)';
-    //   db.query(queryStr, params, function(err, results) {
-    //     cb(err, results);
-    //   });
-    // },
-    // unfollow: function(params, cb) {
-    //   var queryStr = 'select * from users where users.id = ? limit 1), ?)';
-    //   db.query(queryStr, params, function(err, results) {
-    //     cb(err, results);
-    //   });
-    // },
+    follow: function (params, user, cb) {
+      var queryStr = 'insert into followers (user, params); insert into following (params, user)';
+      db.query(queryStr, Object.values(params), function(err, results) {
+        cb(err, results);
+      });
+    },
   }
 };
 
@@ -159,7 +177,7 @@ function authenticationMiddleware() {
     console.log(`
       req.session.passport.user: ${JSON.
       stringify(req.session.passport)}`);
-    if (req.isAhthenticated()) return next();
+    if (req.isAuthenticated()) return next();
     res.status(200).send('inactive');
   }
 }
