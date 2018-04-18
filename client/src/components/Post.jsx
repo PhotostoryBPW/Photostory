@@ -69,7 +69,7 @@ class Post extends React.Component {
       }
     })
     .then( () => {
-      oldChildrenState[0].userPhotoUrl = this.props.currentUserProfilePhoto;
+      oldChildrenState[oldChildrenState.length-1].userPhotoUrl = this.props.currentUserProfilePhoto;
       console.log('this is old children state updated', oldChildrenState);
     })
     .then( () => {
@@ -214,10 +214,10 @@ class Post extends React.Component {
           {
             !!this.state.children && !!this.state.children.length ?
             this.state.children.map(child => 
-              <div>
+              <div className='entireComment'>
                 <img className='commentPic' src={`http://${child.userPhotoUrl}`}/>
-                <p className='commentUser'>{child.userHandle}</p>
-                <p className='commentBody'>{child.body}</p>
+                <div className='commentUser'>{child.userHandle}</div>
+                <div className='commentBody'>{child.body}</div>
               </div> 
             )
             :

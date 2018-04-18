@@ -13,6 +13,12 @@ class Feed extends React.Component {
     console.log('this is the props for feed: ', this.props.posts);
   }
 
+  onComponentDidUpdate() {
+    this.setState({
+      posts: this.props.posts,
+    })
+  }
+ 
   render(props) {
     return (
       <div>

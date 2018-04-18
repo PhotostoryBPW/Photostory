@@ -64,12 +64,17 @@ class Search extends React.Component {
       <div>
         <input onChange={this.onChangeHandler.bind(this)}/><button onClick={this.onClickHandler.bind(this)}>Search</button>
         {
-        !this.state.post ?  
-          this.state.searchData.map(post => 
-            <Thumbnail post={post} onClick={this.onPostThumbClickHandler.bind(this)} postState={this.state.post}/>
-          )
+        !this.state.post 
+        ?  
+        this.state.searchData.map(post => 
+          !post.parent_id  
+          ?
+          <Thumbnail post={post} onClick={this.onPostThumbClickHandler.bind(this)} postState={this.state.post}/>
+          :
+          <div/>
+        )
         :
-          <Post post={this.state.post} liked={this.props.liked}/>  
+        <Post post={this.state.post} liked={this.props.liked}/>  
         }
       </div>
     );
