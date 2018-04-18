@@ -22,6 +22,7 @@ class EditProfile extends React.Component {
             showBioInput: false,
             showEmailInput: false,
             showDropzone: false,
+            initialUsername: '',
             url: '',
         }
         this.handleNamePencilIconClick = this.handleNamePencilIconClick.bind(this);
@@ -49,6 +50,7 @@ class EditProfile extends React.Component {
                 email: response.data[0].email,
                 emailForm: response.data[0].email,
                 userPhotoUrl: response.data[0].userPhotoUrl,
+                initalUsername: response.data[0].userHandle,
             });
         })
         .catch (err => {
@@ -135,14 +137,16 @@ class EditProfile extends React.Component {
         this.setState({nameForm: e.target.value});
     }
 
+    handleUsernameFormChange(e) {
+        this.setState({logoutRequired: true});
+    }
+
     handleBioFormChange(e) {
         this.setState({bioForm: e.target.value});
-        console.log(this.state.bioForm);
     }
 
     handleEmailFormChange(e) {
         this.setState({emailForm: e.target.value});
-        console.log(this.state.emailForm);
     }
 
     handleProfilePicChange(e) {
@@ -202,12 +206,22 @@ class EditProfile extends React.Component {
                         <input className = "profEditInput" maxLength="25" type="text" name="fullname"/>
                     </label>
                     <span onClick ={this.handleUsernameSaveIconClick} className="saveProfIcon"><a href="#"><i className="fa fa-save fa-lg"></i></a></span>
+                    <ul>
+                        <li>
+                        Changing your username will require you to log back in
+                        </li>
+                    </ul>
                     </div>
                     :
                     <div className = 'attributeRow'>
                     <span className="userAttribute">Username: </span>
                     <span className="userAttributeValue">{this.state.username}</span>
                     <span onClick={this.handleUsernamePencilIconClick} className="editProfIcon"><a href="#"><i className="fa fa-pencil fa-lg"></i></a></span>
+                    <ul>
+                        <li>
+                        Changing your username will require you to log back in
+                        </li>
+                    </ul>
                     </div>
                 }
                 {
