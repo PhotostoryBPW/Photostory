@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Header = (props) => {  
+
   const clickHandler = (e) => {
     console.log(e.target.className);
     props.clickHandler(e.target.className);
@@ -14,7 +15,7 @@ const Header = (props) => {
     (props.view === 'createpost') ? <span>Post</span> :
     (props.view === 'notifications') ? <span>Notifications</span> : 
     (props.view === 'editprofile') ? <span>Edit Profile</span> :
-    <span>UserNameVar</span>
+    <span>{props.currentUserHandle}</span>
     }
   </div>
   );

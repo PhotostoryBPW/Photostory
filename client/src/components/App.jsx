@@ -25,8 +25,7 @@ class App extends React.Component {
       signupView: false,
       currentUser: '',
       userInfo: {},
-    }
-    
+    } 
   }
 
   isLoggedInHandler() {
@@ -37,37 +36,19 @@ class App extends React.Component {
 
   setCurrent(userLoggedIn) {
     this.setState({ 
-      currentUser: userLoggedIn,
+      currentUser: userLoggedIn.data,
     })
     console.log('This is the current logged in user on the App', this.state.currentUser)
   }
 
   getUserInfo() {
-    axios.get(`http://localhost:3000/api/profile/${this.state.currentUser}`, {
-      params: {
-        currentUser: this.state.currentUser
-      }
-    })
+    axios.get(`http://localhost:3000/api/profile`)
     .then( response => {
       this.setState({ 
-        userInfo: response.data[0],
+        userInfo: response.data,
+        currentUser: response.data.userHandle
       })
-    })
-    .catch( err => {
-      console.log(err);
-    })
-  }
-
-  getUserInfo() {
-    axios.get(`http://localhost:3000/api/profile/${this.state.currentUser}`, {
-      params: {
-        currentUser: this.state.currentUser
-      }
-    })
-    .then( response => {
-      this.setState({ 
-        userInfo: response.data[0],
-      })
+      console.log('this is the users info :', this.state.userInfo)
     })
     .catch( err => {
       console.log(err);
@@ -117,7 +98,9 @@ class App extends React.Component {
     this.setState({
       view: option
     })
-    this.getFeed();
+    if (this.state.view === 'createpost' || this.props.view === 'createpost' || this.state.view === 'feed') {
+      this.getFeed();
+    }
   }
 
   navBarClickHandler(page) {
@@ -232,7 +215,6 @@ class App extends React.Component {
 
   renderView() {
     const {view} = this.state;
-    console.log('in App renderView ', this.state);
     if (view === 'feed') {
       return <Feed handleClick={() => this.changeView(view)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view} liked={this.state.liked}/>;
     } else if (view === 'profile') {
@@ -242,9 +224,9 @@ class App extends React.Component {
     } else if (view === 'editprofile') {
       return <EditProfile/>
     } else if (view === 'createpost') {
-      return <CreatePost />
+      return <CreatePost onSubmit={this.changeView.bind(this)}/>
     }  else if (view === 'search') {
-      return <Search posts={this.state.data } liked={this.state.liked}/>
+      return <Search posts={this.state.data} liked={this.state.liked}/>
     } 
       // else {
     //   return <Post user={this.state.userInfo} key={view._id} post={view} />
@@ -259,7 +241,7 @@ class App extends React.Component {
           <div className="container">
             <div className="wrapper">
               <header>
-                <Header view={this.state.view}/>
+                <Header view={this.state.view} currentUserHandle={this.state.userInfo.userHandle}/>
               </header>
               <div className="main">
                 {this.renderView()}

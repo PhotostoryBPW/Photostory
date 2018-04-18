@@ -13,10 +13,12 @@ class Profile extends React.Component {
       userInfo: {},
       posts: ''
     }
+    
   }
 
   componentDidMount() {
     this.state.posts = this.props.posts;
+    console.log('props from profile', this.props)
   }
 
   componentWillMount() {
@@ -24,13 +26,14 @@ class Profile extends React.Component {
       currentUser: this.props.user,
       userInfo: this.props.userInfo,
     })
+    
   }
   
   render() {
     return (
       <div className="profileMain">
         <div id="handle">{this.state.currentUser}</div>
-        <div id="profilePhoto"><img src={this.state.userInfo.userPhotoUrl} width="100%" /></div>
+        <div id="profilePhoto"><img src={`http://${this.state.userInfo.userPhotoUrl}`} width="100%" /></div>
         <div id="profileBio">{this.state.userInfo.bio}</div>
         <div id="stats">
             <div className="statsItem">Posts: {this.state.userInfo.postCount}</div>

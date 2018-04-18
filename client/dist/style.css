@@ -353,10 +353,20 @@ img.commentPic {
   clear: both;
 }
 
-p.commentBody {
+div.commentBody {
   margin: 0px 10px 0px 0px;
   float: left;
+  
+  display: inline-block;
 }
+
+div.commentUser {
+  margin: 0px 10px 0px 0px;
+  float: left;
+  
+  display: inline-block;
+}
+
 .editProfIcon {
 	padding-top: 7px;	
 	padding-right: 7px;
@@ -413,5 +423,10 @@ p.commentBody {
 .centerText {
   text-align: center;
   margin: 0 auto;
+  display: block;
+}
+
+.entireComment {
+  clear: both;
   display: block;
 }

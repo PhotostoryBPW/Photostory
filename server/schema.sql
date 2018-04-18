@@ -75,20 +75,20 @@ VALUES ('nyancat', 'Nyan Cat', 'Outer Space', 'source.unsplash.com/1600x900/?fea
 INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email) 
 VALUES ('nyandog', 'Nyan Dog', 'Underwater', 'source.unsplash.com/1600x900/?featured/?dog', 'arf arf arf', 'dkgdjhf@nfdgkjf.com');
 
-INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount)
-VALUES (6, 'The Park', 'my cousin', 'source.unsplash.com/1600x900/?featured/?park', 500);
+INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount, createdAt)
+VALUES (6, 'The Park', 'my cousin', 'source.unsplash.com/1600x900/?featured/?park', 500, 1524088399082);
  
-INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount)
-VALUES (2, 'Hawaii', 'vacation', 'source.unsplash.com/1600x900/?featured/?island', 600);
+INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount, createdAt)
+VALUES (2, 'Hawaii', 'vacation', 'source.unsplash.com/1600x900/?featured/?island', 600, 1524088399083);
 
-INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount)
-VALUES (3, 'here', 'om nom nom nom', 'source.unsplash.com/1600x900/?featured/?hotdog', 7000);
+INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount, createdAt)
+VALUES (3, 'here', 'om nom nom nom', 'source.unsplash.com/1600x900/?featured/?hotdog', 7000, 1524088399084);
 
-INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount)
-VALUES (4, 'The Pond', 'Hmmmmm', 'source.unsplash.com/1600x900/?featured/?pond', 1);
+INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount, createdAt)
+VALUES (4, 'The Pond', 'Hmmmmm', 'source.unsplash.com/1600x900/?featured/?pond', 1, 1524088399085);
 
-INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount)
-VALUES (5, 'kitchen', 'lol wut', 'source.unsplash.com/1600x900/?featured/?kitchen', 20);
+INSERT INTO posts (users_id, postLoc, body, photoUrl, likesCount, createdAt)
+VALUES (5, 'kitchen', 'lol wut', 'source.unsplash.com/1600x900/?featured/?kitchen', 20, 1524088399086);
 
 INSERT INTO likes (users_id, posts_id)
 VALUES (1, 1), (1, 2), (1, 3), (2, 2), (2, 4), (3, 1), (3, 4), (4, 2), (5, 2), (5, 3), (6, 1), (6, 3), (7, 4);
