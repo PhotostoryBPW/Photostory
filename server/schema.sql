@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS followers (
   id int not null AUTO_INCREMENT,
   users_id int,
   follows_id int,
-  PRIMARY KEY (users_id)
+  PRIMARY KEY (id)
 );
 CREATE TABLE IF NOT EXISTS likes (
   id int not null AUTO_INCREMENT,

@@ -14,7 +14,7 @@ class ProfilePosts extends React.Component {
   
   onPostThumbClickHandler(e) {
     this.setState({post: e})
-    console.log(e);
+    console.log('this is e', e);
   }
 
   onPostViewClickHandler(e) {
@@ -34,13 +34,13 @@ class ProfilePosts extends React.Component {
           No posts to display.
         </div>
         :
-        this.state.postView === 'postThumbs'
+        this.state.postView === 'postThumbs' && !this.state.post
         ?
         this.props.posts.map(post => 
           <Thumbnail post={post} onClick={this.onPostThumbClickHandler.bind(this)} />
         )
         :
-        this.state.postView === 'postFeed'
+        this.state.postView === 'postFeed' && !this.state.post
         ?
         this.props.posts.map(post =>
           !post.parent_id  
@@ -50,7 +50,7 @@ class ProfilePosts extends React.Component {
           <div/>
         )
         :
-        <div/>
+        <Post post={this.state.post} liked={this.props.liked} view={this.props.view}/>  
         }
       </div>
     </div>
