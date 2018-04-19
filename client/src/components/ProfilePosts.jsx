@@ -2,7 +2,7 @@ import React from 'react';
 import Post from './Post.jsx';
 import Thumbnail from './Thumbnail.jsx';
 
-class MyPosts extends React.Component {
+class ProfilePosts extends React.Component {
   constructor(props) {
     super(props);
 
@@ -23,7 +23,7 @@ class MyPosts extends React.Component {
 
   render () {
     return (
-    <div className="myPosts">
+    <div className="profilePosts">
       <div className="postThumbs" onClick={this.onPostViewClickHandler.bind(this)}>VIEW THUMBS</div>
       <div className="postFeed" onClick={this.onPostViewClickHandler.bind(this)}>VIEW FEED</div>
       <div>
@@ -58,4 +58,4 @@ class MyPosts extends React.Component {
   };
 }
 
-export default MyPosts;
+export default ProfilePosts;

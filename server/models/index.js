@@ -130,6 +130,7 @@ const Models = {
       console.log(params);
       var queryStr = 'select * from posts inner join users on posts.users_id = users.id where users.userHandle=(?)';
       db.query(queryStr, Object.values(params), function(err, results) {
+        console.log('mine', results)
         cb(err, results);
       });
     },

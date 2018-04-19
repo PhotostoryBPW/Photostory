@@ -1,44 +1,48 @@
 import React from 'react';
 import axios from 'axios';
 import ProfileEdit from './ProfileEdit.jsx';
-import MyPosts from './MyPosts.jsx';
+import ProfilePosts from './ProfilePosts.jsx';
 var moment = require('moment');
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       currentUser: '',
       userInfo: {},
-      posts: ''
+      posts: '',
+      loggedInUser: '',
     }
-    
   }
 
   componentDidMount() {
-    this.state.posts = this.props.posts;
-    console.log('props from profile', this.props)
     this.getCurrentUsersPosts();
   }
 
   componentWillMount() {
     this.setState({
       currentUser: this.props.user,
+      loggedInUser: this.props.loggedInUser,
       userInfo: this.props.userInfo,
     })
-    
   }
 
   getCurrentUsersPosts() {
     let posts = [];
     let comments = [];
-    console.log('this is the current user', this.state.currentUser);
+    let currentUserInfo = {};
     axios.get(`api/feed/${this.state.currentUser}`)
     .then( response => {
+      currentUserInfo = {
+        userHandle: response.data[0].userHandle,
+        userName: response.data[0].userName,
+        userPhotoUrl: response.data[0].userPhotoUrl,
+        bio: response.data[0].bio,
+        followersCount: response.data[0].followersCount,
+        followedCount: response.data[0].followedCount,
+      };
       posts = [];
       comments = [];
-      console.log('got feed with the current data: ', response.data)
       response.data.forEach(data => {
         if (data.parent_id) {
           comments.push(data)
@@ -48,12 +52,11 @@ class Profile extends React.Component {
       })
     })
     .then(() => {
-      console.log('this is the posts array', posts)
-      console.log('this is the comments array', comments)
-      
+      this.setState({
+        userInfo: currentUserInfo,
+      })      
       posts.map(post => {
         comments.forEach(comment => {
-          console.log(comment.parent_id === post.id);
           if (comment.parent_id === post.id) {
             if (!post.children) {
               post.children = [comment];
@@ -65,7 +68,6 @@ class Profile extends React.Component {
       })
     })
     .then(() => {
-      console.log('this is posts after it is done compiling children', posts);
       this.setState({
         posts: posts,
       })
@@ -76,6 +78,17 @@ class Profile extends React.Component {
   }
   
   render() {
+    // console.log(this.state.currentUser, ' statecurrentuser 1');
+    // console.log(this.state.loggedInUser, ' stateloggedinuser 2');
+    // console.log(this.props.user, ' propsuser 3');
+    // console.log(this.props.loggedInUser, ' propsloggedinuser 4')
+    if ((this.state.currentUser !== this.props.user)) {
+      this.setState({
+        currentUser: this.props.user
+      }, () => {
+        this.getCurrentUsersPosts();
+      });
+    }
     return (
       <div className="profileMain">
         <div id="handle">{this.state.currentUser}</div>
@@ -86,9 +99,21 @@ class Profile extends React.Component {
             <div className="statsItem">Users followed: {this.state.userInfo.followedCount}</div>
             <div className="statsItem">Users following: {this.state.userInfo.followersCount}</div>
         </div>
-        <div id="edit" onClick={this.props.handleEditButtonClick} className="profileEdit">Edit...</div>
-        <button id="logoutbtn" onClick={this.props.handleLogoutButtonClick} type="button" >Logout</button>
-        <div id="myPosts"><MyPosts posts={this.state.posts} user={this.state.userInfo}/></div>
+        <div>
+          <div>
+            {
+              this.state.currentUser === this.state.loggedInUser
+              ?
+              <div>
+                <div id="edit" onClick={this.props.handleEditButtonClick} className="profileEdit">Edit...</div>
+                <button id="logoutbtn" onClick={this.props.handleLogoutButtonClick} type="button" >Logout</button>
+              </div>
+              :
+              <div id="edit" onClick={this.props.handleEditButtonClick} className="profileEdit">Follow</div>
+            }
+          </div>
+        </div>
+        <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo}/></div>
       </div>
     )
   }
