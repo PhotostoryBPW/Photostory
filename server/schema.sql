@@ -8,9 +8,9 @@ CREATE TABLE IF NOT EXISTS users (
   userPhotoUrl varchar(255), -- temporary - this should exist in a separate table eventually and be changed to and ID foreign key sitch
   bio varchar(500),
   email varchar(50) not null,
-  followedCount int,
+  followedCount int default 0 not null,
   followed_id int,
-  followersCount int,
+  followCount int default 0 not null,
   follows_id int,
   PRIMARY KEY (id)
 );
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS followers (
   id int not null AUTO_INCREMENT,
   users_id int,
   follows_id int,
-  PRIMARY KEY (users_id)
+  PRIMARY KEY (id)
 );
 CREATE TABLE IF NOT EXISTS likes (
   id int not null AUTO_INCREMENT,
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS hashtags (
   PRIMARY KEY (id)
 );
 
-INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email, followedCount, followersCount)
+INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email, followedCount, followCount)
 VALUES ('randomuser', 'Tim R.', 'New York, NY', 'source.unsplash.com/1600x900/?featured/?man', 'abcdefg hijklmnop qrs tuv wxyz', 'tim@nowhere.com', 20, 200);
 
 INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email)

@@ -108,11 +108,13 @@ class App extends React.Component {
     this.setState({
         view: option,
         clickedUser: username || ''
+      }, () => {
+        if (option === 'createpost' || option === 'createpost' || option === 'feed') {
+          this.getFeed();
+        }
+
       })
     
-    if (this.state.view === 'createpost' || this.props.view === 'createpost' || this.state.view === 'feed') {
-      this.getFeed();
-    }
   }
 
   navBarClickHandler(page) {
@@ -233,9 +235,9 @@ class App extends React.Component {
       //if clicked user is empty string, do what it normally does
       //else return profile component with user set to clickeduser
       if (this.state.clickedUser === '') {
-        return <Profile loggedInUser ={this.state.currentUser} posts={this.state.posts} user={this.state.currentUser} userInfo={this.state.userInfo} liked={this.state.liked} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)}/>
+        return <Profile loggedInUser ={this.state.currentUser} posts={this.state.posts} user={this.state.currentUser} userInfo={this.state.userInfo} liked={this.state.liked} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view}/>
       } else {
-        return <Profile loggedInUser ={this.state.currentUser} posts={this.state.posts} user={this.state.clickedUser} liked={this.state.liked} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)}/>
+        return <Profile loggedInUser ={this.state.currentUser} posts={this.state.posts} user={this.state.clickedUser} userInfo={this.state.userInfo} liked={this.state.liked} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view}/>
       }
     } else if (view === 'signup') {
       return <Signup/>
