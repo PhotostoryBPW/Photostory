@@ -36,7 +36,6 @@ class Post extends React.Component {
 
   
   componentDidUpdate() {
-    this.nameInput && this.nameInput.focus();
     console.log('children in post', this.state.children);
   }
 
@@ -132,7 +131,7 @@ class Post extends React.Component {
 
   renderComment() {
     if (this.state.clicked === true) {
-      return <div><input ref={(input) => { this.nameInput = input; }} onChange={this.onTypeHandler.bind(this)}/><button onClick={this.onSubmitCommentHandler}>POST</button></div> 
+      return <div><input autoFocus onChange={this.onTypeHandler.bind(this)}/><button onClick={this.onSubmitCommentHandler}>POST</button></div> 
     } else {
       return 'Add a comment - click here to render a form to enter comment'
     }    
