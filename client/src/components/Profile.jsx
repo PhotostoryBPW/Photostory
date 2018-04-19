@@ -26,6 +26,17 @@ class Profile extends React.Component {
       userInfo: this.props.userInfo,
     })
   }
+  
+  onFollowClickHandler() {
+    console.log(this.state);
+    axios.post('api/follow', this.state.userInfo.id)
+    .then((response) => {
+      console.log('reached the server successfully', response)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
   getCurrentUsersPosts() {
     let posts = [];
@@ -33,10 +44,12 @@ class Profile extends React.Component {
     let currentUserInfo = {};
     axios.get(`api/feed/${this.state.currentUser}`)
     .then( response => {
+      console.log('response', response)
       currentUserInfo = {
+        id: response.data[0].id,
         userHandle: response.data[0].userHandle,
         userName: response.data[0].userName,
-        userPhotoUrl: response.data[0].userPhotoUrl,
+        userPhotoUrl: response.data[0].userPhotoUrl || '',
         bio: response.data[0].bio,
         followersCount: response.data[0].followersCount,
         followedCount: response.data[0].followedCount,
@@ -78,10 +91,12 @@ class Profile extends React.Component {
   }
   
   render() {
-    // console.log(this.state.currentUser, ' statecurrentuser 1');
-    // console.log(this.state.loggedInUser, ' stateloggedinuser 2');
-    // console.log(this.props.user, ' propsuser 3');
-    // console.log(this.props.loggedInUser, ' propsloggedinuser 4')
+    console.log(this.state.currentUser, ' statecurrentuser 1');
+    console.log(this.state.loggedInUser, ' stateloggedinuser 2');
+    console.log(this.props.user, ' propsuser 3');
+    console.log(this.props.loggedInUser, ' propsloggedinuser 4')
+    console.log('this state userinfo! yo', this.state.userInfo)
+    console.log('is this true?', this.state.currentUser !== this.props.user)
     if ((this.state.currentUser !== this.props.user)) {
       this.setState({
         currentUser: this.props.user
@@ -90,6 +105,12 @@ class Profile extends React.Component {
       });
     }
     return (
+      <div>
+        {
+          this.state.userInfo === undefined
+          ?
+          <div/>
+          :
       <div className="profileMain">
         <div id="handle">{this.state.currentUser}</div>
         <div id="profilePhoto"><img src={`http://${this.state.userInfo.userPhotoUrl}`} width="100%" /></div>
@@ -109,12 +130,14 @@ class Profile extends React.Component {
                 <button id="logoutbtn" onClick={this.props.handleLogoutButtonClick} type="button" >Logout</button>
               </div>
               :
-              <div id="edit" onClick={this.props.handleEditButtonClick} className="profileEdit">Follow</div>
+              <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="follow">Follow</div>
             }
           </div>
         </div>
         <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo}/></div>
       </div>
+        }
+      </div>  
     )
   }
 }
