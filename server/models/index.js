@@ -32,7 +32,7 @@ const Models = {
 
   posts: {
     all: function(cb) {
-      var queryStr = 'select p.*, u.userHandle, u.userName, u.userLoc, u.userPhotoUrl, u.bio, u.email, u.followedCount, u.followed_id, u.followersCount, u.follows_id  from posts as p inner join users as u on p.users_id=u.id order by -createdAt';
+      var queryStr = 'select p.*, u.userHandle, u.userName, u.userLoc, u.userPhotoUrl, u.bio, u.email, u.followedCount, u.followed_id, u.followCount, u.follows_id  from posts as p inner join users as u on p.users_id=u.id order by -createdAt';
       db.query(queryStr, function(err, results) {
         // console.log(results);
         cb(err, results);
@@ -157,17 +157,65 @@ const Models = {
     follow: function (follows_id, user, cb) {
       var queryStr = 'select id from users where userHandle=(?)';
       db.query(queryStr, user, function(err, results) {
-        var queryStr = 'insert into followers (users_id, follows_id) values (?,?)';
-        console.log([results[0].id, Object.keys(follows_id)[0]]);
-        db.query(queryStr, [results[0].id, Object.keys(follows_id)[0]], function(err, results) {
-          if (err) {
-            cb(err)
-          }
-          cb(null, results);
-        });
         if (err) {
           cb(err);
         }
+        var params = [results[0].id, Object.keys(follows_id)[0]]
+        queryStr = 'select * from followers where users_id=? and follows_id=?'
+        console.log([results[0].id, Object.keys(follows_id)[0]]);
+        db.query(queryStr, params, (err, results) => {
+          if (err) {
+            cb(err);
+          }
+          if (!results.length) {
+          queryStr = 'insert into followers (users_id, follows_id) values (?,?)';
+          db.query(queryStr, params, function(err, results) {
+            if (err) {
+              cb(err)
+            }
+            console.log('follow added to followers db')
+            queryStr = 'update users set followCount = followCount + 1 where id=?'
+            db.query(queryStr, params[0], (err, results) => {
+              if (err) {
+                cb(err)
+              }
+              console.log('incremented followCount for userID = ', params[0])
+              queryStr = 'update users set followedCount = followedCount + 1 where id=?'
+              db.query(queryStr, params[1], (err, results) => {
+                if (err) {
+                  cb(err)
+                }
+                console.log('incremented followedCount for userID = ', params[1])
+                cb(null, results);
+              })
+            })
+          });
+        } else {
+          console.log('this follow exists, now lets delete it')
+          queryStr = 'delete from followers where users_id=? and follows_id=?'
+          db.query(queryStr, params, (err, result) => {
+            if (err) {
+              cb(err);
+            }
+            console.log('follow deleted from followers db')
+            queryStr = 'update users set followCount = followCount - 1 where id=?'
+            db.query(queryStr, params[0], (err, results) => {
+              if (err) {
+                cb(err)
+              }
+              console.log('decremented followCount for userID = ', params[0])
+              queryStr = 'update users set followedCount = followedCount - 1 where id=?'
+              db.query(queryStr, params[1], (err, results) => {
+                if (err) {
+                  cb(err)
+                }
+                console.log('decremented followedCount for userID = ', params[1])
+                cb(null, results);
+              })
+            })
+          })
+        }
+        })
       });
     },
     userprofileinfo: function (params, cb) {
