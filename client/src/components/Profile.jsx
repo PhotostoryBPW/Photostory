@@ -51,7 +51,7 @@ class Profile extends React.Component {
         userName: response.data[0].userName,
         userPhotoUrl: response.data[0].userPhotoUrl || '',
         bio: response.data[0].bio,
-        followersCount: response.data[0].followersCount,
+        followCount: response.data[0].followCount,
         followedCount: response.data[0].followedCount,
       };
       posts = [];
@@ -118,7 +118,7 @@ class Profile extends React.Component {
         <div id="stats">
             <div className="statsItem">Posts: {this.state.userInfo.postCount}</div>
             <div className="statsItem">Users followed: {this.state.userInfo.followedCount}</div>
-            <div className="statsItem">Users following: {this.state.userInfo.followersCount}</div>
+            <div className="statsItem">Users following: {this.state.userInfo.followCount}</div>
             {
               this.state.currentUser === this.state.loggedInUser
               ?

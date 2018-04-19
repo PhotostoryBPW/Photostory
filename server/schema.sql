@@ -8,9 +8,9 @@ CREATE TABLE IF NOT EXISTS users (
   userPhotoUrl varchar(255), -- temporary - this should exist in a separate table eventually and be changed to and ID foreign key sitch
   bio varchar(500),
   email varchar(50) not null,
-  followedCount int default 0,
+  followedCount int default 0 not null,
   followed_id int,
-  followCount int default 0,
+  followCount int default 0 not null,
   follows_id int,
   PRIMARY KEY (id)
 );
