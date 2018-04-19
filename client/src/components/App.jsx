@@ -95,6 +95,7 @@ class App extends React.Component {
   }
   
   changeView(option) {
+    console.log('changeview called!');
     this.setState({
       view: option
     })
@@ -209,14 +210,13 @@ class App extends React.Component {
   }
 
   handleEditButtonClick() {
-    console.log('edit clicked!');
     this.setState({view: 'editprofile'});
   }
 
   renderView() {
     const {view} = this.state;
     if (view === 'feed') {
-      return <Feed handleClick={() => this.changeView(view)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view} liked={this.state.liked}/>;
+      return <Feed handleClick={this.changeView.bind(this)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view} liked={this.state.liked}/>;
     } else if (view === 'profile') {
       return <Profile posts={this.state.posts} user={this.state.currentUser} userInfo={this.state.userInfo} liked={this.state.liked} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)}/>
     } else if (view === 'signup') {

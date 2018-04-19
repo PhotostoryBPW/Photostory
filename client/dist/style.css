@@ -277,11 +277,13 @@ div.userImage img {
   border-radius: 25px;
   float: left;
   margin: 5px 10px 5px 0;
+  cursor: pointer;
 }
 
 .userHandle {
   float: left;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .postLocation {

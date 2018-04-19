@@ -153,13 +153,21 @@ class Post extends React.Component {
     this.setState({clicked: true})
   }
 
+  profileOrThumbnailClickHandler() {
+    console.log('clicked!');
+    //on click, go to profile page
+    console.log(this.props.handleClick);
+    this.props.handleClick('profile');
+    //make a call to app to change the view to profile
+  }
+
   render() {
     return (
       <div className='postMain'>
         <div> 
           <div> {
             !!this.state.post && this.state.view !== 'profile' ?
-            <PostHeader userPhotoUrl={this.props.post.userPhotoUrl} userHandle={this.props.post.userHandle}/> 
+            <PostHeader userPhotoUrl={this.props.post.userPhotoUrl} userHandle={this.props.post.userHandle} clickHandler={this.profileOrThumbnailClickHandler.bind(this)}/> 
             :
             <div></div>
           }
