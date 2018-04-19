@@ -19,6 +19,7 @@ class Profile extends React.Component {
   componentDidMount() {
     this.state.posts = this.props.posts;
     console.log('props from profile', this.props)
+    this.getCurrentUsersPosts();
   }
 
   componentWillMount() {
@@ -27,6 +28,51 @@ class Profile extends React.Component {
       userInfo: this.props.userInfo,
     })
     
+  }
+
+  getCurrentUsersPosts() {
+    let posts = [];
+    let comments = [];
+    console.log('this is the current user', this.state.currentUser);
+    axios.get(`api/feed/${this.state.currentUser}`)
+    .then( response => {
+      posts = [];
+      comments = [];
+      console.log('got feed with the current data: ', response.data)
+      response.data.forEach(data => {
+        if (data.parent_id) {
+          comments.push(data)
+        } else {
+          posts.push(data);
+        }
+      })
+    })
+    .then(() => {
+      console.log('this is the posts array', posts)
+      console.log('this is the comments array', comments)
+      
+      posts.map(post => {
+        comments.forEach(comment => {
+          console.log(comment.parent_id === post.id);
+          if (comment.parent_id === post.id) {
+            if (!post.children) {
+              post.children = [comment];
+            } else {
+              post.children.push(comment);
+            }
+          }
+        })
+      })
+    })
+    .then(() => {
+      console.log('this is posts after it is done compiling children', posts);
+      this.setState({
+        posts: posts,
+      })
+    })
+    .catch( err => {
+      console.log(err);
+    })
   }
   
   render() {
