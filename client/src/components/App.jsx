@@ -24,6 +24,7 @@ class App extends React.Component {
       isLoggedIn: localStorage.hasOwnProperty('isLoggedIn'),
       signupView: false,
       currentUser: '',
+      clickedUser: '',
       userInfo: {},
     } 
   }
@@ -94,11 +95,21 @@ class App extends React.Component {
     })
   }
   
-  changeView(option) {
+  changeView(option, username) {
+    console.log(username, 'clicked username on post');
     console.log('changeview called!');
+    if (option === 'profile' && this.state.view === 'profile') {
+      console.log(this.state.currentUser, 'currentuser?');
+      this.setState({
+        clickedUser: '',
+      })
+    }
+    
     this.setState({
-      view: option
-    })
+        view: option,
+        clickedUser: username || ''
+      })
+    
     if (this.state.view === 'createpost' || this.props.view === 'createpost' || this.state.view === 'feed') {
       this.getFeed();
     }
@@ -106,7 +117,8 @@ class App extends React.Component {
 
   navBarClickHandler(page) {
     this.setState({
-      url: page
+      url: page,
+      clickedUser: '',
     });
   }
 
@@ -218,7 +230,13 @@ class App extends React.Component {
     if (view === 'feed') {
       return <Feed handleClick={this.changeView.bind(this)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view} liked={this.state.liked}/>;
     } else if (view === 'profile') {
-      return <Profile posts={this.state.posts} user={this.state.currentUser} userInfo={this.state.userInfo} liked={this.state.liked} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)}/>
+      //if clicked user is empty string, do what it normally does
+      //else return profile component with user set to clickeduser
+      if (this.state.clickedUser === '') {
+        return <Profile loggedInUser ={this.state.currentUser} posts={this.state.posts} user={this.state.currentUser} liked={this.state.liked} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)}/>
+      } else {
+        return <Profile loggedInUser ={this.state.currentUser} posts={this.state.posts} user={this.state.clickedUser} liked={this.state.liked} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)}/>
+      }
     } else if (view === 'signup') {
       return <Signup/>
     } else if (view === 'editprofile') {
