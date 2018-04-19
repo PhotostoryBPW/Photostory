@@ -190,7 +190,7 @@ class Post extends React.Component {
             </div>
           </div>  
           <div className='addComment tooltip'>
-            <button className="buttonRed">
+            <button className="buttonRed" onClick={this.addCommentClickHandler}>
               <img /> 
               <span className="tooltiptext">Comment on this post</span> 
               COMMENT
