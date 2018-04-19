@@ -108,11 +108,13 @@ class App extends React.Component {
     this.setState({
         view: option,
         clickedUser: username || ''
+      }, () => {
+        if (option === 'createpost' || option === 'createpost' || option === 'feed') {
+          this.getFeed();
+        }
+
       })
     
-    if (this.state.view === 'createpost' || this.props.view === 'createpost' || this.state.view === 'feed') {
-      this.getFeed();
-    }
   }
 
   navBarClickHandler(page) {
