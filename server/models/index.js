@@ -148,22 +148,26 @@ const Models = {
         cb(err, results);
       });
     },
-    follow: function (params, user, cb) {
-      var queryStr = 'insert into followers (user, params); insert into following (params, user)';
-      db.query(queryStr, Object.values(params), function(err, results) {
-        cb(err, results);
-      });
-    },
     info: function (params, cb) {
       var queryStr = 'select * from users where userHandle=(?)';
       db.query(queryStr, Object.values(params), function(err, results) {
         cb(err, results[0]);
       });
     },
-    follow: function (params, user, cb) {
-      var queryStr = 'insert into followers (user, params); insert into following (params, user)';
-      db.query(queryStr, Object.values(params), function(err, results) {
-        cb(err, results);
+    follow: function (follows_id, user, cb) {
+      var queryStr = 'select id from users where userHandle=(?)';
+      db.query(queryStr, user, function(err, results) {
+        var queryStr = 'insert into followers (users_id, follows_id) values (?,?)';
+        console.log([results[0].id, Object.keys(follows_id)[0]]);
+        db.query(queryStr, [results[0].id, Object.keys(follows_id)[0]], function(err, results) {
+          if (err) {
+            cb(err)
+          }
+          cb(null, results);
+        });
+        if (err) {
+          cb(err);
+        }
       });
     },
     userprofileinfo: function (params, cb) {

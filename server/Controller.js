@@ -114,8 +114,8 @@ const Controller = {
       });
     },
     follow: (req, res) => {
-      Models.users.follow(req.params, req.session.passport.user, function(err, results) {
-        console.log('follow - controller');
+      Models.users.follow(req.body, req.session.passport.user, function(err, results) {
+        console.log('follow - controller', req.session.passport);
         if (err) { 
           console.log(err);
         } else {

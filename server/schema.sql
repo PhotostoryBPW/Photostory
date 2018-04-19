@@ -29,13 +29,9 @@ CREATE TABLE IF NOT EXISTS posts (
 );
 CREATE TABLE IF NOT EXISTS followers (
   id int not null AUTO_INCREMENT,
+  users_id int,
   follows_id int,
-  PRIMARY KEY (id)
-);
-CREATE TABLE IF NOT EXISTS following (
-  id int not null AUTO_INCREMENT,
-  following_id int,
-  PRIMARY KEY (id)
+  PRIMARY KEY (users_id)
 );
 CREATE TABLE IF NOT EXISTS likes (
   id int not null AUTO_INCREMENT,
