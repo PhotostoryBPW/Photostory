@@ -44,7 +44,7 @@ class Post extends React.Component {
   }
 
   onSubmitCommentHandler() {
-    var oldChildrenState
+    var oldChildrenState;
     axios.post(`api/comment/`, {
       params: {
         users_id: null,  
@@ -56,6 +56,7 @@ class Post extends React.Component {
       }
     })
     .then( response => {
+      console.log('this is the PARENT ID of a comment', this.props.post.id)
       oldChildrenState = this.state.children;
       console.log('response config data', response.config.data);
       this.setState({clicked: false})

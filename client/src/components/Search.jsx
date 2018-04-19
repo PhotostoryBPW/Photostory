@@ -18,22 +18,53 @@ class Search extends React.Component {
     this.setState({post: false});
   }
 
-  componentDidMount(){
-    axios.get('/api/search')
-    .then( response => {
-      console.log('response', response)
-      this.setState({ 
-        searchData: response.data
+  componentDidMount() {
+    let posts = [];
+    let comments = [];
+    axios.get('api/search')
+      .then( response => {
+        posts = [];
+        comments = [];
+        console.log('got search with the current data: ', response.data)
+        response.data.forEach(data => {
+          if (data.parent_id) {
+            comments.push(data)
+          } else {
+            posts.push(data);
+          }
+        })
       })
-    })
-    .catch( err => {
-      console.log(err);
-    })
+      .then(() => {
+        console.log('this is the posts array', posts)
+        console.log('this is the comments array', comments)
+        
+        posts.map(post => {
+          comments.forEach(comment => {
+            console.log(comment.parent_id === post.id);
+            if (comment.parent_id === post.id) {
+              if (!post.children) {
+                post.children = [comment];
+              } else {
+                post.children.push(comment);
+              }
+            }
+          })
+        })
+      })
+      .then(() => {
+        console.log('this is search posts after it is done compiling children', posts);
+        this.setState({
+          serachData: posts,
+        })
+      })
+      .catch( err => {
+        console.log(err);
+      })
   }
   
   onClickHandler() {
     console.log('we are searching for username: ')
-    axios.get(`http://localhost:3000/api/search/${this.state.search}`, {
+    axios.get(`/api/search/${this.state.search}`, {
       params: {
         search: this.state.search
       }
