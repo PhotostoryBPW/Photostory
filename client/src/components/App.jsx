@@ -235,7 +235,7 @@ class App extends React.Component {
       if (this.state.clickedUser === '') {
         return <Profile loggedInUser ={this.state.currentUser} posts={this.state.posts} user={this.state.currentUser} userInfo={this.state.userInfo} liked={this.state.liked} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view}/>
       } else {
-        return <Profile loggedInUser ={this.state.currentUser} posts={this.state.posts} user={this.state.clickedUser} liked={this.state.liked} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view}/>
+        return <Profile loggedInUser ={this.state.currentUser} posts={this.state.posts} user={this.state.clickedUser} userInfo={this.state.userInfo} liked={this.state.liked} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view}/>
       }
     } else if (view === 'signup') {
       return <Signup/>

@@ -45,12 +45,12 @@ class ProfilePosts extends React.Component {
         this.props.posts.map(post =>
           !post.parent_id  
           ?
-          <Post key={post.id} post={post} view={'ProfileView'} />
+          <Post key={post.id} post={post} liked={this.props.liked} view={this.props.view} currentUserProfilePhoto={this.props.currentUserProfilePhoto}/>
           :
           <div/>
         )
         :
-        <Post post={this.state.post} liked={this.props.liked} view={this.props.view}/>  
+        <Post post={this.state.post} liked={this.props.liked} view={this.props.view} currentUserProfilePhoto={this.props.currentUserProfilePhoto}/>  
         }
       </div>
     </div>

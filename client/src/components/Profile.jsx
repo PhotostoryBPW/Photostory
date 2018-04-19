@@ -130,7 +130,7 @@ class Profile extends React.Component {
               <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="follow">Follow</div>
             }
         </div>
-        <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo} liked={this.props.liked} view={this.props.view}/></div>
+        <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo} liked={this.props.liked} view={this.props.view} currentUserProfilePhoto={this.props.userInfo.userPhotoUrl}/></div>
       </div>
         }
       </div>  
