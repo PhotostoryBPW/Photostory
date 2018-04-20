@@ -39,16 +39,21 @@ CREATE TABLE IF NOT EXISTS likes (
   posts_id int,
   PRIMARY KEY (id)
 );
-CREATE TABLE IF NOT EXISTS images (
-  id int not null AUTO_INCREMENT,
-  image_url varchar(255),
-  PRIMARY KEY (id)
-);
 CREATE TABLE IF NOT EXISTS hashtags (
   id int not null AUTO_INCREMENT,
   hashtag varchar(50),
   PRIMARY KEY (id)
 );
+CREATE TABLE IF NOT EXISTS notifications (
+  id int not null AUTO_INCREMENT,
+  users_id int, -- user receiving the notification
+  posts_id int, -- the comment they receive in their notification inbox
+  userLiked_id int, -- the user that liked the post
+  follows_id int, -- the user that started following them
+  note_time bigint, -- the time of the notification
+  PRIMARY KEY (id)
+);
+
 
 INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email, followedCount, followCount)
 VALUES ('randomuser', 'Tim R.', 'New York, NY', 'source.unsplash.com/1600x900/?featured/?man', 'abcdefg hijklmnop qrs tuv wxyz', 'tim@nowhere.com', 20, 200);
