@@ -89,8 +89,10 @@ const Controller = {
       Models.posts.mine(req.params, req.session.passport.user, function(err, results1, results2) {
         if (err) { 
           console.log(err);
+          res.status(202).send('no posts to send');
         } else {
           //edge case where a user doesn't have posts - send follow data
+
           if (!results1) {
             results1 = results2
           } else {

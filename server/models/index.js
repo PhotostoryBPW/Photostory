@@ -130,14 +130,20 @@ const Models = {
       console.log('these are the params for a mine', params);
       var queryStr = 'select p.*, u.userHandle, u.userName, u.userLoc, u.userPhotoUrl, u.bio, u.email, u.followedCount, u.followed_id, u.followCount, u.follows_id  from posts as p inner join users as u on p.users_id=u.id where u.userHandle=(?) order by -createdAt';
       db.query(queryStr, Object.values(params), function(err, results1) {
-        const mineResults = results1;
-        queryStr = `select f.id from followers as f inner join users as u on u.id = f.users_id where u.userHandle = ? and f.follows_id = ?`;
-        console.log('mine', results1);
-        console.log('mine 2nd params', [loggedInUserName, results1[0].users_id]);
-        db.query(queryStr, [loggedInUserName, mineResults[0].users_id], (err, results2) => {
-          console.log('second query for existing follow relationship', !!results2.length, results2);
-          cb(err, results1, !!results2.length);
-        })
+        console.log(results1.length);
+        if (results1.length < 1) {
+          console.log('insidenotnot');
+          cb('no posts');
+        } else {
+          const mineResults = results1;
+          queryStr = `select f.id from followers as f inner join users as u on u.id = f.users_id where u.userHandle = ? and f.follows_id = ?`;
+          console.log('mine', results1);
+          console.log('mine 2nd params', [loggedInUserName, results1[0].users_id]);
+          db.query(queryStr, [loggedInUserName, mineResults[0].users_id], (err, results2) => {
+            console.log('second query for existing follow relationship', !!results2.length, results2);
+            cb(err, results1, !!results2.length);
+          })
+        }
       });
     },
   },
