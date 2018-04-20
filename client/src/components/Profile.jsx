@@ -12,6 +12,7 @@ class Profile extends React.Component {
       userInfo: {},
       posts: '',
       loggedInUser: '',
+      followed: '',
     }
   }
 
@@ -27,10 +28,25 @@ class Profile extends React.Component {
     })
   }
   
-  onFollowClickHandler() {
-    console.log(this.state);
-    axios.post('api/follow', this.state.userInfo.id)
+  onFollowClickHandler(e) {
+    console.log('the state of this on click ', this.state, 'and the value of e on click'. e);
+    axios.post('api/follow', this.state.userInfo.users_id)
     .then((response) => {
+        if (!this.state.followed) {
+          var userInfoUpdated = Object.assign({}, this.state.userInfo, {followedCount: ++this.state.userInfo.followedCount});
+          console.log('top question', userInfoUpdated);
+          this.setState({
+            followed: !this.state.followed,
+            userInfo: userInfoUpdated
+          })
+        } else {
+          var userInfoUpdated = Object.assign({}, this.state.userInfo, {followedCount: --this.state.userInfo.followedCount});
+          console.log('bottom questions' , userInfoUpdated);
+          this.setState({
+            followed: !this.state.followed,            
+            userInfo: userInfoUpdated
+          })
+        }
       console.log('reached the server successfully', response)
     })
     .catch((err) => {
@@ -42,11 +58,12 @@ class Profile extends React.Component {
     let posts = [];
     let comments = [];
     let currentUserInfo = {};
+    let following;
     axios.get(`api/feed/${this.state.currentUser}`)
     .then( response => {
       console.log('response', response)
       currentUserInfo = {
-        id: response.data[0].id,
+        users_id: response.data[0].users_id,
         userHandle: response.data[0].userHandle,
         userName: response.data[0].userName,
         userPhotoUrl: response.data[0].userPhotoUrl || '',
@@ -54,6 +71,7 @@ class Profile extends React.Component {
         followCount: response.data[0].followCount,
         followedCount: response.data[0].followedCount,
       };
+      following = response.data[0].isFollowing
       posts = [];
       comments = [];
       response.data.forEach(data => {
@@ -83,6 +101,7 @@ class Profile extends React.Component {
     .then(() => {
       this.setState({
         posts: posts,
+        followed: following
       })
     })
     .catch( err => {
@@ -91,12 +110,13 @@ class Profile extends React.Component {
   }
   
   render() {
-    console.log(this.state.currentUser, ' statecurrentuser 1');
-    console.log(this.state.loggedInUser, ' stateloggedinuser 2');
-    console.log(this.props.user, ' propsuser 3');
-    console.log(this.props.loggedInUser, ' propsloggedinuser 4')
-    console.log('this state userinfo! yo', this.state.userInfo)
-    console.log('is this true?', this.state.currentUser !== this.props.user)
+    // console.log(this.state.currentUser, ' statecurrentuser 1');
+    // console.log(this.state.loggedInUser, ' stateloggedinuser 2');
+    // console.log(this.props.user, ' propsuser 3');
+    // console.log(this.props.loggedInUser, ' propsloggedinuser 4')
+    // console.log('this state userinfo! yo', this.state.userInfo)
+    console.log('this.state.followed of userProfile', this.state.followed)
+    // console.log('is this true?', this.state.currentUser !== this.props.user)
     if ((this.state.currentUser !== this.props.user)) {
       this.setState({
         currentUser: this.props.user
@@ -117,8 +137,8 @@ class Profile extends React.Component {
         <div id="profileBio">{this.state.userInfo.bio}</div>
         <div id="stats">
             <div className="statsItem">Posts: {this.state.userInfo.postCount}</div>
-            <div className="statsItem">Users followed: {this.state.userInfo.followedCount}</div>
-            <div className="statsItem">Users following: {this.state.userInfo.followCount}</div>
+            <div className="statsItem">Followers: {this.state.userInfo.followedCount}</div>
+            <div className="statsItem">Following: {this.state.userInfo.followCount}</div>
             {
               this.state.currentUser === this.state.loggedInUser
               ?
@@ -127,7 +147,11 @@ class Profile extends React.Component {
                 <button id="logoutbtn" onClick={this.props.handleLogoutButtonClick} type="button" >Logout</button>
               </div>
               :
+              !this.state.followed
+              ?
               <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="follow">Follow</div>
+              :
+              <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="unFollow">UnFollow</div>
             }
         </div>
         <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo} liked={this.props.liked} view={this.props.view} currentUserProfilePhoto={this.props.userInfo.userPhotoUrl}/></div>

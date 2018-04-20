@@ -85,11 +85,19 @@ const Controller = {
       });
     },
     mine: (req, res) => {
-      Models.posts.mine(req.params, function(err, results) {
+      console.log(req.params, 'params on a mine functione form controller')
+      Models.posts.mine(req.params, req.session.passport.user, function(err, results1, results2) {
         if (err) { 
           console.log(err);
         } else {
-          res.status(201).send(results);
+          //edge case where a user doesn't have posts - send follow data
+          if (!results1) {
+            results1 = results2
+          } else {
+          results1[0].isFollowing = results2;
+          console.log('the results of the mine', results1);
+          }
+          res.status(201).send(results1);
         }
       });
     },
