@@ -130,14 +130,20 @@ const Models = {
       console.log('these are the params for a mine', params);
       var queryStr = 'select p.*, u.userHandle, u.userName, u.userLoc, u.userPhotoUrl, u.bio, u.email, u.followedCount, u.followed_id, u.followCount, u.follows_id  from posts as p inner join users as u on p.users_id=u.id where u.userHandle=(?) order by -createdAt';
       db.query(queryStr, Object.values(params), function(err, results1) {
-        const mineResults = results1;
-        queryStr = `select f.id from followers as f inner join users as u on u.id = f.users_id where u.userHandle = ? and f.follows_id = ?`;
-        console.log('mine', results1);
-        console.log('mine 2nd params', [loggedInUserName, results1[0].users_id]);
-        db.query(queryStr, [loggedInUserName, mineResults[0].users_id], (err, results2) => {
-          console.log('second query for existing follow relationship', !!results2.length, results2);
-          cb(err, results1, !!results2.length);
-        })
+        console.log(results1.length);
+        if (results1.length < 1) {
+          console.log('insidenotnot');
+          cb('no posts');
+        } else {
+          const mineResults = results1;
+          queryStr = `select f.id from followers as f inner join users as u on u.id = f.users_id where u.userHandle = ? and f.follows_id = ?`;
+          console.log('mine', results1);
+          console.log('mine 2nd params', [loggedInUserName, results1[0].users_id]);
+          db.query(queryStr, [loggedInUserName, mineResults[0].users_id], (err, results2) => {
+            console.log('second query for existing follow relationship', !!results2.length, results2);
+            cb(err, results1, !!results2.length);
+          })
+        }
       });
     },
   },
@@ -244,6 +250,21 @@ const Models = {
         cb(err, newName);
       })
     },
+    updateusername: function(params, newUsername, cb) {
+      var queryStr = `update users set userHandle=${JSON.stringify(newUsername)} where userHandle = ${JSON.stringify(params)}`;
+      var loginQueryStr = `update login set username=${JSON.stringify(newUsername)} where username=${JSON.stringify(params)}`;
+      db.query(queryStr, (err, results) => {
+        if (err) {
+          console.log(err);
+        }
+        db.query(loginQueryStr, (err, results) => {
+          if (err) {
+            console.log(err);
+          }
+          cb(err, newUsername);
+        })
+      })
+    },
     updatebio: function(params, newBio, cb) {
       var queryStr = `update users set bio=${JSON.stringify(newBio.bio)} where userHandle=${JSON.stringify(params)}`;
       db.query(queryStr, (err, results) => {
@@ -272,7 +293,18 @@ const Models = {
         }
         cb(err, newProfilePic);
       })
-
+    },
+    checkifnewusername: function(params, newName, cb) {
+      if (params === newName.username) {
+        cb(true);
+      }
+      else {
+        cb(false);
+      }
+      // var queryStr = 'select userHandle from users where userName=(?)';
+      // db.query(queryStr, params, (err, results) => {
+      //   console.log('queryresults');
+      // })
     }
     // follow: function(params, cb) {
     //   var queryStr = 'select * from users where users.id = ? limit 1), ?)';
@@ -298,7 +330,6 @@ passport.deserializeUser(function(id, done) {
 });
 
 function authenticationMiddleware() {
-
   return (req, res, next) => {
     console.log(`
       req.session.passport.user: ${JSON.

@@ -52,6 +52,7 @@ class Zone extends React.Component {
       return (
         <section>
           <div className="dropzone">
+          <button onClick={this.props.leaveDropZone} >go back</button>
             <Dropzone accept="image/jpeg, image/png" 
                       onDrop={this.onDrop.bind(this)}
                       className={'dropbox'} 
