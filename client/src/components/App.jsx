@@ -11,6 +11,7 @@ import Search from './Search.jsx';
 import CreatePost from './CreatePost.jsx';
 import Post from './Post.jsx'
 import EditProfile from './EditProfile.jsx';
+import NoteFeed from './NoteFeed.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -260,10 +261,9 @@ class App extends React.Component {
       return <CreatePost onSubmit={this.changeView.bind(this)}/>
     }  else if (view === 'search') {
       return <Search posts={this.state.data} liked={this.state.liked} handleClick={this.changeView.bind(this)} userInfo={this.state.userInfo}/>
-    } 
-      // else {
-    //   return <Post user={this.state.userInfo} key={view._id} post={view} />
-    // }
+    } else if (view === 'notifications') {
+      return <NoteFeed />
+    }
   }
 
   render() {
