@@ -181,7 +181,7 @@ class Post extends React.Component {
           {
             !!this.state.children && !!this.state.children.length ?
             this.state.children.map(child => 
-              <div className='entireComment'>
+              <div className='entireComment' key={Math.floor((Math.random() * 10000000) + 1)}>
                 <img className='commentPic' src={`http://${child.userPhotoUrl}`}/>
                 <div className='commentUser'>{child.userHandle}</div>
                 <div className='commentBody'>{child.body}</div>

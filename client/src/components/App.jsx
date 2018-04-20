@@ -2,7 +2,6 @@ import React from 'react';
 import NavBar from './NavBar.jsx';
 import Feed from './Feed.jsx'
 import axios from 'axios';
-import sample from '../sample_data.js';
 import Header from './Header.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
@@ -17,7 +16,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      data: sample.posts,
+      data: '',
       view: 'feed',
       posts: '',
       users: '',
@@ -76,8 +75,6 @@ class App extends React.Component {
         localStorage['isLoggedIn'] = true;
         this.getUserInfo();
         this.setState({ 
-          posts: sample.posts,
-          users: sample.users,
           isLoggedIn: true
         })
       } else {

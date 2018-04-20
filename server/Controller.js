@@ -12,13 +12,22 @@ const Controller = {
   },
   posts: {
     all: (req, res) => {
-      Models.posts.all(function(err, results) {
+      Models.posts.all(req.session.passport.user, function(err, results) {
         if (err) { 
           console.log(err);
         } else {
           res.status(201).send(results);
         }
       });
+    },
+    following: (req, res) => {
+      Models.posts.following(req.session.passport.user, function(err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(201).send(results);
+        }
+      })
     },
     friends: (req, res) => {
       Models.posts.friends(function(err, results) {
@@ -100,7 +109,6 @@ const Controller = {
       });
     },
     mine: (req, res) => {
-      console.log(req.params, 'params on a mine functione form controller')
       Models.posts.mine(req.params, req.session.passport.user, function(err, results1, results2) {
         if (err) { 
           console.log(err);
@@ -112,7 +120,6 @@ const Controller = {
             results1 = results2
           } else {
           results1[0].isFollowing = results2;
-          console.log('the results of the mine', results1);
           }
           res.status(201).send(results1);
         }

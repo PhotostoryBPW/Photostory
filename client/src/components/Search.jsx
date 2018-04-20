@@ -32,6 +32,7 @@ class Search extends React.Component {
           } else {
             posts.push(data);
           }
+          console.log(posts, 'postsinside');
         })
       })
       .then(() => {
@@ -97,12 +98,12 @@ class Search extends React.Component {
         this.state.searchData.map(post => 
           !post.parent_id  
           ?
-          <Thumbnail post={post} onClick={this.onPostThumbClickHandler.bind(this)} postState={this.state.post}/>
+          <Thumbnail key={post.createdAt} post={post} onClick={this.onPostThumbClickHandler.bind(this)} postState={this.state.post}/>
           :
           <div/>
         )
         :
-        <Post post={this.state.post} liked={this.props.liked} handleClick={this.props.handleClick} currentUserProfilePhoto={this.props.userInfo.userPhotoUrl}/>  
+        <Post key={Math.floor((Math.random() * 1000000) + 1)} post={this.state.post} liked={this.props.liked} handleClick={this.props.handleClick} currentUserProfilePhoto={this.props.userInfo.userPhotoUrl}/>  
         }
       </div>
     );
