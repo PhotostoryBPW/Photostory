@@ -190,12 +190,18 @@ class EditProfile extends React.Component {
         })
     }
 
+    leaveDropZone() {
+      this.setState({
+        showDropzone: false
+      })
+    }
+
     render() {
         return(
             <div>
                 {
                 this.state.showDropzone ?
-                <Zone drop={this.harvestProfileUrl.bind(this)}/>
+                <Zone leaveDropZone={this.leaveDropZone.bind(this)} drop={this.harvestProfileUrl.bind(this)}/>
                 :
                 <div onClick={this.handleProfilePicChange.bind(this)}>
                   <img className='editProfilePic' src={`http://${this.state.userPhotoUrl}`}/>
