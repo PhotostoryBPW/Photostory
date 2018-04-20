@@ -22,8 +22,7 @@ class Profile extends React.Component {
   componentWillMount() {
     this.setState({
       currentUser: this.props.user,
-      loggedInUser: this.props.loggedInUser,
-      userInfo: this.props.userInfo,
+      loggedInUser: this.props.loggedInUser
     })
   }
   
@@ -60,16 +59,19 @@ class Profile extends React.Component {
     let following;
     axios.get(`api/feed/${this.state.currentUser}`)
     .then( response => {
-      console.log('response', response)
+      console.log('response to Mine request, current user', this.state.currentUser, response);
       currentUserInfo = {
         users_id: response.data[0].users_id,
         userHandle: response.data[0].userHandle,
         userName: response.data[0].userName,
-        userPhotoUrl: response.data[0].userPhotoUrl || '',
+        userLoc: response.data[0].userLoc,
+        userPhotoUrl: response.data[0].userPhotoUrl,
         bio: response.data[0].bio,
+        email: response.data[0].email,
         followCount: response.data[0].followCount,
         followedCount: response.data[0].followedCount,
       };
+      console.log('response to Mine user handle ', response.data[0].userHandle);
       following = response.data[0].isFollowing
       posts = [];
       comments = [];
@@ -82,9 +84,11 @@ class Profile extends React.Component {
       })
     })
     .then(() => {
-      this.setState({
-        userInfo: currentUserInfo,
-      })      
+      if (currentUserInfo.users_id) {
+        this.setState({
+          userInfo: currentUserInfo,
+        })  
+      }    
       posts.map(post => {
         comments.forEach(comment => {
           if (comment.parent_id === post.id) {
@@ -108,30 +112,23 @@ class Profile extends React.Component {
     })
   }
   
+  setInfo() {
+    this.state.userInfo = this.props.userInfo;
+    console.log('info set');
+  }
+
   render() {
-    // console.log(this.state.currentUser, ' statecurrentuser 1');
-    // console.log(this.state.loggedInUser, ' stateloggedinuser 2');
-    // console.log(this.props.user, ' propsuser 3');
-    // console.log(this.props.loggedInUser, ' propsloggedinuser 4')
-    // console.log('this state userinfo! yo', this.state.userInfo)
-    // console.log('this.state.followed of userProfile', this.state.followed)
-    // console.log('is this true?', this.state.currentUser !== this.props.user)
-    if ((this.state.currentUser !== this.props.user)) {
-      this.setState({
-        currentUser: this.props.user
-      }, () => {
-        this.getCurrentUsersPosts();
-      });
-    }
     return (
       <div>
+        {this.setInfo()}
         {
           this.state.userInfo === undefined
           ?
           <div/>
           :
       <div className="profileMain">
-        <div id="handle">{this.state.currentUser}</div>
+        <div id="handle">{this.state.userInfo.userHandle}</div>
+        {console.log('in profile load, this is user info: ', this.state.userInfo)}
         <div id="profilePhoto"><img src={`http://${this.state.userInfo.userPhotoUrl}`} width="100%" /></div>
         <div id="profileBio">{this.state.userInfo.bio}</div>
         <div id="stats">
@@ -153,7 +150,7 @@ class Profile extends React.Component {
               <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="unFollow">UnFollow</div>
             }
         </div>
-        <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo} liked={this.props.liked} view={this.props.view} currentUserProfilePhoto={this.props.userInfo.userPhotoUrl}/></div>
+        <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo} view={this.props.view} currentUserProfilePhoto={this.state.userInfo.userPhotoUrl}/></div>
       </div>
         }
       </div>  

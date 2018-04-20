@@ -34,13 +34,6 @@ hr {
   width:60%;
 }
 
-hr {
-  border:none;
-  border-top:3px dotted black;
-  height:3px;
-  width:60%;
-}
-
 img {
   border-radius: 3px;
 }
@@ -60,6 +53,10 @@ img {
 
 .home {
   margin: auto;
+}
+
+.login {
+  margin: 10px;
 }
 
 .main {
@@ -110,6 +107,10 @@ img {
 .share {
   display: block;
   float: left;
+}
+
+.signup {
+  margin: 10px;
 }
 
 .statsItem {

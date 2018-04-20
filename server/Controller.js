@@ -156,7 +156,7 @@ const Controller = {
       });
     },
     info: (req, res) => {
-      Models.users.info(req.session.passport, function(err, results) {
+      Models.users.info(req.session.passport.user, function(err, results) {
         if (err) { 
           console.log(err);
         } else {

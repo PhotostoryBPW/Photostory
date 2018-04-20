@@ -71,7 +71,7 @@ class Post extends React.Component {
       }
     })
     .then( () => {
-      oldChildrenState[oldChildrenState.length-1].userPhotoUrl = this.props.currentUserProfilePhoto;
+      oldChildrenState[oldChildrenState.length-1].userPhotoUrl = this.props.userPhotoUrl;
       console.log('this is old children state updated', oldChildrenState);
     })
     .then( () => {
@@ -207,5 +207,3 @@ class Post extends React.Component {
 }
 
 export default Post;
-
-

@@ -35,9 +35,6 @@ class Search extends React.Component {
         })
       })
       .then(() => {
-        console.log('this is the posts array', posts)
-        console.log('this is the comments array', comments)
-        
         posts.map(post => {
           comments.forEach(comment => {
             console.log(comment.parent_id === post.id);
@@ -54,7 +51,7 @@ class Search extends React.Component {
       .then(() => {
         console.log('this is search posts after it is done compiling children', posts);
         this.setState({
-          serachData: posts,
+          searchData: posts,
         })
       })
       .catch( err => {

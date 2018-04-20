@@ -9,13 +9,14 @@ const Models = {
     var password = req.body.password;
     var fullname = req.body.fullname;
     var email = req.body.email;
+    var userPhotoUrl = req.body.userPhotoUrl;
     bcrypt.hash(password, saltRounds, function(err, hash) {
       var queryToSeeIfUserExists = `select username from login where username = ${JSON.stringify(username)}`;
       db.query(queryToSeeIfUserExists, (err, results) => {
         if (results.length < 1) {
           var query = `INSERT INTO login (username, password) VALUES (${JSON.stringify(username)}, ${JSON.stringify(hash)})`;
           db.query(query, (err, results) => {
-            var query = `INSERT INTO users (userHandle, userName, email) VALUES (${JSON.stringify(username)}, ${JSON.stringify(fullname)}, ${JSON.stringify(email)})`;
+            var query = `INSERT INTO users (userHandle, userName, userPhotoUrl, email) VALUES (${JSON.stringify(username)}, ${JSON.stringify(fullname)}, ${JSON.stringify(userPhotoUrl)}, ${JSON.stringify(email)})`;
             db.query(query, (err, results) => {
               if (err) {
                 throw err;
@@ -160,9 +161,9 @@ const Models = {
         cb(err, results);
       });
     },
-    info: function (params, cb) {
-      var queryStr = 'select * from users where userHandle=(?)';
-      db.query(queryStr, Object.values(params), function(err, results) {
+    info: function (user, cb) {
+      var queryStr = `select * from users where userHandle=${JSON.stringify(user)}`;
+      db.query(queryStr, user, function(err, results) {
         cb(err, results[0]);
       });
     },

@@ -21,22 +21,18 @@ class Signup extends React.Component {
 
   handleUsernameChange(e) {
     this.setState({username: e.target.value});
-    console.log(this.state.username);
   }
 
   handlePasswordChange(e) {
     this.setState({password: e.target.value});
-    console.log(this.state.password);
   }
 
   handleFullnameChange(e) {
     this.setState({fullname: e.target.value});
-    console.log(this.state.fullname);
   }
 
   handleEmailChange(e) {
     this.setState({email: e.target.value});
-    console.log(this.state.email);
   }
 
   handleSignup() {
@@ -45,7 +41,8 @@ class Signup extends React.Component {
       username: this.state.username, 
       password: this.state.password,
       fullname: this.state.fullname, 
-      email: this.state.email
+      email: this.state.email,
+      userPhotoUrl: 'localhost:3000/anonymous.png'
     }
     console.log(payload);
     axios.post('http://localhost:3000/api/signup/', payload)
@@ -68,7 +65,7 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="signup">
         <h1>Sign Up Here!</h1>
         <h2>Username</h2>
         <form>

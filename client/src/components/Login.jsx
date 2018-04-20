@@ -17,12 +17,10 @@ class Login extends React.Component {
 
   handleUsernameChange(e) {
     this.setState({username: e.target.value});
-    console.log(this.state.username);
   }
 
   handlePasswordChange(e) {
     this.setState({password: e.target.value});
-    console.log(this.state.password);
   }
 
   handleLogin() {
@@ -54,7 +52,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="login">
         <h1>Photostory</h1>
         <h2>Username</h2>
         <label style={{marginRight: '5px'}}>
