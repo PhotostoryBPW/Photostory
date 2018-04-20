@@ -159,7 +159,6 @@ const Controller = {
       })
     },
     updatebio: (req, res) => {
-      console.log(req.body);
       Models.users.updatebio(req.session.passport.user, req.body, (err, results) => {
         if (err) {
           console.log(err);
@@ -186,6 +185,26 @@ const Controller = {
         }
       })
     },
+    updateusername: (req, res) => {
+      Models.users.updateusername(req.body.ghostuser, req.body.replacementName.username, (err, results) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(201).send(results);
+        }
+      })
+    },
+    checkifnewusername: (req, res) => {
+      Models.users.checkifnewusername(req.session.passport.user, req.body, (results) => {
+        results.ghostuser = req.session.passport.user;
+        var reversePayload = {
+          results: results,
+          ghostuser: req.session.passport.user
+        }
+        JSON.stringify(reversePayload);
+        res.status(200).send(reversePayload);
+      })
+    }
   },
   
   file_upload: (req, res) => {

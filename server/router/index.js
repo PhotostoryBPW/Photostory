@@ -14,8 +14,9 @@ router.get('/logout', function(req, res) {
     req.logout(); 
     req.session.destroy();
     res.status(200).send('destroyed');
-})
-
+});
+router.put('/checkifnewusername', Controller.users.checkifnewusername);
+router.put('/updateusername', Controller.users.updateusername);
 router.put('/updatename', Controller.users.updatefullname);
 router.put('/updateemail', Controller.users.updateemail);
 router.put('/updatebio', Controller.users.updatebio);

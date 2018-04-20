@@ -14,6 +14,7 @@ class EditProfile extends React.Component {
             bio: '',
             email: '',
             nameForm: '',
+            usernameForm: '',
             bioForm: '',
             emailForm: '',
             userPhotoUrl: '',
@@ -22,7 +23,6 @@ class EditProfile extends React.Component {
             showBioInput: false,
             showEmailInput: false,
             showDropzone: false,
-            initialUsername: '',
             url: '',
         }
         this.handleNamePencilIconClick = this.handleNamePencilIconClick.bind(this);
@@ -34,6 +34,7 @@ class EditProfile extends React.Component {
         this.handleBioSaveIconClick = this.handleBioSaveIconClick.bind(this);
         this.handleEmailSaveIconClick = this.handleEmailSaveIconClick.bind(this);
         this.handleNameFormChange = this.handleNameFormChange.bind(this);
+        this.handleUsernameFormChange = this.handleUsernameFormChange.bind(this);
         this.handleBioFormChange = this.handleBioFormChange.bind(this);
         this.handleEmailFormChange = this.handleEmailFormChange.bind(this);
     };
@@ -45,12 +46,12 @@ class EditProfile extends React.Component {
                 name: response.data[0].userName,
                 nameForm: response.data[0].userName,
                 username: response.data[0].userHandle,
+                usernameForm: response.data[0].userHandle,
                 bio: response.data[0].bio,
                 bioForm: response.data[0].bio || '',
                 email: response.data[0].email,
                 emailForm: response.data[0].email,
                 userPhotoUrl: response.data[0].userPhotoUrl,
-                initalUsername: response.data[0].userHandle,
             });
         })
         .catch (err => {
@@ -80,7 +81,7 @@ class EditProfile extends React.Component {
             fullname: this.state.nameForm,
         }
         axios
-            .put('http://localhost:3000/api/updatename/', payload)
+            .put('/api/updatename/', payload)
             .then(response => {
                 this.setState({
                     showNameInput: false,
@@ -93,8 +94,27 @@ class EditProfile extends React.Component {
     }
 
     handleUsernameSaveIconClick() {
-        console.log('save clicked');
-        this.setState({showUsernameInput: false});
+      var payload = {
+        username: this.state.usernameForm,
+      }
+      axios
+        .put('/api/checkifnewusername', payload)
+        .then(response => {
+          if (response.data.results === true) {
+            this.setState({showUsernameInput: false});
+          } else {
+            this.props.handleLogout('true', payload, response.data.ghostuser);
+          }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+      //database checks if payload matches logged in user's handle
+      //if match, send back message like business as usual or something
+      //else
+      //log the user out
+      this.setState({showUsernameInput: false});
+      // this.props.handleLogout();  
     }
 
     handleBioSaveIconClick() {
@@ -138,7 +158,7 @@ class EditProfile extends React.Component {
     }
 
     handleUsernameFormChange(e) {
-        this.setState({logoutRequired: true});
+        this.setState({usernameForm: e.target.value});
     }
 
     handleBioFormChange(e) {
@@ -203,7 +223,7 @@ class EditProfile extends React.Component {
                     <div className = 'attributeRow'>
                     <span className="userAttribute">Username: </span>
                     <label style={{marginRight: '5px'}}>
-                        <input className = "profEditInput" maxLength="25" type="text" name="fullname"/>
+                        <input className = "profEditInput" maxLength="25" type="text" name="fullname" autoFocus value={this.state.usernameForm} onChange={this.handleUsernameFormChange}/>
                     </label>
                     <span onClick ={this.handleUsernameSaveIconClick} className="saveProfIcon"><a href="#"><i className="fa fa-save fa-lg"></i></a></span>
                     <ul>

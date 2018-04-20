@@ -244,6 +244,21 @@ const Models = {
         cb(err, newName);
       })
     },
+    updateusername: function(params, newUsername, cb) {
+      var queryStr = `update users set userHandle=${JSON.stringify(newUsername)} where userHandle = ${JSON.stringify(params)}`;
+      var loginQueryStr = `update login set username=${JSON.stringify(newUsername)} where username=${JSON.stringify(params)}`;
+      db.query(queryStr, (err, results) => {
+        if (err) {
+          console.log(err);
+        }
+        db.query(loginQueryStr, (err, results) => {
+          if (err) {
+            console.log(err);
+          }
+          cb(err, newUsername);
+        })
+      })
+    },
     updatebio: function(params, newBio, cb) {
       var queryStr = `update users set bio=${JSON.stringify(newBio.bio)} where userHandle=${JSON.stringify(params)}`;
       db.query(queryStr, (err, results) => {
@@ -272,7 +287,18 @@ const Models = {
         }
         cb(err, newProfilePic);
       })
-
+    },
+    checkifnewusername: function(params, newName, cb) {
+      if (params === newName.username) {
+        cb(true);
+      }
+      else {
+        cb(false);
+      }
+      // var queryStr = 'select userHandle from users where userName=(?)';
+      // db.query(queryStr, params, (err, results) => {
+      //   console.log('queryresults');
+      // })
     }
     // follow: function(params, cb) {
     //   var queryStr = 'select * from users where users.id = ? limit 1), ?)';
@@ -298,7 +324,6 @@ passport.deserializeUser(function(id, done) {
 });
 
 function authenticationMiddleware() {
-
   return (req, res, next) => {
     console.log(`
       req.session.passport.user: ${JSON.

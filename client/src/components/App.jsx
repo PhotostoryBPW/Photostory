@@ -212,11 +212,24 @@ class App extends React.Component {
       })
   }
 
-  handleLogoutButtonClick() {
+  handleLogoutButtonClick(editUsername, payload, ghostuser) {
     axios.get('api/logout')
       .then( response => {
         delete localStorage.isLoggedIn;
         this.setState({isLoggedIn: false});
+        if (editUsername === 'true') {
+          var newPayload = {
+            ghostuser: ghostuser,
+            replacementName: payload,
+          }
+          axios.put('api/updateusername', newPayload)
+            .then (resonse => {
+              console.log(response);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+        }
       })
       .catch( err => {
         console.log(err);
@@ -242,7 +255,7 @@ class App extends React.Component {
     } else if (view === 'signup') {
       return <Signup/>
     } else if (view === 'editprofile') {
-      return <EditProfile/>
+      return <EditProfile handleLogout={this.handleLogoutButtonClick.bind(this)}/>
     } else if (view === 'createpost') {
       return <CreatePost onSubmit={this.changeView.bind(this)}/>
     }  else if (view === 'search') {
