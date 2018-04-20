@@ -43,11 +43,18 @@ const Controller = {
         if (err) { 
           console.log(err);
         } else {
+          console.log(req.body, 'wreck dat body on comment controller');
+          Models.notifications.addComment({postInfo: req.body.params, loggedInUser: req.body.params.users_id, now: Date.now()}, (err, results) => {
+            if (err) { 
+              console.log(err);
+            } else {
+              console.log('added follow to database successfully', results);
+            }
+          });
           res.sendStatus(201);
         }
       });
     },
-
     delete: (req, res) => {
       Models.posts.delete(req.body, function(err, results) {
         if (err) { 
@@ -59,9 +66,17 @@ const Controller = {
     },
     like: (req, res) => {
       Models.posts.like(req.body, req.session.passport.user, function(err, results) {
+        console.log('the req dot body on the like Controller', req.body)
         if (err) {
           console.log(err);
         } else {
+          Models.notifications.addLike({postLiked: Object.keys(req.body)[0], loggedInUser: req.session.passport.user, now: Date.now()}, (err, results) => {
+            if (err) { 
+              console.log(err);
+            } else {
+              console.log('added follow to database successfully', results);
+            }
+          });
           res.status(201).send(results);
         }
       });
@@ -129,6 +144,13 @@ const Controller = {
         if (err) { 
           console.log(err);
         } else {
+          Models.notifications.addFollow({userFollowed: Object.keys(req.body)[0], loggedInUser: req.session.passport.user, now: Date.now()}, (err, results) => {
+            if (err) { 
+              console.log(err);
+            } else {
+              console.log('added follow to database successfully', results);
+            }
+          });
           res.status(201).send(results);
         }
       });
@@ -213,6 +235,10 @@ const Controller = {
     console.log('made it to file_upload');
     console.log('this is the files: ', req.files);
   },
+
+  notifications: (req, res) => {
+    console.log('made it to notifications on Controller');
+  }
 //   Search: (req, res) => {
 //     var name = req.body.username;
 //     Posts.find({})
@@ -239,5 +265,5 @@ const Controller = {
 //   Follow: (req, res) => {
 //     req.body.followId
 //   }
-}
+};
 module.exports = Controller;
