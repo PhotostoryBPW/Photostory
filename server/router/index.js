@@ -8,7 +8,7 @@ router.get('/feed/:username', Controller.posts.mine);
 router.get('/likes', Controller.posts.likes);
 router.get('/search', Controller.posts.all);
 router.get('/search/:username', Controller.users.find);
-router.get('/profile', Controller.users.info);
+router.get('/info', Controller.users.info);
 router.get('/userprofileinfo', Controller.users.userprofileinfo);
 router.get('/logout', function(req, res) {
     req.logout(); 

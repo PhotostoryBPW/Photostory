@@ -1,7 +1,6 @@
 import React from 'react';
 
 const PostHeader = (props) => {
-  console.log(props, 'headerprops');
     return (
     <div>
       <div className='userImage' onClick={props.clickHandler}><img src={`http://${props.userPhotoUrl}`}/></div>
