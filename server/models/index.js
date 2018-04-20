@@ -103,30 +103,6 @@ const Models = {
         });
       });
     },
-    like: function(data, user, cb) {
-      var queryStr = 'select * from users where users.userHandle=(?)';
-      db.query(queryStr, user, function(err, results) {
-        var queryStr = `insert into likes (posts_id, users_id) values (${Object.keys(data)[0]}, ${results[0].id})`;
-        db.query(queryStr, data, function(err, results) {
-          cb(err, results);
-        });
-      });
-    },
-    likes: function(params, user, cb) {
-      var queryStr = `select * from likes inner join users on likes.users_id = users.id where users.userHandle=${JSON.stringify(user)}`;
-      db.query(queryStr, Object.values(params), function(err, results) {
-        cb(err, results);
-      });
-    },
-    unlike: function(data, user, cb) {
-      var queryStr = 'select * from users where users.userHandle=(?)';
-      db.query(queryStr, user, function(err, results) {
-        var queryStr = `delete from likes where posts_id=(${Object.keys(data)[0]}) and users_id=(${results[0].id})`;
-        db.query(queryStr, data, function(err, results) {
-          cb(err, results);
-        });
-      });
-    },
     mine: function(params, loggedInUserName, cb) {
       console.log('these are the params for a mine', params);
       var queryStr = 'select p.*, u.userHandle, u.userName, u.userLoc, u.userPhotoUrl, u.bio, u.email, u.followedCount, u.followed_id, u.followCount, u.follows_id  from posts as p inner join users as u on p.users_id=u.id where u.userHandle=(?) order by -createdAt';
@@ -164,6 +140,7 @@ const Models = {
     info: function (user, cb) {
       var queryStr = `select * from users where userHandle=${JSON.stringify(user)}`;
       db.query(queryStr, user, function(err, results) {
+        console.log('info results ', results[0]);
         cb(err, results[0]);
       });
     },

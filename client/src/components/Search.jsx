@@ -79,12 +79,10 @@ class Search extends React.Component {
 
   onPostThumbClickHandler(e) {
     this.setState({post: e})
-    console.log(e);
   }
   
   onChangeHandler(e) {
     this.setState({search: e.target.value})  
-    console.log(this.state.search);
   }
 
   render() {
@@ -97,12 +95,12 @@ class Search extends React.Component {
         this.state.searchData.map(post => 
           !post.parent_id  
           ?
-          <Thumbnail post={post} onClick={this.onPostThumbClickHandler.bind(this)} postState={this.state.post}/>
+          <Thumbnail post={post} onClick={this.onPostThumbClickHandler.bind(this)} postState={this.state.post} handleClick={this.props.handleClick}/>
           :
           <div/>
         )
         :
-        <Post post={this.state.post} liked={this.props.liked}/>  
+        <Post post={this.state.post} handleClick={this.props.handleClick}/>  
         }
       </div>
     );
