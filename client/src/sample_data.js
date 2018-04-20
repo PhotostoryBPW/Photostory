@@ -33,7 +33,7 @@ const sampleData = {
         users_id: 1,
         postLoc: 'The harbor',
         body: 'I visited the harbor. It was brown.',
-        photoUrl: 'source.unsplash.com/1600x900/?featured/?cat,loggedInUser',
+        photoUrl: 'source.unsplash.com/1600x900/?featured/?cat,robots',
         like_counter: 14,
         createdAt: Date.now()
       },
