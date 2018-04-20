@@ -96,23 +96,23 @@ class App extends React.Component {
   }
   
   changeView(option, username) {
+
     console.log(username, 'clicked username on post');
-    console.log('changeview called!');
+    console.log('changeview called! this is the state of the app: ', this.state);
     if (option === 'profile' && this.state.view === 'profile') {
       console.log(this.state.currentUser, 'currentuser?');
       this.setState({
         clickedUser: '',
       })
     }
-    
     this.setState({
         view: option,
         clickedUser: username || ''
       }, () => {
-        if (option === 'createpost' || option === 'createpost' || option === 'feed') {
+        if (option === 'createpost' || option === 'createpost' || option === 'feed' || option === 'profile') {
           this.getFeed();
+          this.getUserInfo();
         }
-
       })
     
   }
@@ -274,7 +274,7 @@ class App extends React.Component {
           <div className="container">
             <div className="wrapper">
               <header>
-                <Header view={this.state.view} currentUserHandle={this.state.userInfo.userHandle}/>
+                <Header view={this.state.view} currentUserHandle={this.state.clickedUser || this.state.userInfo.userHandle}/>
               </header>
               <div className="main">
                 {this.renderView()}
