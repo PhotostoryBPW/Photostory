@@ -20,6 +20,7 @@ class Feed extends React.Component {
   }
  
   render(props) {
+    console.log(this.props.posts, 'posts in feed');
     return (
       <div>
         {  
