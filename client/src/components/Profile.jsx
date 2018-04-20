@@ -115,7 +115,7 @@ class Profile extends React.Component {
     // console.log(this.props.user, ' propsuser 3');
     // console.log(this.props.loggedInUser, ' propsloggedinuser 4')
     // console.log('this state userinfo! yo', this.state.userInfo)
-    console.log('this.state.followed of userProfile', this.state.followed)
+    // console.log('this.state.followed of userProfile', this.state.followed)
     // console.log('is this true?', this.state.currentUser !== this.props.user)
     if ((this.state.currentUser !== this.props.user)) {
       this.setState({
