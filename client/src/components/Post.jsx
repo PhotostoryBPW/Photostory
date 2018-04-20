@@ -8,9 +8,7 @@ class Post extends React.Component {
     super(props);
     
     this.addCommentClickHandler = this.addCommentClickHandler.bind(this);
-    this.setLike = this.setLike.bind(this);
-    this.clearLike = this.clearLike.bind(this);
-    this.toggleLike = this.toggleLike.bind(this);
+    this.onSubmitCommentHandler = this.onSubmitCommentHandler.bind(this);
 
     this.state = {
       post: this.props.post,
@@ -22,25 +20,29 @@ class Post extends React.Component {
       hasLiked: ''
     }
     
-    this.onSubmitCommentHandler = this.onSubmitCommentHandler.bind(this);
-    
-  }
-  
-  checkLike() {
-    if (this.props.liked.indexOf(this.props.post.id) > -1) {
-      this.state.hasLiked = true;
-    } else {
-      this.state.hasLiked = false;
-    }
   }
 
-  
-  componentDidUpdate() {
-    console.log('children in post', this.state.children);
+  getLikes() {
+    axios.get('api/likes')
+      .then( response => {
+        var postIDs = [];
+        response.data.forEach(post => {
+          postIDs.push(post.posts_id);
+        });
+        if (postIDs.indexOf(this.props.post.id) > -1) {
+          this.setState({hasLiked: true});
+        } else {
+          this.setState({hasLiked: false});
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   componentDidMount() {
     this.setState({children: this.props.post.children});
+    this.getLikes();
   }
 
   onSubmitCommentHandler() {
@@ -87,72 +89,45 @@ class Post extends React.Component {
   }
   
   setLike() {
+    this.setState({hasLiked : true});
     axios.post('api/like', this.props.post.id)
       .then( response => {
-        console.log('post success ', response.body);
+        console.log('post success');
       })
       .catch( err => {
         console.log(err);
       })
-    this.checkLike();
   }
-
   clearLike() {
+    this.setState({hasLiked : false});
     axios.post('api/unlike', this.props.post.id)
       .then( response => {
-        console.log('post success ', response.body);
-        })
-      .catch( err => {
-        console.log(err);
-      })
-    this.checkLike();
-  }
-
-  setLike() {
-    axios.post('api/like', this.props.post.id)
-      .then( response => {
-        console.log('post success ', response.body);
+        console.log('post success');
       })
       .catch( err => {
         console.log(err);
       })
-    this.checkLike();
-  }
-
-  clearLike() {
-    axios.post('api/unlike', this.props.post.id)
-      .then( response => {
-        console.log('post success ', response.body);
-        })
-      .catch( err => {
-        console.log(err);
-      })
-    this.checkLike();
   }
 
   renderComment() {
     if (this.state.clicked === true) {
-      return <div><input autoFocus onChange={this.onTypeHandler.bind(this)}/><button onClick={this.onSubmitCommentHandler}>POST</button></div> 
+      return <div><input autoFocus onChange={this.onTypeHandler.bind(this)}/> <button onClick={this.onSubmitCommentHandler}>POST</button> <button onClick={this.addCommentClickHandler}>CANCEL</button></div>
     } else {
-      return 'Add a comment - click here to render a form to enter comment'
+      return 'Add a comment'
     }    
   }
 
-  toggleLike() {
-    this.state.hasLiked ? (this.setState({hasLiked: false}), this.clearLike()) : (this.setState({hasLiked: true}), this.setLike()); 
-  }
-
-  likeText() {
-    return this.state.hasLiked === false ? 'LIKE' : 'UNLIKE';
-  }
-
-  likeTip() {
-    return this.state.hasLiked === false ? 'Like this post' : 'You have already liked this post';
+  renderLikeButton() {
+    if (this.state.hasLiked === true) {
+      return <div><button className="buttonRed" onClick={this.clearLike.bind(this)}><span className="tooltiptext">You have already liked this post</span>UNLIKE</button></div>
+    } else {
+      return <div><button className="buttonRed" onClick={this.setLike.bind(this)}><span className="tooltiptext">Like this post</span>LIKE</button></div>
+    }
   }
 
   addCommentClickHandler() {
-    this.setState({clicked: true})
-  }
+    this.state.clicked === true ? this.setState({clicked: false}) : this.setState({clicked: true});
+  } 
 
   profileOrThumbnailClickHandler() {
     console.log('clicked!');
@@ -179,32 +154,22 @@ class Post extends React.Component {
         <div className='postImage'>
           <img src={`http://${this.props.post.photoUrl}`}/>
         </div>
-        {this.checkLike()}
         <div className='postOptions'>
           <div className="tooltip">
-            <div className='like'>
-              <button className="buttonRed" onClick={this.toggleLike}>
-                <img /> 
-                <span className="tooltiptext">{this.likeTip()}</span>
-                <span>{this.likeText()}</span>
-              </button>
-            </div>
-          </div>  
+            {this.renderLikeButton()}
+          </div>
           <div className='addComment tooltip'>
             <button className="buttonRed" onClick={this.addCommentClickHandler}>
-              <img /> 
               <span className="tooltiptext">Comment on this post</span> 
               COMMENT
             </button>
           </div>
           <div className='share tooltip'>
             <button className="buttonRed">
-              <img /> 
               <span className="tooltiptext">Share this post</span>
               SHARE
             </button>
           </div>
-
         </div>  
         <div className='likes'>
           Liked by Judy, Meredith, and {this.props.post.likesCount} others.

@@ -105,7 +105,7 @@ class Search extends React.Component {
           <div/>
         )
         :
-        <Post post={this.state.post} liked={this.props.liked}/>  
+        <Post post={this.state.post} liked={this.props.liked} handleClick={this.props.handleClick} currentUserProfilePhoto={this.props.userInfo.userPhotoUrl}/>  
         }
       </div>
     );

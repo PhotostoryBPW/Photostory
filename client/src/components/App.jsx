@@ -259,7 +259,7 @@ class App extends React.Component {
     } else if (view === 'createpost') {
       return <CreatePost onSubmit={this.changeView.bind(this)}/>
     }  else if (view === 'search') {
-      return <Search posts={this.state.data} liked={this.state.liked}/>
+      return <Search posts={this.state.data} liked={this.state.liked} handleClick={this.changeView.bind(this)} userInfo={this.state.userInfo}/>
     } 
       // else {
     //   return <Post user={this.state.userInfo} key={view._id} post={view} />
