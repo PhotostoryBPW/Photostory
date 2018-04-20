@@ -98,7 +98,7 @@ class Search extends React.Component {
         this.state.searchData.map(post => 
           !post.parent_id  
           ?
-          <Thumbnail key={post.createdAt} post={post} onClick={this.onPostThumbClickHandler.bind(this)} postState={this.state.post}/>
+          <Thumbnail key={Math.floor((Math.random() * 10000000) + 1)} post={post} onClick={this.onPostThumbClickHandler.bind(this)} postState={this.state.post}/>
           :
           <div/>
         )
