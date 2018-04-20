@@ -126,12 +126,18 @@ const Models = {
         });
       });
     },
-    mine: function(params, cb) {
-      console.log(params);
+    mine: function(params, loggedInUserName, cb) {
+      console.log('these are the params for a mine', params);
       var queryStr = 'select p.*, u.userHandle, u.userName, u.userLoc, u.userPhotoUrl, u.bio, u.email, u.followedCount, u.followed_id, u.followCount, u.follows_id  from posts as p inner join users as u on p.users_id=u.id where u.userHandle=(?) order by -createdAt';
-      db.query(queryStr, Object.values(params), function(err, results) {
-        console.log('mine', results)
-        cb(err, results);
+      db.query(queryStr, Object.values(params), function(err, results1) {
+        const mineResults = results1;
+        queryStr = `select f.id from followers as f inner join users as u on u.id = f.users_id where u.userHandle = ? and f.follows_id = ?`;
+        console.log('mine', results1);
+        console.log('mine 2nd params', [loggedInUserName, results1[0].users_id]);
+        db.query(queryStr, [loggedInUserName, mineResults[0].users_id], (err, results2) => {
+          console.log('second query for existing follow relationship', !!results2.length, results2);
+          cb(err, results1, !!results2.length);
+        })
       });
     },
   },
@@ -155,6 +161,7 @@ const Models = {
       });
     },
     follow: function (follows_id, user, cb) {
+      console.log(follows_id, 'this is the follows_id at the top of the follow function');
       var queryStr = 'select id from users where userHandle=(?)';
       db.query(queryStr, user, function(err, results) {
         if (err) {
@@ -162,13 +169,14 @@ const Models = {
         }
         var params = [results[0].id, Object.keys(follows_id)[0]]
         queryStr = 'select * from followers where users_id=? and follows_id=?'
-        console.log([results[0].id, Object.keys(follows_id)[0]]);
+        console.log([results[0].id, Object.keys(follows_id)[0]], 'by this params?', params);
         db.query(queryStr, params, (err, results) => {
           if (err) {
             cb(err);
           }
           if (!results.length) {
           queryStr = 'insert into followers (users_id, follows_id) values (?,?)';
+            console.log('is this params getting masked? ', params);
           db.query(queryStr, params, function(err, results) {
             if (err) {
               cb(err)
