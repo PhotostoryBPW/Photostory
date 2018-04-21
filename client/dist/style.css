@@ -438,3 +438,22 @@ div.commentUser {
   display: block;
 }
 
+.noteThumb {
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+}
+
+.noteThumb img {
+  height: 50px;
+
+  display: block;
+  float: left;
+  clear: left;
+  overflow: hidden;
+}
+
+.noteText {
+  float: left;
+
+}

@@ -20,7 +20,19 @@ class NoteFeed extends React.Component {
   render(props) {
     return (
       <div>
-          <Note />
+        {
+        this.props.notes.length > 0
+        ?
+        this.props.notes.map(note =>
+          <Note key={note.note_time} note={note} />
+          // <Post handleClick={this.props.handleClick} key={post.id} post={post} view={this.props.view} liked={this.props.liked} currentUserProfilePhoto={this.props.userInfo.userPhotoUrl}/>
+        )
+        :
+        <div>
+            No notifications to display.
+        </div>
+        
+        }
       </div>  
     )
   }

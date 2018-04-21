@@ -134,7 +134,7 @@ class Post extends React.Component {
         <div> 
           <div> {
             !!this.state.post && this.state.view !== 'profile' ?
-            <PostHeader userPhotoUrl={this.props.post.userPhotoUrl} userHandle={this.props.post.userHandle} clickHandler={this.profileOrThumbnailClickHandler.bind(this)}/> 
+            <PostHeader key={this.props.post.id} userPhotoUrl={this.props.post.userPhotoUrl} userHandle={this.props.post.userHandle} clickHandler={this.profileOrThumbnailClickHandler.bind(this)}/> 
             :
             <div></div>
           }
