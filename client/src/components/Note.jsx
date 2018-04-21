@@ -14,7 +14,31 @@ class Note extends React.Component {
     }
   }
 
-
+  onFollowClickHandler(e) {
+    console.log('the state of this on click ', this.state, 'and the value of e on click'. e);
+    axios.post('api/follow', this.props.note.users_id)
+    .then((response) => {
+        if (!this.state.followed) {
+          var userInfoUpdated = Object.assign({}, this.state.userInfo, {followedCount: ++this.state.userInfo.followedCount});
+          console.log('top question', userInfoUpdated);
+          this.setState({
+            followed: !this.state.followed,
+            userInfo: userInfoUpdated
+          })
+        } else {
+          var userInfoUpdated = Object.assign({}, this.state.userInfo, {followedCount: --this.state.userInfo.followedCount});
+          console.log('bottom questions' , userInfoUpdated);
+          this.setState({
+            followed: !this.state.followed,            
+            userInfo: userInfoUpdated
+          })
+        }
+      console.log('reached the server successfully', response)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
   clickHandler(e) {
     // console.log(this);
