@@ -20,6 +20,8 @@ class Feed extends React.Component {
   }
  
   render(props) {
+    console.log(this.props.userInfo, 'userinfo?');
+    console.log(this.props.liked, 'liked?');
     return (
       <div>
         {  

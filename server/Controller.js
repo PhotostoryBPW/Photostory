@@ -12,13 +12,25 @@ const Controller = {
   },
   posts: {
     all: (req, res) => {
-      Models.posts.all(function(err, results) {
+      Models.posts.all(req.session.passport.user, function(err, results) {
         if (err) { 
           console.log(err);
         } else {
           res.status(201).send(results);
         }
       });
+    },
+    following: (req, res) => {
+      if (req.session.passport === undefined) {
+        res.status(200).send('not logged in');
+      }
+      Models.posts.following(req.session.passport.user, function(err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(201).send(results);
+        }
+      })
     },
     friends: (req, res) => {
       Models.posts.friends(function(err, results) {
@@ -43,7 +55,6 @@ const Controller = {
         if (err) { 
           console.log(err);
         } else {
-          console.log(req.body, 'wreck dat body on comment controller');
           Models.notifications.addComment({postInfo: req.body.params, loggedInUser: req.body.params.users_id, now: Date.now()}, (err, results) => {
             if (err) { 
               console.log(err);
@@ -100,7 +111,6 @@ const Controller = {
       });
     },
     mine: (req, res) => {
-      console.log(req.params, 'params on a mine functione form controller')
       Models.posts.mine(req.params, req.session.passport.user, function(err, results1, results2) {
         if (err) { 
           console.log(err);
@@ -112,7 +122,6 @@ const Controller = {
             results1 = results2
           } else {
           results1[0].isFollowing = results2;
-          console.log('the results of the mine', results1);
           }
           res.status(201).send(results1);
         }
@@ -233,7 +242,6 @@ const Controller = {
   },
   
   file_upload: (req, res) => {
-    console.log('made it to file_upload');
     console.log('this is the files: ', req.files);
   },
 

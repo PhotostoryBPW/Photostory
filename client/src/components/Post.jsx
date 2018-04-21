@@ -58,12 +58,8 @@ class Post extends React.Component {
       }
     })
     .then( response => {
-      console.log('this is the PARENT ID of a comment', this.props.post.id)
       oldChildrenState = this.state.children;
-      console.log('response config data', response.config.data);
       this.setState({clicked: false})
-      console.log('this is old children state before updating', oldChildrenState);
-      // JSON.parse(response.config.data.userPhotoUrl).userPhotoUrl = this.props.post.userPhotoUrl
       if (!!oldChildrenState && oldChildrenState.length > 0) {
         oldChildrenState.push((JSON.parse(response.config.data)).params);
       } else {
@@ -75,7 +71,6 @@ class Post extends React.Component {
       console.log('this is old children state updated', oldChildrenState);
     })
     .then( () => {
-      console.log('this is the new children state right before updating', oldChildrenState);
       this.setState({children: oldChildrenState});
     })
     .catch( err => {
@@ -84,7 +79,6 @@ class Post extends React.Component {
   }
   
   onTypeHandler(e) {
-    console.log(e.target.value);
     this.setState({commentText: e.target.value});
   }
   
@@ -183,7 +177,7 @@ class Post extends React.Component {
           {
             !!this.state.children && !!this.state.children.length ?
             this.state.children.map(child => 
-              <div key={child.id} className='entireComment'>
+              <div className='entireComment' key={Math.floor((Math.random() * 10000000) + 1)}>
                 <img className='commentPic' src={`http://${child.userPhotoUrl}`}/>
                 <div className='commentUser'>{child.userHandle}</div>
                 <div className='commentBody'>{child.body}</div>

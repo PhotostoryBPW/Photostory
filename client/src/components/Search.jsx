@@ -25,7 +25,6 @@ class Search extends React.Component {
       .then( response => {
         posts = [];
         comments = [];
-        console.log('got search with the current data: ', response.data)
         response.data.forEach(data => {
           if (data.parent_id) {
             comments.push(data)
@@ -37,7 +36,6 @@ class Search extends React.Component {
       .then(() => {
         posts.map(post => {
           comments.forEach(comment => {
-            console.log(comment.parent_id === post.id);
             if (comment.parent_id === post.id) {
               if (!post.children) {
                 post.children = [comment];
@@ -49,7 +47,6 @@ class Search extends React.Component {
         })
       })
       .then(() => {
-        console.log('this is search posts after it is done compiling children', posts);
         this.setState({
           searchData: posts,
         })
@@ -67,7 +64,6 @@ class Search extends React.Component {
       }
     })
     .then( response => {
-      console.log('response', response)
       this.setState({ 
         searchData: response.data
       })
@@ -88,6 +84,10 @@ class Search extends React.Component {
   render() {
     return (
       <div>
+        {
+          this.state.searchData.length !== 0
+          ?
+        <div>
         <input onChange={this.onChangeHandler.bind(this)}/><button onClick={this.onClickHandler.bind(this)}>Search</button>
         {
         !this.state.post 
@@ -95,12 +95,17 @@ class Search extends React.Component {
         this.state.searchData.map(post => 
           !post.parent_id  
           ?
-          <Thumbnail post={post} onClick={this.onPostThumbClickHandler.bind(this)} postState={this.state.post} handleClick={this.props.handleClick}/>
+          <Thumbnail key={Math.floor((Math.random() * 10000000) + 1)} post={post} onClick={this.onPostThumbClickHandler.bind(this)} postState={this.state.post}/>
           :
           <div/>
         )
         :
-        <Post post={this.state.post} liked={this.props.liked} handleClick={this.props.handleClick} currentUserProfilePhoto={this.props.userInfo.userPhotoUrl}/>  
+        <Post key={Math.floor((Math.random() * 1000000) + 1)} post={this.state.post} liked={this.props.liked} handleClick={this.props.handleClick} currentUserProfilePhoto={this.props.userInfo.userPhotoUrl}/>  
+        }
+        </div>
+        :
+        <div>
+        </div>
         }
       </div>
     );
@@ -108,5 +113,6 @@ class Search extends React.Component {
 }
 
 export default Search;
+
 
 

@@ -37,7 +37,7 @@ class ProfilePosts extends React.Component {
         this.state.postView === 'postThumbs' && !this.state.post
         ?
         this.props.posts.map(post => 
-          <Thumbnail post={post} onClick={this.onPostThumbClickHandler.bind(this)} />
+          <Thumbnail key={Math.floor((Math.random() * 1000000) + 1)} post={post} onClick={this.onPostThumbClickHandler.bind(this)} />
         )
         :
         this.state.postView === 'postFeed' && !this.state.post
