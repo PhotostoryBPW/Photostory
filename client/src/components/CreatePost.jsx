@@ -78,8 +78,11 @@ class CreatePost extends React.Component {
           <div className='portrait' onClick={this.onFilterClickHandler.bind(this)}></div>
         </div>  
         <textarea className='postBody' name='postBody' type='textbody' onChange={this.onBodyChangeHandler.bind(this)}/>
+        Enter your comments
         <input className='location' name='location' type='text' onChange={this.onLocationChangeHandler.bind(this)}/>
-        <button id="#submit-all" onClick={this.onSubmitPostClickHandler.bind(this)} style={this.state.showSubmit ? {display: 'block'} : {display: 'none'}} >Post</button>
+        Location
+        <br />
+        <button id="#submit-all" class="buttonRed" onClick={this.onSubmitPostClickHandler.bind(this)} style={this.state.showSubmit ? {display: 'block'} : {display: 'none'}} >CREATE POST</button>
       </div>
     );
   }
