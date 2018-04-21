@@ -332,7 +332,7 @@ class App extends React.Component {
           <div className="container">
             <div className="wrapper">
               <header>
-                <Header view={this.state.view} loggedInUserHandle={this.state.selectedUser || this.state.userInfo.userHandle}/>
+                <Header view={this.state.view} currentUserHandle={this.state.selectedUser || this.state.userInfo.userHandle}/>
               </header>
               <div className="main">
                 {this.renderView()}

@@ -14,6 +14,7 @@ const Header = (props) => {
     (props.view === 'search') ? <span>Search</span> :
     (props.view === 'createpost') ? <span>Post</span> :
     (props.view === 'notifications') ? <span>Notifications</span> : 
+    (props.view === 'profile') ? <span>Profile</span> :
     (props.view === 'editprofile') ? <span>Edit Profile</span> :
     <span>{props.currentUserHandle}</span>
     }
