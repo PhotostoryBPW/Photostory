@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS notifications (
   follows_id int, -- the user that started following them
   note_time bigint, -- the time of the notification
   viewed int default 0 not null, -- has the post been viewed? 0 is no, 1 is yes 
+  noteType int, -- 0 = comment, 1 = follow, 2 = like
   PRIMARY KEY (id)
 );
 
