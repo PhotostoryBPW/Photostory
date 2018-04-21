@@ -33,8 +33,13 @@ class Note extends React.Component {
             <img src={`http://${this.props.note.photoUrl || this.props.note.userPhotoUrl}`}/>
           </div>
           <div className='noteText' onClick={this.clickHandler}>
-            {this.props.note.userHandle} has commented on your post.
-          </div>    
+            <div>
+              {this.props.note.userHandle} is following you.
+            </div>
+            <div className='noteMoment'>
+              {moment(this.props.note.note_time).fromNow()}
+            </div>
+          </div>   
         </div>    
         :
         this.props.note.noteType === 1
@@ -44,8 +49,13 @@ class Note extends React.Component {
             <img src={`http://${this.props.note.photoUrl || this.props.note.userPhotoUrl}`}/>
           </div>
           <div className='noteText' onClick={this.clickHandler}>
-            {this.props.note.userHandle} has liked your post.
-          </div>    
+            <div >
+              {this.props.note.userHandle} is following you.
+            </div>
+            <div className='noteMoment'>
+              {moment(this.props.note.note_time).fromNow()}
+            </div>
+          </div>
         </div>   
         :
         this.props.note.noteType === 2
@@ -55,8 +65,14 @@ class Note extends React.Component {
             <img src={`http://${this.props.note.photoUrl || this.props.note.userPhotoUrl}`}/>
           </div>
           <div className='noteText' onClick={this.clickHandler}>
-            {this.props.note.userHandle} is following you.
-          </div>    
+            <div >
+              {this.props.note.userHandle} is following you.
+            </div>
+            <div className='noteMoment'>
+              {moment(this.props.note.note_time).fromNow()}
+            </div>
+          </div>
+               
           <button className='followBack button'>Follow Back</button>
         </div>
         :
