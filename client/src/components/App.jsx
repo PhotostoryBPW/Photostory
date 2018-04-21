@@ -41,14 +41,12 @@ class App extends React.Component {
     console.log('This is the current logged in user on the App', userLoggedIn)
   }
 
-  getUserInfo() {
-    axios.get(`http://localhost:3000/api/info`)
+  getUserInfo(user) {
+    axios.get(`http://localhost:3000/api/info`, user)
     .then( response => {
       this.setState({ 
-        userInfo: response.data,
-        loggedInUser: response.data.userHandle
+        userInfo: response.data
       })
-      console.log('this is the users info :', this.state.userInfo)
     })
     .catch( err => {
       console.log(err);
@@ -71,10 +69,13 @@ class App extends React.Component {
     this.getFeed();
     axios.get('api/checksession')
     .then( response => {
-      if (response.data === 'active') {
+      if (response.data.status === 'active') {
         localStorage['isLoggedIn'] = true;
-        this.getUserInfo();
+        this.getUserInfo(response.data.user);
         this.setState({ 
+          loggedInUser: response.data.user,
+          posts: sample.posts,
+          users: sample.users,
           isLoggedIn: true
         })
       } else {
@@ -101,16 +102,11 @@ class App extends React.Component {
         selectedUser: '',
       })
     }
+    this.getUserInfo(username);
     this.setState({
-        view: option,
-        selectedUser: username || ''
-      }, () => {
-        if (option === 'createpost' || option === 'createpost' || option === 'feed' || option === 'profile') {
-          this.getFeed();
-          this.getUserInfo();
-        }
-      })
-    
+      view: option,
+      selectedUser: username || '',
+    })
   }
 
   navBarClickHandler(page) {

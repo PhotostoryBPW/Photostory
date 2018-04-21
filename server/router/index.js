@@ -56,7 +56,7 @@ router.post('/login', (req, res, next) => {
 
 router.get('/checksession', (req, res) => {
   if (req.session.hasOwnProperty('passport')) {
-    res.status(200).send('active');
+    res.status(200).send({'status': 'active', 'user': req.session.passport.user});
   }
   else {
     res.status(200).send('inactive');

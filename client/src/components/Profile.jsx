@@ -59,17 +59,21 @@ class Profile extends React.Component {
     let following;
     axios.get(`api/feed/${this.state.currentUser}`)
     .then( response => {
-      currentUserInfo = {
-        users_id: response.data[0].users_id,
-        userHandle: response.data[0].userHandle,
-        userName: response.data[0].userName,
-        userLoc: response.data[0].userLoc,
-        userPhotoUrl: response.data[0].userPhotoUrl,
-        bio: response.data[0].bio,
-        email: response.data[0].email,
-        followCount: response.data[0].followCount,
-        followedCount: response.data[0].followedCount,
-      };
+
+//      currentUserInfo = {
+//         users_id: response.data[0].users_id,
+//         userHandle: response.data[0].userHandle,
+//         userName: response.data[0].userName,
+//         userLoc: response.data[0].userLoc,
+//         userPhotoUrl: response.data[0].userPhotoUrl,
+//         bio: response.data[0].bio,
+//         email: response.data[0].email,
+//         followCount: response.data[0].followCount,
+//         followedCount: response.data[0].followedCount,
+  
+
+      this.setState({userInfo: response.data[0]});
+
       following = response.data[0].isFollowing
       posts = [];
       comments = [];
@@ -81,12 +85,7 @@ class Profile extends React.Component {
         }
       })
     })
-    .then(() => {
-      if (currentUserInfo.users_id) {
-        this.setState({
-          userInfo: currentUserInfo,
-        })  
-      }    
+    .then(() => {  
       posts.map(post => {
         comments.forEach(comment => {
           if (comment.parent_id === post.id) {
@@ -109,12 +108,6 @@ class Profile extends React.Component {
       console.log(err);
     })
   }
-  
-  // setInfo() {
-  //   this.state.userInfo = this.props.userInfo;
-  //   console.log('info set');
-  //   console.log(this.props.userInfo);
-  // }
 
   render() {
     return (
@@ -150,8 +143,6 @@ class Profile extends React.Component {
             }
         </div>
         <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo} view={this.props.view} currentUserProfilePhoto={this.state.userInfo.userPhotoUrl}/></div>
-      </div>
-        }
       </div>  
     )
   }

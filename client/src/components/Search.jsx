@@ -75,7 +75,6 @@ class Search extends React.Component {
 
   onPostThumbClickHandler(e) {
     this.setState({post: e})
-    console.log(e);
   }
   
   onChangeHandler(e) {
