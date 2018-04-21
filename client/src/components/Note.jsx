@@ -24,13 +24,44 @@ class Note extends React.Component {
   render() {
     return (
     <div>
-      <div className='noteText' onClick={this.clickHandler}>
-        {this.props.note.userHandle} 
-      </div>
-        
-      <div className='noteThumb' onClick={this.clickHandler}>
-        <img src={`http://${this.props.note.photoUrl || this.props.note.userPhotoUrl}`}/>
-      </div>
+        {/* 0 = comment, 1 = follow, 2 = like */}
+        {
+        this.props.note.noteType === 0
+        ?
+        <div className='notification'>
+          <div className='noteThumb' onClick={this.clickHandler}>
+            <img src={`http://${this.props.note.photoUrl || this.props.note.userPhotoUrl}`}/>
+          </div>
+          <div className='noteText' onClick={this.clickHandler}>
+            {this.props.note.userHandle} has commented on your post.
+          </div>    
+        </div>    
+        :
+        this.props.note.noteType === 1
+        ?
+        <div className='notification'>
+          <div className='noteThumb' onClick={this.clickHandler}>
+            <img src={`http://${this.props.note.photoUrl || this.props.note.userPhotoUrl}`}/>
+          </div>
+          <div className='noteText' onClick={this.clickHandler}>
+            {this.props.note.userHandle} has liked your post.
+          </div>    
+        </div>   
+        :
+        this.props.note.noteType === 2
+        ?
+        <div className='notification'>
+          <div className='noteThumb' onClick={this.clickHandler}>
+            <img src={`http://${this.props.note.photoUrl || this.props.note.userPhotoUrl}`}/>
+          </div>
+          <div className='noteText' onClick={this.clickHandler}>
+            {this.props.note.userHandle} is following you.
+          </div>    
+          <button className='followBack button'>Follow Back</button>
+        </div>
+        :
+        <div/>   
+      }   
     </div>  
     );
   }

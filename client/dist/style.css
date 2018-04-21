@@ -438,22 +438,54 @@ div.commentUser {
   display: block;
 }
 
+div div.notification {
+  border-top: thin solid #F8F8F8;
+  border-bottom: thin solid #F8F8F8;
+}
+
+div div.notification:hover {
+  background-color: #F8F8F8
+}
+
+.notification {
+  display: block;
+  clear: both;
+  
+}
+
 .noteThumb {
   height: 50px;
   width: 50px;
   overflow: hidden;
+  float: left;
+  margin-right: 10px;
 }
 
 .noteThumb img {
   height: 50px;
 
   display: block;
-  float: left;
-  clear: left;
+
   overflow: hidden;
 }
 
 .noteText {
   float: left;
+  margin: 2.5% 0;
+  
+}
 
+.followBack {
+  float: right;
+  display: block;
+  position: relative;
+  height: 46px;
+  width: 150px;
+  margin: 2px 0;
+  border: thin solid lightgrey;
+  outline:none;
+  color: gray;
+  background-color: white;
+  box-shadow: 0.5px 0.5px lightgrey;
+  font: 400 16px system-ui;
 }

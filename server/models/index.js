@@ -325,9 +325,9 @@ const Models = {
       var queryStr = 'select id from users where userHandle=?'
       db.query(queryStr, params.loggedInUser, (err, results) => {
         params.loggedInUser = results[0].id;
-        console.log('resi;ts pf forst query', results[0].id)
+        console.log('results of first query', results[0].id)
         console.log(params, 'new params after first query call')
-        var queryStr = 'insert into notifications (users_id, follows_id, note_time) values (?, ?, ?)'
+        var queryStr = 'insert into notifications (users_id, follows_id, note_time, noteType) values (?, ?, ?, 1)'
         db.query(queryStr, Object.values(params), (err, results) => {
           if (err) {
             console.log(err);
@@ -357,7 +357,7 @@ const Models = {
         params.userComentedOn = results[0].users_id
         console.log('results of first query', results[0].users_id)
         console.log(params, 'new params after first query call')
-        var queryStr = 'insert into notifications (users_id, posts_id, userLiked_id, note_time, follows_id) values (?, ?, ?, ?, 0)'
+        var queryStr = 'insert into notifications (users_id, posts_id, userLiked_id, note_time, follows_id, noteType) values (?, ?, ?, ?, 0, 0)'
         db.query(queryStr, [params.userComentedOn, params.postInfo.parent_id, params.loggedInUser, params.now], (err, results) => {
           if (err) {
             console.log(err);
@@ -380,7 +380,7 @@ const Models = {
           params.userLiked_id = results[0].users_id
           console.log('results of second query', results[0])
           console.log(params, 'new params after second query call')
-          var queryStr = 'insert into notifications (posts_id, userLiked_id, note_time, users_id) values (?, ?, ?, ?)'
+          var queryStr = 'insert into notifications (posts_id, userLiked_id, note_time, users_id, noteType) values (?, ?, ?, ?, 2)'
           db.query(queryStr, Object.values(params), (err, results) => {
             if (err) {
               console.log(err);
@@ -395,16 +395,16 @@ const Models = {
     get: (params, cb) => {
       var notifications = {};
       console.log('getting notifications') 
-      var queryStr = 'select n.id, x.userHandle, n.posts_id, p.photoUrl, n.note_time, n.viewed from notifications as n join posts as p on n.posts_id = p.id join users as u on u.id = n.users_id join users as x on x.id = n.userLiked_id where (u.userHandle=? and p.photoUrl is not null and n.follows_id is not null)' //comment notifications
+      var queryStr = 'select n.id, n.noteType, x.userHandle, n.posts_id, p.photoUrl, n.note_time, n.viewed from notifications as n join posts as p on n.posts_id = p.id join users as u on u.id = n.users_id join users as x on x.id = n.userLiked_id where (u.userHandle=? and p.photoUrl is not null and n.follows_id is not null)' //comment notifications
       db.query(queryStr, params, (err, results) => {
         console.log('these are comments notifications for the logged in user', results);
         notifications.comments = results //comments notifications
         queryStr = 
-        `select n.id, x.userHandle, n.posts_id, p.photoUrl, n.note_time, n.viewed from notifications as n join users as u on u.id = n.users_id join users as x on x.id = n.userLiked_id join posts as p on n.posts_id = p.id where (u.userHandle=? and p.photoUrl is not null)` //like notification
+        `select n.id, n.noteType, x.userHandle, n.posts_id, p.photoUrl, n.note_time, n.viewed from notifications as n join users as u on u.id = n.users_id join users as x on x.id = n.userLiked_id join posts as p on n.posts_id = p.id where (u.userHandle=? and p.photoUrl is not null)` //like notification
         db.query(queryStr, params, (err, results) => {
           console.log('these are likes notifications for the logged in user', results);
           notifications.likes = results //likes notifications
-          queryStr = 'select n.id, n.users_id, x.userHandle, x.userPhotoUrl, n.note_time, n.viewed from notifications as n join users as u, users as x where u.id = n.users_id and n.follows_id = x.id and u.userHandle=?' //follow notification        
+          queryStr = 'select n.id, n.noteType, n.users_id, x.userHandle, x.userPhotoUrl, n.note_time, n.viewed from notifications as n join users as u, users as x where u.id = n.users_id and n.follows_id = x.id and u.userHandle=?' //follow notification        
           db.query(queryStr, params, (err, results) => {
             console.log('these are follow notifications for the logged in user', results);
             notifications.follow = results //comments notifications
