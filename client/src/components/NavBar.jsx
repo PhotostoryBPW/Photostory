@@ -2,32 +2,34 @@ import React from 'react';
 
 const NavBar = (props) => {
   const clickHandler = (e) => {
-    console.log('This is the current view: ', e.target.className);
-    props.navBarClickHandler(e.target.className);
+    console.log('This is the current view: ', e);
+    props.navBarClickHandler(e);
   };
 
   return (
   <div className="navBar">
-    <div onClick={clickHandler.bind(this)} className="feed">
-      <img/> HOME
+    <div onClick={clickHandler.bind(this, 'feed')} className="feed">
+      <img src="http://localhost:3000/nav/feed.png"/> 
     </div>
-    <div onClick={clickHandler.bind(this)} className="search">
-      <img/> SEARCH
+    <div onClick={clickHandler.bind(this, 'search')} className="search">
+      <img src="http://localhost:3000/nav/search.png"/> 
     </div>
-    <div onClick={clickHandler.bind(this)} className="createpost">
-      <img/> POST
-    </div>
-    <div onClick={clickHandler.bind(this)} className="notifications">
+    <div onClick={clickHandler.bind(this, 'createpost')} className="createpost">
+      <div className="Button Button--select" onClick={clickHandler.bind(this, 'createpost')}>
+      <button className='postButton'><img src="http://localhost:3000/nav/post-w.png"/></button>
+      </div>
+    </div>  
+    <div onClick={clickHandler.bind(this, 'notifications')} className="notifications">
       {
         !!props.notifications
         ?
         props.notifications
         :
-        '!!!'
+        <img src="http://localhost:3000/nav/notifications.png"/>
       }
     </div>
-    <div onClick={clickHandler.bind(this)} className="profile">
-      <img/> PROF
+    <div onClick={clickHandler.bind(this, 'profile')} className="profile">
+      <img src="http://localhost:3000/nav/profile.png"/> 
     </div>
   </div>
   );
