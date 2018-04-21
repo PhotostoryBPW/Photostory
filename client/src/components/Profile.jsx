@@ -55,23 +55,9 @@ class Profile extends React.Component {
   getCurrentUsersPosts() {
     let posts = [];
     let comments = [];
-    let currentUserInfo = {};
     let following;
     axios.get(`api/feed/${this.state.currentUser}`)
     .then( response => {
-
-//      currentUserInfo = {
-//         users_id: response.data[0].users_id,
-//         userHandle: response.data[0].userHandle,
-//         userName: response.data[0].userName,
-//         userLoc: response.data[0].userLoc,
-//         userPhotoUrl: response.data[0].userPhotoUrl,
-//         bio: response.data[0].bio,
-//         email: response.data[0].email,
-//         followCount: response.data[0].followCount,
-//         followedCount: response.data[0].followedCount,
-  
-
       this.setState({userInfo: response.data[0]});
 
       following = response.data[0].isFollowing
