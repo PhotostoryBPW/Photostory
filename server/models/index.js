@@ -400,7 +400,7 @@ const Models = {
         console.log('these are comments notifications for the logged in user', results);
         notifications.comments = results //comments notifications
         queryStr = 
-        `select n.id, n.noteType, x.userHandle, n.posts_id, p.photoUrl, n.note_time, n.viewed from notifications as n join users as u on u.id = n.users_id join users as x on x.id = n.userLiked_id join posts as p on n.posts_id = p.id where (u.userHandle=? and p.photoUrl is not null)` //like notification
+        `select n.id, n.noteType, x.userHandle, n.posts_id, p.photoUrl, n.note_time, n.viewed from notifications as n join users as u on u.id = n.users_id join users as x on x.id = n.userLiked_id join posts as p on n.posts_id = p.id where (u.userHandle=? and p.photoUrl is not null and n.noteType=2)` //like notification
         db.query(queryStr, params, (err, results) => {
           console.log('these are likes notifications for the logged in user', results);
           notifications.likes = results //likes notifications
