@@ -311,6 +311,7 @@ textarea.postBody {
   float: left;
   font-weight: 600;
   cursor: pointer;
+  margin-right: 10px
 }
 .wrapper {
   width: 100%;
