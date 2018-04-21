@@ -33,7 +33,8 @@ class Login extends React.Component {
       password: payload.password
     })
     .then((response) => {
-      if (response.data === 'active') {
+      console.log('this is the data on a response for handleLogin: ', response.data.status)
+      if (response.data.status === 'active') {
         this.setState({toggleSuccessMessage: true});
         this.setState({toggleIncorrectCredentialsMessage: false});
         this.props.toggleLoggedIn();

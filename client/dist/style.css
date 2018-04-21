@@ -1,11 +1,9 @@
-
 body {
   font-family: 'PT Serif', sans-serif;
   margin: auto;
   background-color:white;
   height: 100%;
 }
-
 button {
   cursor: pointer;
   border: none;
@@ -14,7 +12,117 @@ button {
   color: #CCC;
   background-color: rgb(0, 0, 0);
 }
-
+div.commentBody {
+  margin: 0px 10px 0px 0px;
+  float: left;
+  display: inline-block;
+}
+div.commentUser {
+  margin: 0px 10px 0px 0px;
+  float: left;
+  display: inline-block;
+}
+div.filters div {
+  height: 81.5198811288339px;
+  width: 81.5198811288339px;
+  float: left;
+  background-color: cyan;
+  border: thin solid pink 
+}
+div.navBar div {
+  display: inline-block;
+  height: 50px;
+  width: 20%;
+  margin: auto;
+  padding: 10px 0px 0px 0px;
+  position: relative;
+  text-align: center;
+  background:#F8F8F8;
+}
+div.postImage img {
+  display: block;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+}
+div.thumb img {
+  width: 33%;
+  float: left;
+  height: auto;
+}
+div.userImage img {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  float: left;
+  margin: 5px 10px 5px 0;
+  cursor: pointer;
+}
+footer {
+  position:sticky;
+  bottom: 0px;
+  height: 50px; 
+  margin: auto;
+  clear: both;
+}
+img.commentPic {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border-radius: 25px;
+  float: left;
+  margin: 5px 10px 5px 0;
+  clear: both;
+}
+input.location {
+  width:100%;
+}
+header {
+  position:sticky;
+  height: 40px;
+  top:0;
+  width: 100%;
+  background-color: #F8F8F8;
+  padding: 15px 0px 0px 0px;
+  z-index: 1;
+}
+html, body {
+  min-height:100%;
+  margin: 0;
+}
+hr {
+  border:none;
+  border-top:3px dotted black;
+  height:3px;
+  width:60%;
+}
+img {
+  border-radius: 3px;
+}
+textarea.postBody {
+  width: 100%;
+}
+.active {
+  width: 100%;
+  height: 200px;
+  border-width: 2px;
+  border-color: rgb(102, 102, 102);
+  border-style: dashed;
+  border-radius: 5px;
+  opacity: 1;
+  background-color: green;
+}
+.addPost {
+  border: none;
+}
+.addComment {
+  display: block;
+  float: left;
+}
+.attributeRow {
+  margin-bottom: 10px;
+}
 .buttonRed {
   cursor: pointer;
   border: none;
@@ -25,65 +133,99 @@ button {
   background-color: #722;
   padding: 5px;
   margin: 5px;
+  z-index: -1;
 }
-
-hr {
-  border:none;
-  border-top:3px dotted black;
-  height:3px;
-  width:60%;
-}
-
-img {
-  border-radius: 3px;
-}
-
-.addPost {
-  border: none;
-}
-
-.addComment {
+.centerText {
+  text-align: center;
+  margin: 0 auto;
   display: block;
-  float: left;
 }
-
 .container {
   min-height: calc(100vh - 50px);
 }
-
+.create {
+  display: inline-block;
+}
+.dropzone {
+  width: 100%;
+  height: 200px;
+  border-width: 2px;
+  border-color: rgb(102, 102, 102);
+  border-style: dashed;
+  border-radius: 5px;
+  opacity: 1;
+}
+.editProfIcon {
+    padding-top: 7px;   
+    padding-right: 7px;
+  position: relative;
+  float: right;
+    right: 0;
+    top: 0;
+    display: block;
+}
+.editProfIcon a {
+    color: #000;
+}
+.editProfilePic{
+  width: 40%;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+}
+.entireComment {
+  clear: both;
+  display: block;
+}
+.feed {
+  display: inline-block;
+}
+.header {
+  position: relative;
+  text-align: center;
+}
 .home {
   margin: auto;
 }
-
 .login {
   margin: 10px;
 }
-
 .main {
   background-color: white;
 }
-
 .notifications {
-  border: none;
+  display: inline-block;
 }
-
+.postLocation {
+  float: left;
+}
 .postMain {
   margin: 10px 0px;
 }
-
 .postMoment {
   font-style: italic;
   clear: both;
 }
-
 .postOptions {
   margin: auto;
 }
-
-.profile {
-  margin: auto;
+.profBioInput {
+  width: 80%;
 }
-
+.profEditInput {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  margin-bottom: -1px;
+  box-sizing: border-box;
+}
+.profEditInput:focus {
+  outline:none;
+}  
+.profile {
+  display: inline-block;
+}
 .profileMain {
   display: grid;
   width: 500px;
@@ -99,29 +241,45 @@ img {
   background-color: #fff;
   color: #444;
 }
-
-.search {
-  margin: auto;
+.reject {
+  width: 100%;
+  height: 200px;
+  border-width: 2px;
+  border-color: rgb(102, 102, 102);
+  border-style: dashed;
+  border-radius: 5px;
+  opacity: 1;
+  background-color: red;
 }
-
+.saveProfIcon {
+    padding-top: 7px;   
+    padding-right: 7px;
+  position: relative;
+  float: right;
+    right: 0;
+    top: 0;
+    display: block;
+}
+.saveProfIcon a {
+    color: #000;
+}
+.search {
+  display: inline-block;
+}
 .share {
   display: block;
   float: left;
 }
-
 .signup {
   margin: 10px;
 }
-
 .statsItem {
   border: none;
 }
-
 .tooltip {
   position: relative;
   display: inline-block;
 }
-
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 120px;
@@ -136,7 +294,6 @@ img {
   left: 50%;
   margin-left: -60px;
 }
-
 .tooltip .tooltiptext::after {
   content: "";
   position: absolute;
@@ -147,17 +304,20 @@ img {
   border-style: solid;
   border-color: black transparent transparent transparent;
 }
-
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
-
+.userHandle {
+  float: left;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 10px
+}
 .wrapper {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
 }
-
 #edit {
   cursor: pointer;
   grid-area: right-middle;
@@ -170,7 +330,6 @@ img {
   background-color: #333;
   padding: 5px;
 }
-
 #logoutbtn {
   cursor: pointer;
   grid-area: right-bottom;
@@ -183,7 +342,6 @@ img {
   background-color: #333;
   padding: 5px;
 }
-
 #handle {
   grid-area: header;
   color: white;
@@ -193,22 +351,21 @@ img {
   border-radius: 4px;
   margin: 5px 0px;
 }
-
+#nosearchresult {
+  padding: 10px;
+}
 #profilePosts {
   grid-area: footer;
 }
-
 #profileBio {
   grid-area: left-bottom;
   width: 300px;
 }
-
 #profilePhoto {
   grid-area: left-top;
   width: 290px;
   border-radius: 3px;
 }
-
 #stats {
   grid-area: right-top;
   width: 190px;
@@ -216,228 +373,12 @@ img {
   background-color: #F88;
   border-radius: 3px;
 }
-
 #userPhoto {
   margin: auto;
 }
 
-div.navBar div {
-  display: inline-block;
-  height: 50px;
-}
+/* notifications styling */
 
-html, body {
-  min-height:100%;
-  margin: 0;
-}
-
-footer, .navBar {
-   position:sticky;
-   bottom:0;
-   height:40px;   
-   width: auto;
-   margin: 0 auto;
-   clear: both;
-}
-
-div .navBar {
-  margin: 0 auto;
-  position: relative;
-  text-align: center;
-}
-
-header {
-  position:sticky;
-  height: 40px;
-  top:0;
-  width: 100%;
-  background-color: #F8F8F8;
-}
-
-.header {
-  position: relative;
-  text-align: center;
-}
-
-.nav {
-  width: 100%;
-  background:#F8F8F8;
-}
-
-div.postImage img {
-  display: block;
-  max-width: 100%;
-  width: auto;
-  height: auto;
-}
-
-div.userImage img {
-  display: block;
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
-  float: left;
-  margin: 5px 10px 5px 0;
-  cursor: pointer;
-}
-
-.userHandle {
-  float: left;
-  font-weight: 600;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.postLocation {
-  float: left;
-}
-
-div.thumb img {
-  width: 33%;
-  float: left;
-  height: auto;
-}
-
-div.filters div {
-  height: 81.5198811288339px;
-  width: 81.5198811288339px;
-  float: left;
-  background-color: cyan;
-  border: thin solid pink 
-}
-
-.dropzone {
-  width: 100%;
-  height: 200px;
-  border-width: 2px;
-  border-color: rgb(102, 102, 102);
-  border-style: dashed;
-  border-radius: 5px;
-  opacity: 1;
-
-}
-
-.active {
-  width: 100%;
-  height: 200px;
-  border-width: 2px;
-  border-color: rgb(102, 102, 102);
-  border-style: dashed;
-  border-radius: 5px;
-  opacity: 1;
-  background-color: green;
-}
-
-.reject {
-  width: 100%;
-  height: 200px;
-  border-width: 2px;
-  border-color: rgb(102, 102, 102);
-  border-style: dashed;
-  border-radius: 5px;
-  opacity: 1;
-  background-color: red;
-}
-
-textarea.postBody {
-  width: 100%;
-}
-
-input.location {
-  width:100%;
-}
-
-img.commentPic {
-  display: block;
-  width: 25px;
-  height: 25px;
-  border-radius: 25px;
-  float: left;
-  margin: 5px 10px 5px 0;
-  clear: both;
-}
-
-div.commentBody {
-  margin: 0px 10px 0px 0px;
-  float: left;
-  
-  display: inline-block;
-}
-
-div.commentUser {
-  margin: 0px 10px 0px 0px;
-  float: left;
-  
-  display: inline-block;
-}
-
-.editProfIcon {
-	padding-top: 7px;	
-	padding-right: 7px;
-  position: relative;
-  float: right;
-	right: 0;
-	top: 0;
-	display: block;
-}
-
-.editProfIcon a {
-	color: #000;
-}
-
-.saveProfIcon {
-	padding-top: 7px;	
-	padding-right: 7px;
-  position: relative;
-  float: right;
-	right: 0;
-	top: 0;
-	display: block;
-}
-
-.saveProfIcon a {
-	color: #000;
-}
-
-.attributeRow {
-  margin-bottom: 10px;
-}
-
-.profEditInput {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid #000000;
-  margin-bottom: -1px;
-  box-sizing: border-box;
-}
-
-.profBioInput {
-  width: 80%;
-}
-
-.profEditInput:focus
-{
-  outline:none;
-}  
-
-.editProfilePic{
-  width: 40%;
-  border-radius: 50%;
-  margin: 0 auto;
-  display: block;
-  position: relative;
-}
-
-.centerText {
-  text-align: center;
-  margin: 0 auto;
-  display: block;
-}
-
-.entireComment {
-  clear: both;
-  display: block;
-}
 
 div.notification {
   border-top: thin solid #F8F8F8;
