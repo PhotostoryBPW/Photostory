@@ -30,6 +30,7 @@ router.post('/follow', Controller.users.follow);
 router.post('/like', Controller.posts.like);
 router.post('/unlike', Controller.posts.unlike);
 router.post('/signup', (req, res) => {
+    console.log('this is the session', req.session)
     Controller.Signup(req, res);
 });
 
@@ -40,6 +41,7 @@ router.post('/file-upload', (req, res) => {
 
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
+    console.log('error', err, 'user', user, 'info', info);
     if (err) {
       res.status(500).send('error');
     } else if (info) {
@@ -57,6 +59,7 @@ router.post('/login', (req, res, next) => {
 });
 
 router.get('/checksession', (req, res) => {
+  console.log('this is req.session on router.get checksession:', req.session)
   if (req.session.hasOwnProperty('passport')) {
     res.status(200).send({'status': 'active', 'user': req.session.passport.user});
   }
