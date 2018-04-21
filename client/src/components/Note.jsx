@@ -1,54 +1,61 @@
 import React from 'react';
 import moment from 'moment';
+import axios from 'axios';
 
 
 class Note extends React.Component {
   constructor(props) {
     super(props);
-    
-    this.clickHandler = this.clickHandler.bind(this);
+    // 0 = comment, 1 = follow, 2 = like 
 
     this.state = {
       post: '',
-      clicked: false
+      clicked: false,
+      followed: false,
     }
+    var that = this;
   }
 
-  onFollowClickHandler(e) {
-    console.log('the state of this on click ', this.state, 'and the value of e on click'. e);
-    axios.post('api/follow', this.props.note.users_id)
+  onFollowClickHandler() {
+      console.log('this is the note component: ', this);
+      console.log('this is the props in the note component', this.props);
+      console.log('this is the params we are sending to follow from notifications', this.props.note.follows_id);
+    var del = this.props.note.id;
+    axios.post('api/follow', {[this.props.note.follows_id]:''})
     .then((response) => {
-        if (!this.state.followed) {
-          var userInfoUpdated = Object.assign({}, this.state.userInfo, {followedCount: ++this.state.userInfo.followedCount});
-          console.log('top question', userInfoUpdated);
-          this.setState({
-            followed: !this.state.followed,
-            userInfo: userInfoUpdated
-          })
-        } else {
-          var userInfoUpdated = Object.assign({}, this.state.userInfo, {followedCount: --this.state.userInfo.followedCount});
-          console.log('bottom questions' , userInfoUpdated);
-          this.setState({
-            followed: !this.state.followed,            
-            userInfo: userInfoUpdated
-          })
-        }
       console.log('reached the server successfully', response)
+      this.setState({followed: true});
+      this.deleteNotification(del);
     })
     .catch((err) => {
       console.log(err);
-    })
-  }
+    })  
+    
+    
+   }
 
-  clickHandler(e) {
-    // console.log(this);
-    // this.props.onClick(this.props.post)
-  }
+   deleteNotification(del) {
+    console.log('this is the params for delete!: ', {
+        config: {id: del}}
+    )
+    axios({
+        method: 'delete',
+        url: `${'api/notifications/destroy'}`, 
+        data: {config: {id: del}},
+        headers: {'Content-Type': 'application/json'},
+    })
+    .then((response) => {
+      console.log('removed follow notification from feed', response);
+    })
+    .catch((err) => {
+      console.log(err);
+    })    
+   }
+  
 
   render() {
     return (
     <div>
-        {/* 0 = comment, 1 = follow, 2 = like */}
         {
         this.props.note.noteType === 0
         ?
@@ -58,29 +65,13 @@ class Note extends React.Component {
           </div>
           <div className='noteText' onClick={this.clickHandler}>
             <div>
-              {this.props.note.userHandle} is following you.
+              <div className='userHandle'>{this.props.note.userHandle}</div> commented on your post.
             </div>
             <div className='noteMoment'>
               {moment(this.props.note.note_time).fromNow()}
             </div>
           </div>   
         </div>    
-        :
-        this.props.note.noteType === 1
-        ?
-        <div className='notification'>
-          <div className='noteThumb' onClick={this.clickHandler}>
-            <img src={`http://${this.props.note.photoUrl || this.props.note.userPhotoUrl}`}/>
-          </div>
-          <div className='noteText' onClick={this.clickHandler}>
-            <div >
-              {this.props.note.userHandle} is following you.
-            </div>
-            <div className='noteMoment'>
-              {moment(this.props.note.note_time).fromNow()}
-            </div>
-          </div>
-        </div>   
         :
         this.props.note.noteType === 2
         ?
@@ -90,14 +81,35 @@ class Note extends React.Component {
           </div>
           <div className='noteText' onClick={this.clickHandler}>
             <div >
-              {this.props.note.userHandle} is following you.
+              <div className='userHandle'>{this.props.note.userHandle}</div> likes your post.
             </div>
             <div className='noteMoment'>
               {moment(this.props.note.note_time).fromNow()}
             </div>
           </div>
-               
-          <button className='followBack button'>Follow Back</button>
+        </div>   
+        :
+        this.props.note.noteType === 1
+        ?
+        <div className='notification'>
+          <div className='noteThumb' onClick={this.clickHandler}>
+            <img src={`http://${this.props.note.photoUrl || this.props.note.userPhotoUrl}`}/>
+          </div>
+          <div className='noteText' onClick={this.clickHandler}>
+            <div >
+              <div className='userHandle'>{this.props.note.userHandle}</div> is following you.
+            </div>
+            <div className='noteMoment'>
+              {moment(this.props.note.note_time).fromNow()}
+            </div>
+          </div>
+          {
+          !this.state.followed
+          ?
+          <button className='followBack button' onClick={this.onFollowClickHandler.bind(this)}>Follow Back</button>
+          :
+          <button className='followBack button following'>Following</button>
+          }
         </div>
         :
         <div/>   

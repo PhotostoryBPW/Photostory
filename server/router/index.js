@@ -16,6 +16,8 @@ router.get('/logout', function(req, res) {
     res.status(200).send('destroyed');
 });
 router.get('/notifications', Controller.notifications);
+router.post('/view', Controller.viewNotifications);
+router.delete('/notifications/destroy', Controller.destroyNotification);
 router.put('/checkifnewusername', Controller.users.checkifnewusername);
 router.put('/updateusername', Controller.users.updateusername);
 router.put('/updatename', Controller.users.updatefullname);
@@ -27,7 +29,6 @@ router.post('/comment', Controller.posts.comment);
 router.post('/follow', Controller.users.follow);
 router.post('/like', Controller.posts.like);
 router.post('/unlike', Controller.posts.unlike);
-router.post('/view', Controller.viewNotifications);
 router.post('/signup', (req, res) => {
     Controller.Signup(req, res);
 });

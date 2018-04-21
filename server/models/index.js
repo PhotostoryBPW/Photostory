@@ -404,10 +404,10 @@ const Models = {
         db.query(queryStr, params, (err, results) => {
           console.log('these are likes notifications for the logged in user', results);
           notifications.likes = results //likes notifications
-          queryStr = 'select n.id, n.noteType, n.users_id, x.userHandle, x.userPhotoUrl, n.note_time, n.viewed from notifications as n join users as u, users as x where u.id = n.users_id and n.follows_id = x.id and u.userHandle=?' //follow notification        
+          queryStr = 'select n.id, n.noteType, n.users_id, n.follows_id, x.userHandle, x.userPhotoUrl, n.note_time, n.viewed from notifications as n join users as u, users as x where u.id = n.users_id and n.follows_id = x.id and u.userHandle=?' //follow notification        
           db.query(queryStr, params, (err, results) => {
             console.log('these are follow notifications for the logged in user', results);
-            notifications.follow = results //comments notifications
+            notifications.follow = results //follow notifications
             if (err) {
               console.log(err);
               cb(err)
@@ -428,6 +428,16 @@ const Models = {
       })
       console.log('marking notifications as viewed');
     },
+    destroy: (params, cb) => {
+      console.log('these are the params being sent to the destory function', params);
+      var queryStr = 'delete from notifications where id=?'
+      db.query(queryStr, params, (err, results) => {
+        if (err) {
+          console.log(err)
+        }
+        cb(null, results);
+      })
+    }
   },
 };
 

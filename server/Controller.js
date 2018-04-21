@@ -149,7 +149,7 @@ const Controller = {
     },
     follow: (req, res) => {
       Models.users.follow(req.body, req.session.passport.user, function(err, results) {
-        console.log('follow - controller', req.session.passport);
+        console.log('follow - controller', req.session.passport, req.body);
         if (err) { 
           console.log(err);
         } else {
@@ -266,6 +266,17 @@ const Controller = {
       } else {
         console.log('completed query on view notifications, here are the results: ', results);
         res.status(201).send('views marked')
+      }
+    })
+  },
+  destroyNotification: (req, res) => {
+    console.log('attempting to destroy notification for follow with the following req.params', req.params, 'data', req.data, 'body', req.body, req.delete, req.config)
+    Models.notifications.destroy(req.body.config.id, (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('deleted the follow notification')
+        res.status(202).send('notification destroyed')
       }
     })
   }
