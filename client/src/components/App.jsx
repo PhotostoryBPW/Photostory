@@ -113,6 +113,9 @@ class App extends React.Component {
       }, () => {
         if (option ==='notifications') {
           this.setViewedOnNoteFeed()
+          this.setState({
+            unreadNotifications: 0,
+          })
         }
       })
   }
@@ -309,7 +312,7 @@ class App extends React.Component {
                 {this.renderView()}
               </div>
               <footer className="nav">
-                <NavBar navBarClickHandler={this.changeView.bind(this)}/>
+                <NavBar navBarClickHandler={this.changeView.bind(this)} notifications={this.state.unreadNotifications}/>
               </footer>
             </div>
           </div> 
