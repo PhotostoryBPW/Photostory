@@ -60,7 +60,6 @@ class Post extends React.Component {
     .then( response => {
       oldChildrenState = this.state.children;
       this.setState({clicked: false})
-      // JSON.parse(response.config.data.userPhotoUrl).userPhotoUrl = this.props.post.userPhotoUrl
       if (!!oldChildrenState && oldChildrenState.length > 0) {
         oldChildrenState.push((JSON.parse(response.config.data)).params);
       } else {

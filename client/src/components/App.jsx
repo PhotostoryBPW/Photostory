@@ -142,7 +142,6 @@ class App extends React.Component {
         else if (option === 'createpost' || option === 'createpost' || option === 'feed' || option === 'profile') {
           this.getFeed();
           this.getUserInfo(username);
-          
         }
       })
   }
