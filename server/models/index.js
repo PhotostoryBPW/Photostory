@@ -32,13 +32,54 @@ const Models = {
   },
 
   posts: {
-    all: function(cb) {
+    all: function(currentUser, cb) {
       var queryStr = 'select p.*, u.userHandle, u.userName, u.userLoc, u.userPhotoUrl, u.bio, u.email, u.followedCount, u.followed_id, u.followCount, u.follows_id  from posts as p inner join users as u on p.users_id=u.id order by -createdAt';
       db.query(queryStr, function(err, results) {
-        // console.log(results);
         cb(err, results);
       });
     },
+
+    following: function(currentUser, cb) {
+      var currentUserId;
+      var userIdQueryStr = `select users.id from users where userHandle=${JSON.stringify(currentUser)}`;
+      db.query(userIdQueryStr, (err, results) => {
+        currentUserId = results[0].id;
+        var followsIdQueryStr = `select follows_id from followers where users_id=${currentUserId}`;
+        db.query(followsIdQueryStr, (err, results) => {
+          var postIdList = [];
+          for (var i = 0; i < results.length; i++) {
+            postIdList.push(results[i].follows_id);
+          }
+          postIdList.push(currentUserId);
+          var postIdString = postIdList.join(",");
+          postIdString = ("(" + postIdString + ")");
+          var ohMyAnotherQuery = `select p.* from posts as p inner join users as u on p.users_id=u.id where users_id in ${postIdString} || users_id = ${currentUserId} order by createdAt`;
+          db.query(ohMyAnotherQuery, (err, results) => {
+            var usersIdList = [];
+            var idList = [];
+            for (var i = 0; i < results.length; i++) {
+              usersIdList.push(results[i].users_id);
+              idList.push(results[i].id);
+            }
+            if (usersIdList.length === 0) {
+              usersIdList.push(0);
+            }
+            if (idList.length === 0) {
+              idList.push(0);
+            }
+            usersIdString = usersIdList.join(",");
+            usersIdString = ("(" + usersIdString + ")");
+            idString = idList.join(",");
+            idString = ("(" + idString + ")");
+            var queryStr = `select p.*, u.userHandle, u.userName, u.userLoc, u.userPhotoUrl, u.bio, u.email, u.followedCount, u.followed_id, u.followCount, u.follows_id  from posts as p inner join users as u on p.users_id=u.id where u.id in ${usersIdString} || parent_id in ${idString} order by -createdAt`;
+            db.query(queryStr, (err, results) => {
+            cb(err, results);
+            });
+          });
+        })
+      });
+    },
+
     friends: function(cb) {
       var queryStr = 'select * from posts left join users on posts.users_id=users.id';
       db.query(queryStr, function(err, results) {
@@ -46,8 +87,6 @@ const Models = {
       });
     },
     create: function (params, user, cb) {
-      console.log(params);
-      console.log('this is user', user);
       var queryStr = 'select id from users where users.userHandle=?'
       db.query(queryStr, user, function(err, result) {
         console.log('this is the result of the query for user id: ', result[0].id);
