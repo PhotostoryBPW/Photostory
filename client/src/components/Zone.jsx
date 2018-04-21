@@ -42,9 +42,9 @@ class Zone extends React.Component {
       });
     
       // Once all the files are uploaded 
-      axios.post(uploaders).then(() => {
+      // axios.post(uploaders).then(() => {
         
-      });
+      // });
     }
     
   
