@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import ProfileEdit from './ProfileEdit.jsx';
 import ProfilePosts from './ProfilePosts.jsx';
 var moment = require('moment');
 

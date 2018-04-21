@@ -15,6 +15,7 @@ router.get('/logout', function(req, res) {
     req.session.destroy();
     res.status(200).send('destroyed');
 });
+router.get('/notifications', Controller.notifications);
 router.put('/checkifnewusername', Controller.users.checkifnewusername);
 router.put('/updateusername', Controller.users.updateusername);
 router.put('/updatename', Controller.users.updatefullname);
