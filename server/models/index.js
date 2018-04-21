@@ -61,6 +61,12 @@ const Models = {
               usersIdList.push(results[i].users_id);
               idList.push(results[i].id);
             }
+            if (usersIdList.length === 0) {
+              usersIdList.push(0);
+            }
+            if (idList.length === 0) {
+              idList.push(0);
+            }
             usersIdString = usersIdList.join(",");
             usersIdString = ("(" + usersIdString + ")");
             idString = idList.join(",");
@@ -81,8 +87,6 @@ const Models = {
       });
     },
     create: function (params, user, cb) {
-      console.log(params);
-      console.log('this is user', user);
       var queryStr = 'select id from users where users.userHandle=?'
       db.query(queryStr, user, function(err, result) {
         console.log('this is the result of the query for user id: ', result[0].id);

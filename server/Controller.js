@@ -21,6 +21,9 @@ const Controller = {
       });
     },
     following: (req, res) => {
+      if (req.session.passport === undefined) {
+        res.status(200).send('not logged in');
+      }
       Models.posts.following(req.session.passport.user, function(err, results) {
         if (err) {
           console.log(err);
@@ -52,7 +55,6 @@ const Controller = {
         if (err) { 
           console.log(err);
         } else {
-          console.log(req.body, 'wreck dat body on comment controller');
           Models.notifications.addComment({postInfo: req.body.params, loggedInUser: req.body.params.users_id, now: Date.now()}, (err, results) => {
             if (err) { 
               console.log(err);
@@ -239,7 +241,6 @@ const Controller = {
   },
   
   file_upload: (req, res) => {
-    console.log('made it to file_upload');
     console.log('this is the files: ', req.files);
   },
 

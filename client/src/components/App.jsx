@@ -93,6 +93,7 @@ class App extends React.Component {
   
   changeView(option, username) {
     console.log(username, 'clicked username on post');
+    console.log(option);
     console.log('changeview called! this is the state of the app: ', this.state);
     if (option === 'profile' && this.state.view === 'profile') {
       console.log(this.state.loggedInUser, 'loggedInUser?');
@@ -210,7 +211,7 @@ class App extends React.Component {
         return <Profile loggedInUser={this.state.loggedInUser} posts={this.state.posts} user={this.state.loggedInUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view}/>
       } else {
         console.log('selected user exists');
-        return <Profile loggedInUser={this.state.loggedInUser} posts={this.state.posts} user={this.state.selectedUser} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view}/>
+        return <Profile loggedInUser={this.state.loggedInUser} posts={this.state.posts} user={this.state.selectedUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view}/>
       }
     } else if (view === 'signup') {
       return <Signup/>

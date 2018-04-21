@@ -59,7 +59,6 @@ class Profile extends React.Component {
     let following;
     axios.get(`api/feed/${this.state.currentUser}`)
     .then( response => {
-      console.log('response to Mine request, current user', this.state.currentUser, response);
       currentUserInfo = {
         users_id: response.data[0].users_id,
         userHandle: response.data[0].userHandle,
@@ -71,7 +70,6 @@ class Profile extends React.Component {
         followCount: response.data[0].followCount,
         followedCount: response.data[0].followedCount,
       };
-      console.log('response to Mine user handle ', response.data[0].userHandle);
       following = response.data[0].isFollowing
       posts = [];
       comments = [];
@@ -112,15 +110,16 @@ class Profile extends React.Component {
     })
   }
   
-  setInfo() {
-    this.state.userInfo = this.props.userInfo;
-    console.log('info set');
-  }
+  // setInfo() {
+  //   this.state.userInfo = this.props.userInfo;
+  //   console.log('info set');
+  //   console.log(this.props.userInfo);
+  // }
 
   render() {
     return (
       <div>
-        {this.setInfo()}
+        {/* {this.setInfo()} */}
         {
           this.state.userInfo === undefined
           ?

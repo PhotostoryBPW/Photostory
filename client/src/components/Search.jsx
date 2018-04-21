@@ -25,20 +25,17 @@ class Search extends React.Component {
       .then( response => {
         posts = [];
         comments = [];
-        console.log('got search with the current data: ', response.data)
         response.data.forEach(data => {
           if (data.parent_id) {
             comments.push(data)
           } else {
             posts.push(data);
           }
-          console.log(posts, 'postsinside');
         })
       })
       .then(() => {
         posts.map(post => {
           comments.forEach(comment => {
-            console.log(comment.parent_id === post.id);
             if (comment.parent_id === post.id) {
               if (!post.children) {
                 post.children = [comment];
@@ -50,7 +47,6 @@ class Search extends React.Component {
         })
       })
       .then(() => {
-        console.log('this is search posts after it is done compiling children', posts);
         this.setState({
           searchData: posts,
         })
@@ -68,7 +64,6 @@ class Search extends React.Component {
       }
     })
     .then( response => {
-      console.log('response', response)
       this.setState({ 
         searchData: response.data
       })
@@ -85,12 +80,15 @@ class Search extends React.Component {
   
   onChangeHandler(e) {
     this.setState({search: e.target.value})  
-    console.log(this.state.search);
   }
 
   render() {
     return (
       <div>
+        {
+          this.state.searchData.length !== 0
+          ?
+        <div>
         <input onChange={this.onChangeHandler.bind(this)}/><button onClick={this.onClickHandler.bind(this)}>Search</button>
         {
         !this.state.post 
@@ -105,11 +103,17 @@ class Search extends React.Component {
         :
         <Post key={Math.floor((Math.random() * 1000000) + 1)} post={this.state.post} liked={this.props.liked} handleClick={this.props.handleClick} currentUserProfilePhoto={this.props.userInfo.userPhotoUrl}/>  
         }
+        </div>
+        :
+        <div>
+        </div>
+        }
       </div>
     );
   }
 }
 
 export default Search;
+
 
 
