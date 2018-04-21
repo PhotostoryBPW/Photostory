@@ -112,7 +112,6 @@ class Profile extends React.Component {
   render() {
     return (
       <div>
-        {/* {this.setInfo()} */}
         {
           this.state.userInfo === undefined
           ?
@@ -144,8 +143,9 @@ class Profile extends React.Component {
         </div>
         <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo} view={this.props.view} currentUserProfilePhoto={this.state.userInfo.userPhotoUrl}/></div>
       </div>  
-    )
-  }
+    }
+    </div>
+  )}
 }
 
 export default Profile;
