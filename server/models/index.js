@@ -178,7 +178,6 @@ const Models = {
     info: function (user, cb) {
       var queryStr = `select * from users where userHandle=${JSON.stringify(user)}`;
       db.query(queryStr, user, function(err, results) {
-        console.log('info results ', results[0]);
         cb(err, results[0]);
       });
     },

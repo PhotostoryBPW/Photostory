@@ -59,7 +59,6 @@ class Profile extends React.Component {
     axios.get(`api/feed/${this.state.currentUser}`)
     .then( response => {
       this.setState({userInfo: response.data[0]});
-
       following = response.data[0].isFollowing
       posts = [];
       comments = [];
@@ -124,14 +123,15 @@ class Profile extends React.Component {
               ?
               <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="follow">Follow</div>
               :
-              <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="unFollow">UnFollow</div>
+              <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="unFollow">Unfollow</div>
             }
         </div>
         <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo} view={this.props.view} currentUserProfilePhoto={this.state.userInfo.userPhotoUrl}/></div>
-      </div>  
-    }
-    </div>
-  )}
+        </div>  
+      }
+      </div>
+    )
+  }
 }
 
 export default Profile;

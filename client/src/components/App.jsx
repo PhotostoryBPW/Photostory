@@ -118,14 +118,15 @@ class App extends React.Component {
   // }
 //lores
   changeView(option, username) {
-    console.log(username, 'clicked username on post');
-    console.log(option);
     console.log('changeview called! this is the state of the app: ', this.state);
     if (option === 'profile' && this.state.view === 'profile') {
-      console.log(this.state.loggedInUser, 'loggedInUser?');
       this.setState({
         selectedUser: '',
       })
+    }
+    if (option === 'feed') {
+      console.log('option feed selected');
+      this.getFeed();
     }
     this.getUserInfo(username);
     this.getNotifications();
@@ -303,8 +304,6 @@ class App extends React.Component {
     if (view === 'feed') {
       return <Feed handleClick={this.changeView.bind(this)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view}/>;
     } else if (view === 'profile') {
-      //if clicked user is empty string, do what it normally does
-      //else return profile component with user set to selectedUser
       if (this.state.selectedUser === '') {
         console.log('no selected user');
         return <Profile loggedInUser={this.state.loggedInUser} posts={this.state.posts} user={this.state.loggedInUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view}/>
