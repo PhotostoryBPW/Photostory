@@ -139,7 +139,7 @@ class Post extends React.Component {
         <div> 
           <div> {
             !!this.state.post && this.state.view !== 'profile' ?
-            <PostHeader userPhotoUrl={this.props.post.userPhotoUrl} userHandle={this.props.post.userHandle} clickHandler={this.profileOrThumbnailClickHandler.bind(this)}/> 
+            <PostHeader key={this.props.post.id} userPhotoUrl={this.props.post.userPhotoUrl} userHandle={this.props.post.userHandle} clickHandler={this.profileOrThumbnailClickHandler.bind(this)}/> 
             :
             <div></div>
           }
@@ -183,7 +183,7 @@ class Post extends React.Component {
           {
             !!this.state.children && !!this.state.children.length ?
             this.state.children.map(child => 
-              <div className='entireComment'>
+              <div key={child.id} className='entireComment'>
                 <img className='commentPic' src={`http://${child.userPhotoUrl}`}/>
                 <div className='commentUser'>{child.userHandle}</div>
                 <div className='commentBody'>{child.body}</div>

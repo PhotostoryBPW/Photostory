@@ -239,6 +239,27 @@ const Controller = {
 
   notifications: (req, res) => {
     console.log('made it to notifications on Controller');
+    Models.notifications.get(req.session.passport.user, (err, results) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log('got notifications')
+        var notifications = results;
+        console.log(results)
+        res.status(200).send(notifications);
+      }
+    })
+  },
+  viewNotifications: (req, res) => {
+    console.log('made it to view notifications');
+    Models.notifications.view(req.session.passport.user, (err, results) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log('completed query on view notifications, here are the results: ', results);
+        res.status(201).send('views marked')
+      }
+    })
   }
 //   Search: (req, res) => {
 //     var name = req.body.username;

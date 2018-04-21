@@ -26,6 +26,8 @@ class App extends React.Component {
       loggedInUser: '',
       selectedUser: '',
       userInfo: {},
+      notifications: '',
+      unreadNotifications: 0,
     } 
   }
 
@@ -72,7 +74,9 @@ class App extends React.Component {
     .then( response => {
       if (response.data.status === 'active') {
         localStorage['isLoggedIn'] = true;
+        this.getNotifications();
         this.getUserInfo(response.data.user);
+        this.getLikes();
         this.setState({ 
           loggedInUser: response.data.user,
           posts: sample.posts,
@@ -96,9 +100,13 @@ class App extends React.Component {
   changeView(option, username) {
     this.getUserInfo(username);
     this.setState({
-      view: option,
-      selectedUser: username || '',
-    })
+        view: option,
+        selectedUser: username || ''
+      }, () => {
+        if (option ==='notifications') {
+          this.setViewedOnNoteFeed()
+        }
+      })
   }
 
   navBarClickHandler(page) {
@@ -159,6 +167,71 @@ class App extends React.Component {
       })
   }
 
+  getLikes() {
+    axios.get('api/likes')
+      .then( response => {
+        var results = [];
+        response.data.forEach(function(post) {
+          results.indexOf(post.posts_id) < 0 && results.push(post.posts_id);
+        })
+        this.setState({liked: results});
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+  
+  getNotifications() {
+    let flattened = [];
+    let unread = 0;
+    axios.get('api/notifications')
+      .then( response => {
+        console.log('this is a response for a get notifications axios: ', response)
+        flattened = [].concat(...[response.data.comments, response.data.follow, response.data.likes]).sort((a, b) => (b.note_time - a.note_time))
+        unread = 0 || flattened.filter(notification => (notification.viewed === 0)).length;
+      })
+      .then (() => {
+        this.setState({
+          notifications: flattened,
+          unreadNotifications: unread
+        });
+        console.log('The number of unviewed notifications is: ', unread);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  setViewedOnNoteFeed() {
+    axios.post('api/view')
+      .then (response => {
+        console.log('server responded to view posts feed with: ', response);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  setLike(post, user) {
+    axios.post('api/like', post, user)
+      .then( response => {
+        console.log('setLike success')
+      })
+      .catch(err => {
+        console.log('setLike error: ', err);
+      })
+  }
+
+  unLike(post, user) {
+    axios.post('api/unlike', post, user)
+      .then( response => {
+        console.log('unLike success')
+      })
+      .catch(err => {
+        console.log('unLike error: ', err);
+      })
+  }
+
   handleLogoutButtonClick(editUsername, payload, ghostuser) {
     axios.get('api/logout')
       .then( response => {
@@ -210,7 +283,7 @@ class App extends React.Component {
     }  else if (view === 'search') {
       return <Search posts={this.state.data} liked={this.state.liked} handleClick={this.changeView.bind(this)} userInfo={this.state.userInfo}/>
     } else if (view === 'notifications') {
-      return <NoteFeed />
+      return <NoteFeed notes={this.state.notifications}/>
     }
   }
 

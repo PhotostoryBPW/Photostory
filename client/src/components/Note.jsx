@@ -25,13 +25,11 @@ class Note extends React.Component {
     return (
     <div>
       <div className='noteText' onClick={this.clickHandler}>
-        This is notificaitons text
-        {/* <img src={`http://${this.props.post.photoUrl}`}/> */}
+        {this.props.note.userHandle} 
       </div>
         
       <div className='noteThumb' onClick={this.clickHandler}>
-      This is a notification image thumb
-        {/* <img src={`http://${this.props.post.photoUrl}`}/> */}
+        <img src={`http://${this.props.note.photoUrl || this.props.note.userPhotoUrl}`}/>
       </div>
     </div>  
     );

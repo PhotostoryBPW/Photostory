@@ -30,7 +30,6 @@ const Models = {
       })
     });
   },
-
   posts: {
     all: function(cb) {
       var queryStr = 'select p.*, u.userHandle, u.userName, u.userLoc, u.userPhotoUrl, u.bio, u.email, u.followedCount, u.followed_id, u.followCount, u.follows_id  from posts as p inner join users as u on p.users_id=u.id order by -createdAt';
@@ -103,30 +102,6 @@ const Models = {
         });
       });
     },
-    // like: function(data, user, cb) {
-    //   var queryStr = 'select * from users where users.userHandle=(?)';
-    //   db.query(queryStr, user, function(err, results) {
-    //     var queryStr = `insert into likes (posts_id, users_id) values (${Object.keys(data)[0]}, ${results[0].id})`;
-    //     db.query(queryStr, data, function(err, results) {
-    //       cb(err, results);
-    //     });
-    //   });
-    // },
-    // likes: function(params, user, cb) {
-    //   var queryStr = `select * from likes inner join users on likes.users_id = users.id where users.userHandle=${JSON.stringify(user)}`;
-    //   db.query(queryStr, Object.values(params), function(err, results) {
-    //     cb(err, results);
-    //   });
-    // },
-    // unlike: function(data, user, cb) {
-    //   var queryStr = 'select * from users where users.userHandle=(?)';
-    //   db.query(queryStr, user, function(err, results) {
-    //     var queryStr = `delete from likes where posts_id=(${Object.keys(data)[0]}) and users_id=(${results[0].id})`;
-    //     db.query(queryStr, data, function(err, results) {
-    //       cb(err, results);
-    //     });
-    //   });
-    // },
     mine: function(params, loggedInUserName, cb) {
       console.log('these are the params for a mine', params);
       var queryStr = 'select p.*, u.userHandle, u.userName, u.userLoc, u.userPhotoUrl, u.bio, u.email, u.followedCount, u.followed_id, u.followCount, u.follows_id  from posts as p inner join users as u on p.users_id=u.id where u.userHandle=(?) order by -createdAt';
@@ -303,10 +278,6 @@ const Models = {
       else {
         cb(false);
       }
-      // var queryStr = 'select userHandle from users where userName=(?)';
-      // db.query(queryStr, params, (err, results) => {
-      //   console.log('queryresults');
-      // })
     },
   },
   notifications: {
@@ -370,7 +341,7 @@ const Models = {
           params.userLiked_id = results[0].users_id
           console.log('results of second query', results[0])
           console.log(params, 'new params after second query call')
-          var queryStr = 'insert into notifications (users_id, posts_id, note_time, userLiked_id) values (?, ?, ?, ?)'
+          var queryStr = 'insert into notifications (posts_id, userLiked_id, note_time, users_id) values (?, ?, ?, ?)'
           db.query(queryStr, Object.values(params), (err, results) => {
             if (err) {
               console.log(err);
@@ -383,17 +354,41 @@ const Models = {
       })
     },
     get: (params, cb) => {
-      console.log('getting a notifications')
-      var queryStr = ''
-      db.query(queryStr, (err, results) => {
+      var notifications = {};
+      console.log('getting notifications') 
+      var queryStr = 'select n.id, x.userHandle, n.posts_id, p.photoUrl, n.note_time, n.viewed from notifications as n join posts as p on n.posts_id = p.id join users as u on u.id = n.users_id join users as x on x.id = n.userLiked_id where (u.userHandle=? and p.photoUrl is not null and n.follows_id is not null)' //comment notifications
+      db.query(queryStr, params, (err, results) => {
+        console.log('these are comments notifications for the logged in user', results);
+        notifications.comments = results //comments notifications
+        queryStr = 
+        `select n.id, x.userHandle, n.posts_id, p.photoUrl, n.note_time, n.viewed from notifications as n join users as u on u.id = n.users_id join users as x on x.id = n.userLiked_id join posts as p on n.posts_id = p.id where (u.userHandle=? and p.photoUrl is not null)` //like notification
+        db.query(queryStr, params, (err, results) => {
+          console.log('these are likes notifications for the logged in user', results);
+          notifications.likes = results //likes notifications
+          queryStr = 'select n.id, n.users_id, x.userHandle, x.userPhotoUrl, n.note_time, n.viewed from notifications as n join users as u, users as x where u.id = n.users_id and n.follows_id = x.id and u.userHandle=?' //follow notification        
+          db.query(queryStr, params, (err, results) => {
+            console.log('these are follow notifications for the logged in user', results);
+            notifications.follow = results //comments notifications
+            if (err) {
+              console.log(err);
+              cb(err)
+            }
+            console.log(results, 'the results of getting a notification')
+            cb(null, notifications);
+          })
+        })  
+      })
+    },
+    view: (userHandle, cb) => {
+      var queryStr = 'update notifications inner join users on notifications.users_id = users.id set viewed = 1 where userHandle=?'
+      db.query(queryStr, userHandle, (err, results) => {
         if (err) {
-          console.log(err);
-          cb(err)
+          console.log(err)
         }
-        console.log(results, 'the results of getting a notification')
         cb(null, results);
       })
-    }
+      console.log('marking notifications as viewed');
+    },
   },
 };
 
@@ -415,14 +410,3 @@ function authenticationMiddleware() {
   }
 }
 module.exports = Models;
-
-
-// db.query('SELECT LAST_INSERT_ID() as id', function(err, results, fields) {
-//   if (err) throw error;
-//   console.log(results[0]);
-//    req.login(results[0], function(err) {
-//      cb(err, 'signed up');
-//    })
-//   keeping this code for future implementation of login on signup
-//   cb(err, 'signed up');
-// })

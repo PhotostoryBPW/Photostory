@@ -27,6 +27,7 @@ router.post('/comment', Controller.posts.comment);
 router.post('/follow', Controller.users.follow);
 router.post('/like', Controller.posts.like);
 router.post('/unlike', Controller.posts.unlike);
+router.post('/view', Controller.viewNotifications);
 router.post('/signup', (req, res) => {
     Controller.Signup(req, res);
 });
