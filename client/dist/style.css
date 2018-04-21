@@ -438,12 +438,12 @@ div.commentUser {
   display: block;
 }
 
-div div.notification {
+div.notification {
   border-top: thin solid #F8F8F8;
   border-bottom: thin solid #F8F8F8;
 }
 
-div div.notification:hover {
+div.notification:hover {
   background-color: #F8F8F8
 }
 
@@ -471,8 +471,16 @@ div div.notification:hover {
 
 .noteText {
   float: left;
-  margin: 2.5% 0;
+  top: 4px;
+  position: relative;
   
+}
+
+.noteMoment {
+  clear:left;
+  float: left;
+  font-style: italic;
+  color: gray;
 }
 
 .followBack {
