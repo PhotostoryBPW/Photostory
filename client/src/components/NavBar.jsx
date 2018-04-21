@@ -18,7 +18,13 @@ const NavBar = (props) => {
       <img/> POST
     </div>
     <div onClick={clickHandler.bind(this)} className="notifications">
-      <img/> !!!
+      {
+        !!props.notifications
+        ?
+        props.notifications
+        :
+        '!!!'
+      }
     </div>
     <div onClick={clickHandler.bind(this)} className="profile">
       <img/> PROF
