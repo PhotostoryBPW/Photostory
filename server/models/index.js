@@ -79,11 +79,7 @@ const Models = {
         cb(err, results);
       });
     },
-<<<<<<< HEAD
-    like: function(data, user, cb) {
-=======
     like: function(data, user, cb) {console.log(data, 'this is the data on a like model');
->>>>>>> 32d8a15b9bbd026c72ef2d15dfeb87011ac8b5dc
       var queryStr = 'select * from users where users.userHandle=(?)';
       db.query(queryStr, user, function(err, results) {
         var queryStr = `insert into likes (posts_id, users_id) values (${Object.keys(data)[0]}, ${results[0].id})`;
@@ -107,8 +103,6 @@ const Models = {
         });
       });
     },
-<<<<<<< HEAD
-=======
     // like: function(data, user, cb) {
     //   var queryStr = 'select * from users where users.userHandle=(?)';
     //   db.query(queryStr, user, function(err, results) {
@@ -133,7 +127,6 @@ const Models = {
     //     });
     //   });
     // },
->>>>>>> 32d8a15b9bbd026c72ef2d15dfeb87011ac8b5dc
     mine: function(params, loggedInUserName, cb) {
       console.log('these are the params for a mine', params);
       var queryStr = 'select p.*, u.userHandle, u.userName, u.userLoc, u.userPhotoUrl, u.bio, u.email, u.followedCount, u.followed_id, u.followCount, u.follows_id  from posts as p inner join users as u on p.users_id=u.id where u.userHandle=(?) order by -createdAt';

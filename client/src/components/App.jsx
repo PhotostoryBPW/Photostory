@@ -208,18 +208,10 @@ class App extends React.Component {
     } else if (view === 'createpost') {
       return <CreatePost onSubmit={this.changeView.bind(this)}/>
     }  else if (view === 'search') {
-<<<<<<< HEAD
-      return <Search posts={this.state.data} handleClick={this.changeView.bind(this)}/>
-    } 
-      // else {
-    //   return <Post user={this.state.userInfo} key={view._id} post={view} />
-    // }
-=======
       return <Search posts={this.state.data} liked={this.state.liked} handleClick={this.changeView.bind(this)} userInfo={this.state.userInfo}/>
     } else if (view === 'notifications') {
       return <NoteFeed />
     }
->>>>>>> 32d8a15b9bbd026c72ef2d15dfeb87011ac8b5dc
   }
 
   render() {

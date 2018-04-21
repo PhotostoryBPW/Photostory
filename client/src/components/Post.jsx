@@ -130,12 +130,7 @@ class Post extends React.Component {
   } 
 
   profileOrThumbnailClickHandler() {
-    console.log('clicked!');
-    console.log(this.props.post.userHandle);
-    console.log(this.props.handleClick);
-    //on click, go to profile page
     this.props.handleClick('profile', this.props.post.userHandle);
-    //make a call to app to change the view to profile
   }
 
   render() {
