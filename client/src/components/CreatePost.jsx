@@ -16,7 +16,8 @@ class CreatePost extends React.Component {
       filt: 'nofilter',
       accepted: [],
       rejected: [],
-      photoUrl: ''
+      photoUrl: '',
+      thumbs: "localhost:3000/img/defaultPost.jpg",
     }
 
   }
@@ -70,12 +71,12 @@ class CreatePost extends React.Component {
       <div>
         <Zone drop={this.showSubmit.bind(this)} />
         <div className='filters'>
-          <div className='nofilter' onClick={this.onFilterClickHandler.bind(this)}></div>
-          <div className='blackAndWhite' onClick={this.onFilterClickHandler.bind(this)}></div>
-          <div className='sepia' onClick={this.onFilterClickHandler.bind(this)}></div>
-          <div className='vibrant' onClick={this.onFilterClickHandler.bind(this)}></div>
-          <div className='fadeout' onClick={this.onFilterClickHandler.bind(this)}></div>
-          <div className='portrait' onClick={this.onFilterClickHandler.bind(this)}></div>
+          <div className='nofilter' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/> </div>
+          <div className='blackAndWhite' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
+          <div className='sepia' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
+          <div className='vibrant' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
+          <div className='fadeOut' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
+          <div className='portrait' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
         </div>  
         <textarea className='postBody' name='postBody' type='textbody' onChange={this.onBodyChangeHandler.bind(this)}/>
         <input className='location' name='location' type='text' onChange={this.onLocationChangeHandler.bind(this)}/>

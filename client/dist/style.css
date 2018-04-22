@@ -543,3 +543,31 @@ button span {
 
 }
 
+
+/* create post page css */
+
+img.createPostThumb {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
+.blackAndWhite {
+  filter: saturate(0%);
+}
+
+.sepia {
+  filter: sepia(100%);
+}
+
+.vibrant {
+  filter: saturate(200%)
+}
+
+.fadeOut {
+  filter: saturate(35%)
+}
+
+.portrait {
+  filter: brightness(114%) blur(0.1575px) saturate(91%) contrast(95%)
+}
