@@ -64,11 +64,14 @@ div.postImage img {
   height: auto;
 }
 
-div.thumb img {
-  width: 33%;
-  float: left;
+#profilePosts div.postImage img {
+  display: block;
+  max-width: 99%;
+  width: auto;
   height: auto;
 }
+
+
 
 div.userImage img {
   display: block;
@@ -358,6 +361,10 @@ section {
   border-bottom: none;
 }
 
+.postHeader:first-child {
+  border: none;
+}
+
 .postLocation {
   float: left;
 }
@@ -365,12 +372,14 @@ section {
 .postMoment {
   font-style: italic;
   margin: 5px;
+  margin-right: 15px;
   margin-bottom: 15px;
   clear: both;
   text-align: right;
 }
 .postOptions {
   margin: auto;
+  text-align: right;
 }
 
 .profBioInput {
@@ -439,6 +448,11 @@ section {
 .search {
   display: inline-block;
 }
+
+.searchThumbContainer {
+  width: 101.1%;
+}
+
 .share {
   display: block;
   float: left;
@@ -495,6 +509,7 @@ section {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
+  background-color: white;
 }
 
 #changeNote:hover #note {
@@ -824,6 +839,10 @@ div.notification:hover {
 
 /* profile thumbs */
 
+div#profilePosts {
+  width: 103.1%
+}
+
 .profileViewContainer img{
   height: 44px;
   width: auto;
@@ -835,28 +854,74 @@ div.notification:hover {
 
 .profileViewContainer {
   display: block;
-  width: 100%;
+  width: 99%;
   clear: both;
   height: 50px;
   background-color: #eee;
 }
 
-.profileViewContainer div {
-  width: 49%;
+.profileViewContainer:first-child {
+ 
 }
 
-/* .buttonGrey {
-  cursor: pointer;
-  width: 160px;
-  height: 30px;
-  border-radius: 3px;
-  border-style: outset;
-  border-width: 1px;
-  border-color: #4c4c4d;
-  font-family: 'PT Serif', sans-serif;
-  font-size: medium;
-  text-align: center;
-  color: #000;
-  background-color: #eee;
+.profileViewContainer div {
+  width: 49.93%;
+  margin-bottom: 15px;
+}
 
-} */web
+.buttonGrey {
+  cursor: pointer;
+}
+
+.buttonGrey:first-child {
+  border-right: thin gray solid; 
+} 
+
+.buttonGrey:hover {
+  background-color: rgb(193, 193, 193);
+}
+
+div.thumb {
+  display: block;
+  width: 33%;
+  float: left;
+  height: 33%;
+  background-color: currentColor;
+  border-radius: 4px;
+}
+
+.thumb img {
+  width: 100%;
+  float: left;
+}
+
+div.thumb img {
+
+}
+
+img.likebtn {
+  height: 25px;
+}
+
+.buttonLight.like {
+  border-radius: 50%;
+  background-image: linear-gradient(to bottom, #99f, #55d);
+  padding: 2px 5px;
+  margin: 5px;
+  z-index: -1;
+}
+
+.addComment button.buttonLight {
+  border-radius: 50%;
+  background-image: linear-gradient(to bottom, #99f, #55d);
+  padding: 2px 5px;
+  margin: 5px;
+  z-index: -1;
+}
+
+img.commentbtn {
+  margin-top: 2px;
+  height: 25px;
+  margin-bottom: -2px;
+}
+

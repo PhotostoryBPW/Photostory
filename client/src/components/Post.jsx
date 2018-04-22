@@ -117,9 +117,9 @@ class Post extends React.Component {
 
   renderLikeButton() {
     if (this.state.hasLiked === true) {
-      return <div><button className="buttonLight" onClick={this.clearLike.bind(this)}><span className="tooltiptext">You have already liked this post</span>UNLIKE</button></div>
+      return <div><button className="buttonLight like" onClick={this.clearLike.bind(this)}><span className="tooltiptext">You have already liked this post</span><img className='likebtn' src="http://localhost:3000/img/liked-w.png"/></button></div>
     } else {
-      return <div><button className="buttonLight" onClick={this.setLike.bind(this)}><span className="tooltiptext">Like this post</span>LIKE</button></div>
+      return <div><button className="buttonLight like" onClick={this.setLike.bind(this)}><span className="tooltiptext">Like this post</span><img className='likebtn' src="http://localhost:3000/img/like-w.png"/></button></div>
     }
   }
 
@@ -154,7 +154,7 @@ class Post extends React.Component {
           <div className='addComment tooltip'>
             <button className="buttonLight" onClick={this.addCommentClickHandler}>
               <span className="tooltiptext">Comment on this post</span> 
-              COMMENT
+              <img className='commentbtn' src="http://localhost:3000/img/comment-w.png"/>
             </button>
           </div>
           {/* <div className='share tooltip'>
@@ -165,7 +165,7 @@ class Post extends React.Component {
           </div> */}
         </div>  
         <div className='likes'>
-          Liked by Judy, Meredith, and {this.props.post.likesCount} others.
+          Liked by {this.props.post.likesCount} others.
         </div>
         
         <div className='body'>
