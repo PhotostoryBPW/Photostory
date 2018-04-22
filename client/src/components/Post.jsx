@@ -167,11 +167,11 @@ class Post extends React.Component {
         <div className='likes'>
           Liked by Judy, Meredith, and {this.props.post.likesCount} others.
         </div>
-        <br />
+        
         <div className='body'>
           {this.props.post.body}
         </div>
-        <br />
+        
         <div className='addComment' onClick={this.addCommentClickHandler}>
           {this.renderComment()}
         </div>

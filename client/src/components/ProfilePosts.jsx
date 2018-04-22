@@ -24,8 +24,10 @@ class ProfilePosts extends React.Component {
   render () {
     return (
     <div className="profilePosts">
-      <div id="postThumbs" className="buttonGrey" onClick={this.onPostViewClickHandler.bind(this)}>VIEW THUMBS</div>
-      <div id="postFeed" className="buttonGrey" onClick={this.onPostViewClickHandler.bind(this)}>VIEW FEED</div>  
+      <div className='profileViewContainer'>
+        <div id="postThumbs" className="buttonGrey" onClick={this.onPostViewClickHandler.bind(this)}><img src="http://localhost:3000/img/grid.png"/></div>
+        <div id="postFeed" className="buttonGrey" onClick={this.onPostViewClickHandler.bind(this)}><img src="http://localhost:3000/img/feed.png"/></div>  
+      </div>
       <div>
         {
         this.props.posts.length === 0  
