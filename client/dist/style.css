@@ -265,13 +265,78 @@ section {
   margin: auto;
 }
 
+.innerContainer {
+  width: 80%;
+  margin: 0 auto;
+  background-color: white;
+}
+
 .likes {
   margin: 5px;
   margin-bottom: 11px;
 }
 
 .login {
-  margin: 10px;
+  text-align: center;
+  background-color: white;
+  position: absolute;
+  height: 100%;
+  width: 300px;
+}
+
+.loginButton {
+  width: 100%;
+  height: 40px;
+  margin-top: 15px;
+  background-color: #e5e5e5; 
+  border-radius: 3px; 
+}
+
+.loginHeaderContainer {
+  height: 150px;
+}
+
+.loginUsername {
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.loginPassword {
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.loginInput {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  margin-bottom: -1px;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 22px;
+}
+
+.loginwrapper {
+  width: 100%;
+  max-width: 300px;
+  min-width: 300px;
+  margin: 0 auto;
+}
+
+.logo {
+  background-color: turquoise;
+  border-radius: 50%;
+  width: 90px;
+  margin-top: 15%;
+}
+
+.linkToSignup {
+  background-color: white;
+  border: none;
+  transition: none;
+  display: inline;
+  margin: 0 auto;
+  border-bottom: 1px solid black;
 }
 
 .main {
@@ -380,6 +445,9 @@ section {
 }
 .signup {
   margin: 10px;
+}
+.signUpText {
+  font-size: 12px;
 }
 .statsItem {
   border: none;
@@ -791,4 +859,4 @@ div.notification:hover {
   color: #000;
   background-color: #eee;
 
-} */
+} */web

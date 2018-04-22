@@ -54,21 +54,24 @@ class Login extends React.Component {
   render() {
     return (
       <div className="login">
-        <h1>Photostory</h1>
-        <h2>Username</h2>
-        <label style={{marginRight: '5px'}}>
-          <input type="text" name="name" value={this.state.username} onChange={this.handleUsernameChange}/>
+        <div className="innerContainer">
+        <div className="loginHeaderContainer">
+        <img className="logo" src="http://localhost:3000/nav/post-w.png"/>
+        </div>
+        <h2 className="loginUsername" >Username</h2>
+        <label>
+          <input className="loginInput" type="text" name="name" value={this.state.username} onChange={this.handleUsernameChange}/>
         </label>
-        <h2>Password</h2>
+        <h2 className="loginPassword" >Password</h2>
           <label style={{marginRight: '5px'}}>
-            <input type="password" name="name" value={this.state.password} onChange={this.handlePasswordChange}/>
+            <input className="loginInput" type="password" name="name" value={this.state.password} onChange={this.handlePasswordChange}/>
           </label>
-          <button type="button" onClick={this.handleLogin} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Login</button>
-          <button type="button" onClick={() => {this.props.toggleSignup()}} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Sign up</button>
+          <button className="loginButton" type="button" onClick={this.handleLogin} style={{display: 'inline', marginTop: '10px'}}>Login</button>
+          <button className="linkToSignup" type="button" onClick={() => {this.props.toggleSignup()}} style={{display: 'inline', marginTop: '10px'}}>Sign Up</button>
           <div>
             {this.state.toggleIncorrectCredentialsMessage ?
               <div>
-                Incorrect username and/or password.
+                Incorrect Username and/or password
               </div>
                 :
               <div>
@@ -85,6 +88,7 @@ class Login extends React.Component {
               </div>
             }
           </div> 
+        </div>
       </div>
     );
   }
