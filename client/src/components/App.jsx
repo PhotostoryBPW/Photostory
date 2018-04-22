@@ -10,6 +10,7 @@ import Search from './Search.jsx';
 import CreatePost from './CreatePost.jsx';
 import Post from './Post.jsx'
 import EditProfile from './EditProfile.jsx';
+import EdditProfile from './EdditProfile.jsx';
 import NoteFeed from './NoteFeed.jsx';
 
 class App extends React.Component {
@@ -275,7 +276,7 @@ class App extends React.Component {
     } else if (view === 'signup') {
       return <Signup/>
     } else if (view === 'editprofile') {
-      return <EditProfile handleLogout={this.handleLogoutButtonClick.bind(this)} user={this.state.username} userInfo={this.state.userInfo}/>
+      return <EdditProfile handleLogout={this.handleLogoutButtonClick.bind(this)} user={this.state.username} userInfo={this.state.userInfo}/>
     } else if (view === 'createpost') {
       return <CreatePost onSubmit={this.changeView.bind(this)}/>
     }  else if (view === 'search') {
