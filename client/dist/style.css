@@ -5,7 +5,7 @@
 body {
   font-family: 'PT Serif', sans-serif;
   margin: auto;
-  background-color: #CDE;
+  background-color: rgb(223, 231, 239);
   height: 100%;
 }
 
@@ -109,6 +109,10 @@ img.commentPic {
   float: left;
   margin: 5px 10px 5px 0;
   clear: both;
+}
+
+img.commentPic:last-child {
+  margin-bottom: 15px;
 }
 
 input.location {
@@ -282,7 +286,7 @@ section {
 
 .main {
   background-color: white;
-  padding: 0px 0px 15px 0px;
+  padding: 14px 0px 0px 0px;
 }
 
 .notifications {
@@ -292,8 +296,8 @@ section {
 .postHeader {
   margin: -20px 0px 0px 0px;
   border-style: dotted;
-  border-color: #7c7c7d;
-  border-width: 3px;
+  border-color: #353535;
+  border-width: 1px;
   border-right: none;
   border-left: none;
   border-bottom: none;
@@ -301,10 +305,6 @@ section {
 
 .postLocation {
   float: left;
-}
-
-.postMain {
-  margin: 10px 0px;
 }
 
 .postMoment {
@@ -344,7 +344,6 @@ section {
 .profileMain {
   display: grid;
   width: 500px;
-  margin: 10px 0px;
   grid-gap: 10px;
   grid-template-columns: 290px 190px;
   grid-template-areas:
@@ -429,6 +428,7 @@ section {
   float: left;
   font-weight: 600;
   cursor: pointer;  
+  margin-right: 10px;
 }
 
 .wrapper {
@@ -557,7 +557,7 @@ section {
 
 div.createpost {
   z-index: 9999;
-  bottom: -3px;
+  bottom: -3.5px;
 }
 
 .Button {
@@ -664,4 +664,69 @@ img.createPostThumb {
 
 .portrait {
   filter: brightness(114%) blur(0.1575px) saturate(91%) contrast(95%)
+}
+
+/* notifications styling */
+
+
+div.notification {
+  height: 50px;
+  border-top: thin solid #F8F8F8;
+  border-bottom: thin solid #F8F8F8;
+  margin-top: -13px;
+}
+
+div.notification:hover {
+  background-color: #F8F8F8
+}
+
+.notification {
+  display: block;
+  clear: both;
+  
+}
+
+.noteThumb {
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+  float: left;
+  margin-right: 10px;
+}
+
+.noteThumb img {
+  height: 50px;
+
+  display: block;
+
+  overflow: hidden;
+}
+
+.noteText {
+  float: left;
+  top: 4px;
+  position: relative;
+  
+}
+
+.noteMoment {
+  clear:left;
+  float: left;
+  font-style: italic;
+  color: gray;
+}
+
+.followBack {
+  float: right;
+  display: block;
+  position: relative;
+  height: 46px;
+  width: 150px;
+  margin: 2px 0;
+  border: thin solid lightgrey;
+  outline:none;
+  color: gray;
+  background-color: white;
+  box-shadow: 0.5px 0.5px lightgrey;
+  font: 400 16px system-ui;
 }
