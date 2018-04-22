@@ -169,7 +169,7 @@ class Post extends React.Component {
         </div>
         
         <div className='body'>
-          {this.props.post.body}
+          "{this.props.post.body}"
         </div>
         
         <div className='addComment' onClick={this.addCommentClickHandler}>
@@ -182,7 +182,7 @@ class Post extends React.Component {
               <div className='entireComment' key={Math.floor((Math.random() * 10000000) + 1)}>
                 <img className='commentPic' src={`http://${child.userPhotoUrl}`}/>
                 <div className='commentUser'>{child.userHandle}</div>
-                <div className='commentBody'>{child.body}</div>
+                <div className='commentBody'>"{child.body}"</div>
               </div> 
             )
             :

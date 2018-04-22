@@ -170,8 +170,6 @@ section {
   margin: 5px;
 }
 
-
-
 .buttonLight {
   cursor: pointer;
   border: none;
@@ -179,11 +177,13 @@ section {
   font-family: 'PT Serif', sans-serif;
   font-size: medium;
   color: #FFF;
+  text-align: center;
   background-image: linear-gradient(to bottom, #99f, #55d);
   padding: 5px 10px;
   margin: 5px;
   z-index: -1;
 }
+
 .centerText {
   text-align: center;
   margin: 0 auto;
@@ -201,6 +201,10 @@ section {
 .createPost {
   width: 100%;
   padding: 0px 0px 20px 0px;
+}
+
+.credentials {
+  margin: 0px 0px 0px 30px;
 }
 
 .dropzone {
@@ -352,13 +356,18 @@ section {
 }
 
 .postHeader {
-  margin: -20px 0px 0px 0px;
   border-style: dotted;
   border-color: #353535;
   border-width: 1px;
   border-right: none;
   border-left: none;
   border-bottom: none;
+  display: block;
+}
+
+.postImage {
+  clear: both;
+  margin: auto;
 }
 
 .postHeader:first-child {
@@ -524,6 +533,10 @@ section {
   margin: 5px 5px 20px 5px;
 }
 
+#follow {
+  margin: 20px 0px 0px 0px;
+}
+
 #handle {
   grid-area: header;
   color: white;
@@ -551,6 +564,7 @@ section {
 
 #postHeader {
   padding: 5px;
+  display: block;
 }
 
 #postThumbs {
@@ -591,6 +605,10 @@ section {
   width: 20%;
   height: 20px;
   margin: 5px 5px 20px 5px;
+}
+
+#splash {
+  margin: 50px 0px 30px 0px;
 }
 
 #stats {
