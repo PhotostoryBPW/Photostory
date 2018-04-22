@@ -3,7 +3,7 @@ import React from 'react';
 const PostHeader = (props) => {
   // console.log(props, 'headerprops');
     return (
-    <div>
+    <div id="postHeader">
       <div className='userImage' onClick={props.clickHandler}><img src={`http://${props.userPhotoUrl}`}/></div>
       <div className='userHandle'onClick={props.clickHandler}>{props.userHandle}</div><br/> 
     </div>

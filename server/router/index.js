@@ -22,6 +22,7 @@ router.put('/checkifnewusername', Controller.users.checkifnewusername);
 router.put('/updateusername', Controller.users.updateusername);
 router.put('/updatename', Controller.users.updatefullname);
 router.put('/updateemail', Controller.users.updateemail);
+router.put('/updatelocation', Controller.users.updatelocation);
 router.put('/updatebio', Controller.users.updatebio);
 router.put('/updateprofilepic', Controller.users.updateprofilepic);
 router.post('/post', Controller.posts.create);

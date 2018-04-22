@@ -192,6 +192,15 @@ const Controller = {
         }
       })
     },
+    updatelocation: (req, res) => {
+      Models.users.updatelocation(req.session.passport.user, req.body, (err, results) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(200).send(results);
+        }
+      })
+    },
     updatebio: (req, res) => {
       Models.users.updatebio(req.session.passport.user, req.body, (err, results) => {
         if (err) {
