@@ -9,7 +9,6 @@ router.get('/likes', Controller.posts.likes);
 router.get('/search', Controller.posts.all);
 router.get('/search/:username', Controller.users.find);
 router.get('/info', Controller.users.info);
-router.get('/userprofileinfo', Controller.users.userprofileinfo);
 router.get('/logout', function(req, res) {
     req.logout(); 
     req.session.destroy();
@@ -18,12 +17,8 @@ router.get('/logout', function(req, res) {
 router.get('/notifications', Controller.notifications);
 router.post('/view', Controller.viewNotifications);
 router.delete('/notifications/destroy', Controller.destroyNotification);
-router.put('/checkifnewusername', Controller.users.checkifnewusername);
 router.put('/updateusername', Controller.users.updateusername);
-router.put('/updatename', Controller.users.updatefullname);
-router.put('/updateemail', Controller.users.updateemail);
-router.put('/updatelocation', Controller.users.updatelocation);
-router.put('/updatebio', Controller.users.updatebio);
+router.put('/updateprofile', Controller.users.updateprofile);
 router.put('/updateprofilepic', Controller.users.updateprofilepic);
 router.post('/post', Controller.posts.create);
 router.post('/comment', Controller.posts.comment);

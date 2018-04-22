@@ -80,17 +80,17 @@ class CreatePost extends React.Component {
         </div>  
         <br />
         <div id='createInputs'>
-        <textarea input name='postBody' rows="2" cols="70" maxlength="500" type='textbody' onChange={this.onBodyChangeHandler.bind(this)}/>
+        <textarea input name='postBody' rows="2" cols="70" maxLength="500" type='textbody' onChange={this.onBodyChangeHandler.bind(this)}/>
         <br />
          Enter your comments
          <br />
          <br />
-        <input name='location' size="30" type='text' maxlength="50" onChange={this.onLocationChangeHandler.bind(this)}/>
+        <input name='location' size="30" type='text' maxLength="50" onChange={this.onLocationChangeHandler.bind(this)}/>
         <br />
          Location
         <br />
         </div>
-        <button id="#submit-all" class="buttonLight" onClick={this.onSubmitPostClickHandler.bind(this)} style={this.state.showSubmit ? {display: 'block'} : {display: 'none'}} >CREATE POST</button>
+        <button id="#submit-all" className="buttonLight" onClick={this.onSubmitPostClickHandler.bind(this)} style={this.state.showSubmit ? {display: 'block'} : {display: 'none'}} >CREATE POST</button>
       </div>
     );
   }

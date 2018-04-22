@@ -10,6 +10,7 @@ import Search from './Search.jsx';
 import CreatePost from './CreatePost.jsx';
 import Post from './Post.jsx'
 import EditProfile from './EditProfile.jsx';
+import EdditProfile from './EdditProfile.jsx';
 import NoteFeed from './NoteFeed.jsx';
 
 class App extends React.Component {
@@ -94,6 +95,7 @@ class App extends React.Component {
       console.log(err);
     })
   }
+
   //jakes
   // changeView(option, username) {
   //   console.log(username, 'clicked username on post');
@@ -117,14 +119,12 @@ class App extends React.Component {
   // }
 //lores
   changeView(option, username) {
-    console.log('changeview called! this is the state of the app: ', this.state);
     if (option === 'profile' && this.state.view === 'profile') {
       this.setState({
         selectedUser: '',
       })
     }
     if (option === 'feed') {
-      console.log('option feed selected');
       this.getFeed();
     }
     this.getUserInfo(username);
@@ -139,7 +139,7 @@ class App extends React.Component {
             unreadNotifications: 0,
           })
         }
-        else if (option === 'createpost' || option === 'createpost' || option === 'feed' || option === 'profile') {
+        else if (option === 'createpost' || option === 'feed' || option === 'profile' || option === 'editprofile') {
           this.getFeed();
           this.getUserInfo(username);
           
@@ -172,13 +172,15 @@ class App extends React.Component {
         posts = [];
         comments = [];
         console.log('got feed with the current data: ', response.data)
-        response.data.forEach(data => {
-          if (data.parent_id) {
-            comments.push(data)
-          } else {
-            posts.push(data);
-          }
-        })
+        if (response.data.length > 1) {
+          response.data.forEach(data => {
+            if (data.parent_id) {
+              comments.push(data)
+            } else {
+              posts.push(data);
+            }
+          })
+        }
       })
       .then(() => {
         posts.map(post => {
@@ -236,24 +238,21 @@ class App extends React.Component {
       })
   }
 
-  handleLogoutButtonClick(editUsername, payload, ghostuser) {
+  handleLogoutButtonClick(editUsername, newName, ghostuser) {
+    if (editUsername && newName && ghostuser) {
+      var newInfo = {newName : newName, ghostuser: ghostuser};
+      axios.put('api/updateusername', newInfo)
+        .then (response => {
+          console.log(response);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
     axios.get('api/logout')
       .then( response => {
         delete localStorage.isLoggedIn;
         this.setState({isLoggedIn: false});
-        if (editUsername === 'true') {
-          var newPayload = {
-            ghostuser: ghostuser,
-            replacementName: payload,
-          }
-          axios.put('api/updateusername', newPayload)
-            .then (resonse => {
-              console.log(response);
-            })
-            .catch(err => {
-              console.log(err);
-            })
-        }
       })
       .catch( err => {
         console.log(err);
@@ -270,16 +269,14 @@ class App extends React.Component {
       return <Feed handleClick={this.changeView.bind(this)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view}/>;
     } else if (view === 'profile') {
       if (this.state.selectedUser === '') {
-        console.log('no selected user');
         return <Profile loggedInUser={this.state.loggedInUser} posts={this.state.posts} user={this.state.loggedInUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view}/>
       } else {
-        console.log('selected user exists');
-        return <Profile loggedInUser={this.state.loggedInUser} posts={this.state.posts} user={this.state.selectedUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view}/>
+        return <Profile loggedInUser={this.state.loggedInUser} posts={this.state.posts} getInfo={this.state.getUserInfo} user={this.state.selectedUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view}/>
       }
     } else if (view === 'signup') {
       return <Signup/>
     } else if (view === 'editprofile') {
-      return <EditProfile handleLogout={this.handleLogoutButtonClick.bind(this)}/>
+      return <EdditProfile handleLogout={this.handleLogoutButtonClick.bind(this)} user={this.state.username} userInfo={this.state.userInfo}/>
     } else if (view === 'createpost') {
       return <CreatePost onSubmit={this.changeView.bind(this)}/>
     }  else if (view === 'search') {

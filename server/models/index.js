@@ -176,9 +176,11 @@ const Models = {
       });
     },
     info: function (user, cb) {
-      var queryStr = `select * from users where userHandle=${JSON.stringify(user)}`;
+      console.log('user in info ', user);
+      var queryStr = 'select * from users where userHandle=(?)';
+      console.log(queryStr);
       db.query(queryStr, user, function(err, results) {
-        cb(err, results[0]);
+        cb(err, results);
       });
     },
     follow: function (follows_id, user, cb) {
@@ -247,66 +249,31 @@ const Models = {
         })
       });
     },
-    userprofileinfo: function (params, cb) {
-      var queryStr = `select * from users where userHandle = ${JSON.stringify(params)}`;
+    updateprofile: function(params, newValue, cb) {
+      var queryStr = ('update users set ' + newValue[0] + '=' + JSON.stringify(newValue[1]) + ` where userHandle=${JSON.stringify(params)}`);
       db.query(queryStr, (err, results) => {
         if (err) {
           console.log(err);
         }
         cb(err, results);
-      });
+      })
     },
-    updatefullname: function(params, newName, cb) {
-      var queryStr = `update users set userName=${JSON.stringify(newName.fullname)} where userHandle=${JSON.stringify(params)}`;
-      db.query(queryStr, (err, results) => {
+    updateusername: function(params, cb) {
+      var queryStr1 = `update users set userHandle=${JSON.stringify(params.newName)} where userHandle = ${JSON.stringify(params.ghostuser)}`; 
+      var queryStr2 = `update login set username=${JSON.stringify(params.newName)} where username=${JSON.stringify(params.ghostuser)}`;
+      db.query(queryStr1, (err, results) => {
         if (err) {
           console.log(err);
         }
-        cb(err, newName);
+        cb(err, results);
       })
-    },
-    updateusername: function(params, newUsername, cb) {
-      var queryStr = `update users set userHandle=${JSON.stringify(newUsername)} where userHandle = ${JSON.stringify(params)}`;
-      var loginQueryStr = `update login set username=${JSON.stringify(newUsername)} where username=${JSON.stringify(params)}`;
-      db.query(queryStr, (err, results) => {
+      db.query(queryStr2, (err, results) => {
         if (err) {
           console.log(err);
         }
-        db.query(loginQueryStr, (err, results) => {
-          if (err) {
-            console.log(err);
-          }
-          cb(err, newUsername);
-        })
+        cb(err, results);
       })
-    },
-    updatelocation: function(params, newLoc, cb) {
-      var queryStr = `update users set userLoc=${JSON.stringify(newLoc.loc)} where userHandle=${JSON.stringify(params)}`;
-      db.query(queryStr, (err, results) => {
-        if (err) {
-          console.log(err);
-        }
-        cb(err, newLoc);
-      })
-    },
-    updatebio: function(params, newBio, cb) {
-      var queryStr = `update users set bio=${JSON.stringify(newBio.bio)} where userHandle=${JSON.stringify(params)}`;
-      db.query(queryStr, (err, results) => {
-        if (err) {
-          console.log(err);
-        }
-        cb(err, newBio);
-      })
-    },
-    updateemail: function(params, newEmail, cb) {
-      console.log(newEmail);
-      var queryStr = `update users set email=${JSON.stringify(newEmail.email)} where userHandle=${JSON.stringify(params)}`;
-      db.query(queryStr, (err, results) => {
-        if (err) {
-          console.log(err);
-        }
-        cb(err, newEmail);
-      })
+      console.log('end of update')
     },
     updateprofilepic: function(params, newProfilePic, cb) {
       console.log(newProfilePic);
@@ -317,14 +284,6 @@ const Models = {
         }
         cb(err, newProfilePic);
       })
-    },
-    checkifnewusername: function(params, newName, cb) {
-      if (params === newName.username) {
-        cb(true);
-      }
-      else {
-        cb(false);
-      }
     },
   },
   notifications: {
