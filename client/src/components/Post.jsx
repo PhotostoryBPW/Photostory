@@ -26,13 +26,16 @@ class Post extends React.Component {
     axios.get('api/likes')
       .then( response => {
         var postIDs = [];
-        response.data.forEach(post => {
-          postIDs.push(post.posts_id);
-        });
-        if (postIDs.indexOf(this.props.post.id) > -1) {
-          this.setState({hasLiked: true});
-        } else {
-          this.setState({hasLiked: false});
+        if (response.data.length) {
+          response.data.forEach(post => {
+            postIDs.push(post.posts_id);
+          });
+            
+          if (postIDs.indexOf(this.props.post.id) > -1) {
+            this.setState({hasLiked: true});
+          } else {
+            this.setState({hasLiked: false});
+          }
         }
       })
       .catch(err => {

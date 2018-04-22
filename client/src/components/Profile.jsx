@@ -16,16 +16,30 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({
+      currentUser: this.props.user,
+      loggedInUser: this.props.loggedInUser,
+      userInfo: this.props.userInfo,
+    })
     this.getCurrentUsersPosts();
   }
 
   componentWillMount() {
-    this.setState({
-      currentUser: this.props.user,
-      loggedInUser: this.props.loggedInUser
+    this.props.userInfo === undefined && 
+    axios.get('api/checksession')
+      .then( response => {
+        if (response.data.status === 'active') {
+          this.props.getInfo(response.data.user);
+          this.state.loggedInUser = response.data.user;
+        } else {
+          axios.get('http://localhost:3000/api/logout');
+        }
+      })
+      .catch( err => {
+      console.log(err);
     })
   }
-  
+
   onFollowClickHandler(e) {
     console.log('the state of this on click ', this.state, 'and the value of e on click'. e);
     axios.post('api/follow', this.state.userInfo.users_id)
@@ -62,13 +76,15 @@ class Profile extends React.Component {
       following = response.data[0].isFollowing
       posts = [];
       comments = [];
-      response.data.forEach(data => {
-        if (data.parent_id) {
-          comments.push(data)
-        } else {
-          posts.push(data);
-        }
-      })
+      if (response.data.length > 1) {
+        response.data.forEach(data => {
+          if (data.parent_id) {
+            comments.push(data)
+          } else {
+            posts.push(data);
+          }
+        })
+      }
     })
     .then(() => {  
       posts.map(post => {
@@ -96,12 +112,6 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <div>
-        {
-          this.state.userInfo === undefined
-          ?
-          <div/>
-          :
       <div className="profileMain">
         <div id="handle">{this.state.userInfo.userHandle}</div>
         <div id="profilePhoto"><img src={`http://${this.state.userInfo.userPhotoUrl}`} width="100%" /></div>
@@ -137,8 +147,7 @@ class Profile extends React.Component {
         </div>
         <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo} view={this.props.view} currentUserProfilePhoto={this.state.userInfo.userPhotoUrl}/></div>
         </div>  
-      }
-      </div>
+      
     )
   }
 }

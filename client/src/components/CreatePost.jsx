@@ -16,7 +16,8 @@ class CreatePost extends React.Component {
       filt: 'nofilter',
       accepted: [],
       rejected: [],
-      photoUrl: ''
+      photoUrl: '',
+      thumbs: "localhost:3000/img/defaultPost.jpg",
     }
 
   }
@@ -71,26 +72,26 @@ class CreatePost extends React.Component {
           <Zone drop={this.showSubmit.bind(this)} />
         </div>
         <div className='filters'>
-          <div className='nofilter' onClick={this.onFilterClickHandler.bind(this)}></div>
-          <div className='blackAndWhite' onClick={this.onFilterClickHandler.bind(this)}></div>
-          <div className='sepia' onClick={this.onFilterClickHandler.bind(this)}></div>
-          <div className='vibrant' onClick={this.onFilterClickHandler.bind(this)}></div>
-          <div className='fadeout' onClick={this.onFilterClickHandler.bind(this)}></div>
-          <div className='portrait' onClick={this.onFilterClickHandler.bind(this)}></div>
+          <div className='nofilter' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/> </div>
+          <div className='blackAndWhite' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
+          <div className='sepia' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
+          <div className='vibrant' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
+          <div className='fadeOut' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
+          <div className='portrait' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
         </div>  
         <br />
         <div id='createInputs'>
-        <textarea input name='postBody' rows="2" cols="70" maxlength="500" type='textbody' onChange={this.onBodyChangeHandler.bind(this)}/>
+        <textarea input name='postBody' rows="2" cols="70" maxLength="500" type='textbody' onChange={this.onBodyChangeHandler.bind(this)}/>
         <br />
          Enter your comments
          <br />
          <br />
-        <input name='location' size="30" type='text' maxlength="50" onChange={this.onLocationChangeHandler.bind(this)}/>
+        <input name='location' size="30" type='text' maxLength="50" onChange={this.onLocationChangeHandler.bind(this)}/>
         <br />
          Location
         <br />
         </div>
-        <button id="#submit-all" class="buttonLight" onClick={this.onSubmitPostClickHandler.bind(this)} style={this.state.showSubmit ? {display: 'block'} : {display: 'none'}} >CREATE POST</button>
+        <button id="#submit-all" className="buttonLight" onClick={this.onSubmitPostClickHandler.bind(this)} style={this.state.showSubmit ? {display: 'block'} : {display: 'none'}} >CREATE POST</button>
       </div>
     );
   }
