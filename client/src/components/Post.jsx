@@ -165,7 +165,7 @@ class Post extends React.Component {
           </div> */}
         </div>  
         <div className='likes'>
-          Liked by {this.props.post.likesCount} others.
+          Liked by {this.props.post.likesCount} story tellers
         </div>
         
         <div className='body'>
