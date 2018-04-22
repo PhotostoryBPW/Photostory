@@ -35,8 +35,15 @@ div.filters div {
   height: 81px;
   width: 81px;
   margin: auto;
-  background-color: cyan;
-  border: thin solid pink 
+  margin-right: 1px;
+}
+
+div.filters div:last-child {
+  margin-right: 0px;
+}
+
+div.filters div:first-child {
+  margin-left: 5px;
 }
 
 div.navBar div {
@@ -107,13 +114,10 @@ img.commentPic {
   height: 25px;
   border-radius: 25px;
   float: left;
-  margin: 5px 10px 5px 0;
+  margin: 5px 10px 5px 5px;
   clear: both;
 }
 
-img.commentPic:last-child {
-  margin-bottom: 15px;
-}
 
 input.location {
   box-sizing: border-box;
@@ -163,22 +167,7 @@ section {
   margin: 5px;
 }
 
-.buttonGrey {
-  cursor: pointer;
-  grid-area: right-bottom;
-  width: 160px;
-  height: 30px;
-  border-radius: 3px;
-  border-style: outset;
-  border-width: 1px;
-  border-color: #4c4c4d;
-  font-family: 'PT Serif', sans-serif;
-  font-size: medium;
-  text-align: center;
-  color: #000;
-  background-color: #eee;
-  padding: 5px;
-}
+
 
 .buttonLight {
   cursor: pointer;
@@ -278,6 +267,7 @@ section {
 
 .likes {
   margin: 5px;
+  margin-bottom: 11px;
 }
 
 .login {
@@ -310,7 +300,9 @@ section {
 .postMoment {
   font-style: italic;
   margin: 5px;
+  margin-bottom: 15px;
   clear: both;
+  text-align: right;
 }
 .postOptions {
   margin: auto;
@@ -566,6 +558,7 @@ div.noteNumber {
   bottom: 35px;
   left: 19px;
   padding: 5px;
+  font-size: 13px;
 }
 
 
@@ -598,13 +591,7 @@ div.createpost {
   -webkit-perspective: 600px;
           perspective: 600px;
 }
-.Button.Button--start {
-  width: 120px;
-  height: 45px;
-}
-.Button.Button--start button {
-  border-radius: 4px;
-}
+
 .Button.Button--select {
   width: 40px;
   height: 40px;
@@ -639,13 +626,13 @@ button.postButton {
   filter: invert(20%);
 }
 
-button:hover {
+button.postButton:hover {
   box-shadow: 0px 5px 0px #4c4c4d;
-  border-radius: 8px;
+  
   -webkit-transform: rotateX(30deg) translateY(0);
           transform: rotateX(30deg) translateY(0);
 }
-button:hover:active {
+button.postButton:hover:active {
   text-shadow: 0 0 4px #4c4c4d;
   box-shadow: 0 1px 0 #423847;
   background: radial-gradient(ellipse at center, #35759a 0%, #009eed 100%);
@@ -655,7 +642,7 @@ button:hover:active {
   -webkit-transform: rotateX(30deg) translateY(4px);
           transform: rotateX(30deg) translateY(4px);
 }
-button span {
+button.postButton span {
   position: relative;
   font-size: 21px;
   color: #fff;
@@ -696,7 +683,7 @@ img.createPostThumb {
 }
 
 .portrait {
-  filter: brightness(114%) blur(0.1575px) saturate(91%) contrast(95%)
+  filter: brightness(114%) blur(0.1575px) saturate(91%) contrast(95%) hue-rotate(-45deg)
 }
 
 /* notifications styling */
@@ -766,3 +753,42 @@ div.notification:hover {
   box-shadow: 0.5px 0.5px lightgrey;
   font: 400 16px system-ui;
 }
+
+/* profile thumbs */
+
+.profileViewContainer img{
+  height: 44px;
+  width: auto;
+  text-align: center;
+  margin: 2px auto;
+  display: block;
+
+}
+
+.profileViewContainer {
+  display: block;
+  width: 100%;
+  clear: both;
+  height: 50px;
+  background-color: #eee;
+}
+
+.profileViewContainer div {
+  width: 49%;
+}
+
+/* .buttonGrey {
+  cursor: pointer;
+  width: 160px;
+  height: 30px;
+  border-radius: 3px;
+  border-style: outset;
+  border-width: 1px;
+  border-color: #4c4c4d;
+  font-family: 'PT Serif', sans-serif;
+  font-size: medium;
+  text-align: center;
+  color: #000;
+  background-color: #eee;
+
+} */

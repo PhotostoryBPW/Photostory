@@ -52,7 +52,13 @@ class Zone extends React.Component {
       return (
         <section>
           <div className="dropzone">
+          {
+          !!this.props.leaveDropZone ?
           <button onClick={this.props.leaveDropZone} >go back</button>
+          : 
+          <div/>
+          }
+
             <Dropzone accept="image/jpeg, image/png" 
                       onDrop={this.onDrop.bind(this)}
                       className={'dropbox'} 
@@ -63,7 +69,7 @@ class Zone extends React.Component {
             </Dropzone>
           </div>
           <aside>
-          <h2>Accepted files</h2>
+          {/* <h2>Accepted files</h2>
           <ul>
             {
               this.state.accepted.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>)
@@ -74,7 +80,7 @@ class Zone extends React.Component {
             {
               this.state.rejected.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>)
             }
-          </ul>
+          </ul> */}
         </aside>
         </section>
       );
