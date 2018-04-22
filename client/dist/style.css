@@ -551,6 +551,39 @@ section {
 
 /* nav buttons */
 
+div.noteNumber {
+  display: inline!important;
+  height: 20px!important;
+  width: 20px!important;
+  border-radius: 50%;
+  margin: auto!important;
+  padding: 0px 0px 0px 0px!important;
+  position: absolute!important;
+  text-align: center!important;
+  background: red!important;
+  color: white;
+  float: right;
+  bottom: 35px;
+  left: 19px;
+  padding: 5px;
+}
+
+
+div.withNoteNumber {
+  display: block!important;
+  position: relative!important;
+
+  margin: auto!important;
+  padding: 0px 0px 0px 0px!important;
+  text-align: center!important;
+  background: #F8F8F8!important;
+}
+
+navBar img {
+  height: 37.5px!important;
+  width: 37.5px!important;
+}
+
 .navBar img:hover {
   filter: invert(120%);
 }
@@ -686,6 +719,7 @@ div.notification:hover {
   
 }
 
+
 .noteThumb {
   height: 50px;
   width: 50px;
@@ -693,6 +727,8 @@ div.notification:hover {
   float: left;
   margin-right: 10px;
 }
+
+
 
 .noteThumb img {
   height: 50px;

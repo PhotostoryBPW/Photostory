@@ -23,7 +23,7 @@ const NavBar = (props) => {
       {
         !!props.notifications
         ?
-        props.notifications
+        <div className='withNoteNumber'><img src="http://localhost:3000/nav/notifications.png"/><div className='noteNumber'>{props.notifications}</div></div>
         :
         <img src="http://localhost:3000/nav/notifications.png"/>
       }
