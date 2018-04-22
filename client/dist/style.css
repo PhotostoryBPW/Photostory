@@ -344,7 +344,7 @@ section {
 
 .main {
   background-color: white;
-  padding: 14px 0px 0px 0px;
+  padding: 15px 0px 15px 0px;
 }
 
 .notifications {
@@ -510,6 +510,10 @@ section {
   max-width: 500px;
   margin: 0 auto;
   background-color: white;
+}
+
+#changeNote:hover #note {
+  display: block;
 }
 
 #changeNote:hover #note {
