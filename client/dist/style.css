@@ -265,13 +265,76 @@ section {
   margin: auto;
 }
 
+.innerContainer {
+  width: 80%;
+  margin: 0 auto;
+  background-color: white;
+}
+
 .likes {
   margin: 5px;
   margin-bottom: 11px;
 }
 
 .login {
-  margin: 10px;
+  text-align: center;
+  background-color: white;
+  height: 100%;
+  width: 60%;
+  margin: 0 auto;
+  height: 1000px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.loginButton {
+  width: 100%;
+  height: 40px;
+  margin-top: 10px;
+  margin-left: 0px !important;
+}
+
+.loginHeaderContainer {
+  height: 150px;
+}
+
+.loginUsername {
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.loginPassword {
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.loginInput {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  margin-bottom: -1px;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 25px;
+}
+
+.logo {
+  background-color: turquoise;
+  border-radius: 50%;
+  width: 90px;
+  margin-top: 15%;
+}
+
+.linkToSignup {
+  background-color: white;
+  border: none;
+  transition: none;
+  display: inline;
+  float:left;
+}
+
+.loginContainer {
+  
 }
 
 .main {
@@ -380,6 +443,9 @@ section {
 }
 .signup {
   margin: 10px;
+}
+.signUpText {
+  font-size: 12px;
 }
 .statsItem {
   border: none;
