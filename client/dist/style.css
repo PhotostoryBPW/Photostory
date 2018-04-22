@@ -5,34 +5,40 @@
 body {
   font-family: 'PT Serif', sans-serif;
   margin: auto;
-  background-color:white;
+  background-color: #CDE;
   height: 100%;
 }
-button {
+
+buttonDark {
   cursor: pointer;
   border: none;
   border-radius: 3px;
   font-family: 'PT Serif', sans-serif;
-  color: #CCC;
-  background-color: rgb(0, 0, 0);
+  color: #FFF;
+  background-color: #22A
 }
+
 div.commentBody {
   margin: 0px 10px 0px 0px;
   float: left;
   display: inline-block;
 }
+
 div.commentUser {
   margin: 0px 10px 0px 0px;
   float: left;
   display: inline-block;
 }
+
 div.filters div {
-  height: 81.5198811288339px;
-  width: 81.5198811288339px;
-  float: left;
+  display: inline-block;
+  height: 81px;
+  width: 81px;
+  margin: auto;
   background-color: cyan;
   border: thin solid pink 
 }
+
 div.navBar div {
   display: inline-block;
   height: 50px;
@@ -43,17 +49,20 @@ div.navBar div {
   text-align: center;
   background:#F8F8F8;
 }
+
 div.postImage img {
   display: block;
   max-width: 100%;
   width: auto;
   height: auto;
 }
+
 div.thumb img {
   width: 33%;
   float: left;
   height: auto;
 }
+
 div.userImage img {
   display: block;
   width: 50px;
@@ -63,6 +72,7 @@ div.userImage img {
   margin: 5px 10px 5px 0;
   cursor: pointer;
 }
+
 footer {
   position:sticky;
   bottom: 11px;
@@ -70,6 +80,27 @@ footer {
   margin: auto;
   clear: both;
 }
+
+header {
+  text-align: center;
+  position:sticky;
+  height: 40px;
+  top:0;
+  width: 100%;
+  background-color: #F8F8F8;
+  padding: 15px 0px 0px 0px;
+  z-index: 1;
+}
+
+html, body {
+  min-height:100%;
+  margin: 0;
+}
+
+img {
+  border-radius: 3px;
+}
+
 img.commentPic {
   display: block;
   width: 25px;
@@ -79,34 +110,27 @@ img.commentPic {
   margin: 5px 10px 5px 0;
   clear: both;
 }
+
 input.location {
-  width:100%;
-}
-header {
-  position:sticky;
-  height: 40px;
-  top:0;
+  box-sizing: border-box;
+  display: block;
   width: 100%;
-  background-color: #F8F8F8;
-  padding: 15px 0px 0px 0px;
-  z-index: 1;
+  height: 50px;
+  width: 300px;
 }
-html, body {
-  min-height:100%;
-  margin: 0;
-}
-hr {
-  border:none;
-  border-top:3px dotted black;
-  height:3px;
-  width:60%;
-}
-img {
-  border-radius: 3px;
-}
+
 textarea.postBody {
+  box-sizing: border-box;
+  display: block;
   width: 100%;
 }
+
+section {
+  position: center;
+  margin: 5px;
+  max-width: 485px;
+}
+
 .active {
   width: 100%;
   height: 200px;
@@ -121,21 +145,46 @@ textarea.postBody {
   border: none;
 }
 .addComment {
-  display: block;
-  float: left;
+  margin: 5px;
 }
+
 .attributeRow {
-  margin-bottom: 10px;
+  height: 25px;
+  width: 100%;
+  padding: 5px;
+  display: inline-block;
 }
-.buttonRed {
+
+.body {
+  margin: 5px;
+}
+
+.buttonGrey {
   cursor: pointer;
-  border: none;
+  grid-area: right-bottom;
+  width: 160px;
+  height: 30px;
   border-radius: 3px;
+  border-style: outset;
+  border-width: 1px;
+  border-color: #4c4c4d;
   font-family: 'PT Serif', sans-serif;
   font-size: medium;
-  color: #CCC;
-  background-color: #722;
+  text-align: center;
+  color: #000;
+  background-color: #eee;
   padding: 5px;
+}
+
+.buttonLight {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  font-family: 'PT Serif', sans-serif;
+  font-size: medium;
+  color: #FFF;
+  background-image: linear-gradient(to bottom, #99f, #55d);
+  padding: 5px 10px;
   margin: 5px;
   z-index: -1;
 }
@@ -144,14 +193,23 @@ textarea.postBody {
   margin: 0 auto;
   display: block;
 }
+
 .container {
   min-height: calc(100vh - 50px);
 }
+
 .create {
   display: inline-block;
 }
+
+.createPost {
+  width: 100%;
+  padding: 0px 0px 20px 0px;
+}
+
 .dropzone {
   width: 100%;
+  max-width: 500px;
   height: 200px;
   border-width: 2px;
   border-color: rgb(102, 102, 102);
@@ -159,18 +217,19 @@ textarea.postBody {
   border-radius: 5px;
   opacity: 1;
 }
+
 .editProfIcon {
-    padding-top: 7px;   
-    padding-right: 7px;
+  height: 20px;
+	padding: 7px;	
   position: relative;
   float: right;
-    right: 0;
-    top: 0;
-    display: block;
+	display: inline-block;
 }
+
 .editProfIcon a {
-    color: #000;
+	color: #000;
 }
+
 .editProfilePic{
   width: 40%;
   border-radius: 50%;
@@ -182,9 +241,19 @@ textarea.postBody {
   clear: both;
   display: block;
 }
+
+.fa-pencil {
+  display: inline-block;
+}
+
+.fa-save {
+  display: inline-block;
+}
+
 .feed {
   display: inline-block;
 }
+
 .header {
   position: relative;
   text-align: center;
@@ -202,31 +271,55 @@ textarea.postBody {
 .home {
   margin: auto;
 }
+
+.likes {
+  margin: 5px;
+}
+
 .login {
   margin: 10px;
 }
+
 .main {
   background-color: white;
+  padding: 0px 0px 15px 0px;
 }
+
 .notifications {
   display: inline-block;
 }
+
+.postHeader {
+  margin: -20px 0px 0px 0px;
+  border-style: dotted;
+  border-color: #7c7c7d;
+  border-width: 3px;
+  border-right: none;
+  border-left: none;
+  border-bottom: none;
+}
+
 .postLocation {
   float: left;
 }
+
 .postMain {
   margin: 10px 0px;
 }
+
 .postMoment {
   font-style: italic;
+  margin: 5px;
   clear: both;
 }
 .postOptions {
   margin: auto;
 }
+
 .profBioInput {
   width: 80%;
 }
+
 .profEditInput {
   background: transparent;
   border: none;
@@ -234,12 +327,20 @@ textarea.postBody {
   margin-bottom: -1px;
   box-sizing: border-box;
 }
+
 .profEditInput:focus {
   outline:none;
 }  
+
 .profile {
   display: inline-block;
 }
+
+
+.profileEdit {
+  display: inline-block;
+}
+
 .profileMain {
   display: grid;
   width: 500px;
@@ -251,6 +352,7 @@ textarea.postBody {
   "left-top right-top"
   "left-middle right-middle"
   "left-bottom right-bottom"
+  "spacer spacer"
   "footer footer";
   background-color: #fff;
   color: #444;
@@ -265,18 +367,19 @@ textarea.postBody {
   opacity: 1;
   background-color: red;
 }
+
 .saveProfIcon {
-    padding-top: 7px;   
-    padding-right: 7px;
+  height: 20px;
+	padding: 7px;
   position: relative;
   float: right;
-    right: 0;
-    top: 0;
-    display: block;
+	display: inline-block;
 }
+
 .saveProfIcon a {
-    color: #000;
+	color: #000;
 }
+
 .search {
   display: inline-block;
 }
@@ -321,122 +424,113 @@ textarea.postBody {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
 .userHandle {
   float: left;
   font-weight: 600;
-  cursor: pointer;
-  margin-right: 10px
+  cursor: pointer;  
 }
+
 .wrapper {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
 }
-#edit {
-  cursor: pointer;
-  grid-area: right-middle;
-  width: 190px;
-  height: 30px;
-  border-radius: 3px;
-  font-family: 'PT Serif', sans-serif;
-  font-size: medium;
-  color: #FFF;
-  background-color: #333;
-  padding: 5px;
+
+#changeNote:hover #note {
+  display: block;
 }
-#logoutbtn {
-  cursor: pointer;
-  grid-area: right-bottom;
-  width: 200px;
-  height: 30px;
-  border-radius: 3px;
-  font-family: 'PT Serif', sans-serif;
-  font-size: medium;
-  color: #FFF;
-  background-color: #333;
-  padding: 5px;
+
+#createInputs {
+  margin: 5px 5px 20px 5px;
 }
+
 #handle {
   grid-area: header;
   color: white;
   width: 490px;
   padding: 5px;
-  background-color: #800;
+  background-color: #20c0b0;
   border-radius: 4px;
   margin: 5px 0px;
 }
+
 #nosearchresult {
   padding: 10px;
 }
+
+#note {
+  display: none;
+  font-size: 12px;
+  color: #4c4c4d
+}
+
+#postFeed {
+  display: inline-block;
+  float: right;
+}
+
+#postHeader {
+  padding: 5px;
+}
+
+#postThumbs {
+  display: inline-block;
+  float: left;
+}
+
+#profileFields {
+  width: 95%;
+  margin: auto;
+}
+
+#profileInfo {
+  width: 80%;
+  margin: auto;
+}
+
 #profilePosts {
   grid-area: footer;
 }
-#profileBio {
-  grid-area: left-bottom;
-  width: 300px;
-}
+
 #profilePhoto {
   grid-area: left-top;
   width: 290px;
   border-radius: 3px;
 }
+
+#profileText {
+  grid-area: center;
+}
+
+#spacer {
+  grid-area: spacer;
+  height: 15px;
+}
+
+#searchText {
+  width: 20%;
+  height: 20px;
+  margin: 5px 5px 20px 5px;
+}
+
 #stats {
   grid-area: right-top;
-  width: 190px;
-  padding: 5px;
-  background-color: #F88;
+  width: 180px;
+  padding: 10px;
+  background-color: #beb;
   border-radius: 3px;
 }
+
+#submit-all {
+  /* font-size: medium;
+  padding: 3px;
+  margin: 5px; */
+}
+
+
 #userPhoto {
   margin: auto;
-}
-
-/* notifications styling */
-
-
-div.notification {
-  border-top: thin solid #F8F8F8;
-  border-bottom: thin solid #F8F8F8;
-}
-
-div.notification:hover {
-  background-color: #F8F8F8
-}
-
-.notification {
-  display: block;
-  clear: both;
-  
-}
-
-.noteThumb {
-  height: 50px;
-  width: 50px;
-  overflow: hidden;
-  float: left;
-  margin-right: 10px;
-}
-
-.noteThumb img {
-  height: 50px;
-
-  display: block;
-
-  overflow: hidden;
-}
-
-.noteText {
-  float: left;
-  top: 4px;
-  position: relative;
-  
-}
-
-.noteMoment {
-  clear:left;
-  float: left;
-  font-style: italic;
-  color: gray;
 }
 
 .followBack {

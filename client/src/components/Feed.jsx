@@ -9,8 +9,6 @@ class Feed extends React.Component {
       users: '',
       children: '',
     };
-    console.log('this is the props view from feed: ', this.props.view);
-    console.log('this is the props for feed: ', this.props.posts);
   }
 
   onComponentDidUpdate() {
@@ -20,8 +18,6 @@ class Feed extends React.Component {
   }
  
   render(props) {
-    console.log(this.props.userInfo, 'userinfo?');
-    console.log(this.props.liked, 'liked?');
     return (
       <div>
         {  

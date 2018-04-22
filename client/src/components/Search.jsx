@@ -25,13 +25,15 @@ class Search extends React.Component {
       .then( response => {
         posts = [];
         comments = [];
-        response.data.forEach(data => {
-          if (data.parent_id) {
-            comments.push(data)
-          } else {
-            posts.push(data);
-          }
-        })
+        if (response.data.length) {
+          response.data.forEach(data => {
+            if (data.parent_id) {
+              comments.push(data)
+            } else {
+              posts.push(data);
+            }
+          })
+        }
       })
       .then(() => {
         posts.map(post => {
@@ -84,13 +86,14 @@ class Search extends React.Component {
   render() {
     return (
       <div>
+        <div><br />&nbsp;&nbsp; Find a user...</div>
+        <input id="searchText" onBlur={this.onChangeHandler.bind(this)}/><button className="buttonLight" onClick={this.onClickHandler.bind(this)}>SEARCH</button>
         {
           this.state.searchData.length !== 0
           ?
         <div>
-        <input onChange={this.onChangeHandler.bind(this)}/><button onClick={this.onClickHandler.bind(this)}>Search</button>
         {
-        !this.state.post 
+        !this.state.post
         ?  
         this.state.searchData.map(post => 
           !post.parent_id  
@@ -104,7 +107,8 @@ class Search extends React.Component {
         }
         </div>
         :
-        <div>
+        <div id="nosearchresult">
+          Sorry, we couldn't find that user.
         </div>
         }
       </div>

@@ -26,13 +26,16 @@ class Post extends React.Component {
     axios.get('api/likes')
       .then( response => {
         var postIDs = [];
-        response.data.forEach(post => {
-          postIDs.push(post.posts_id);
-        });
-        if (postIDs.indexOf(this.props.post.id) > -1) {
-          this.setState({hasLiked: true});
-        } else {
-          this.setState({hasLiked: false});
+        if (response.data.length) {
+          response.data.forEach(post => {
+            postIDs.push(post.posts_id);
+          });
+            
+          if (postIDs.indexOf(this.props.post.id) > -1) {
+            this.setState({hasLiked: true});
+          } else {
+            this.setState({hasLiked: false});
+          }
         }
       })
       .catch(err => {
@@ -114,9 +117,9 @@ class Post extends React.Component {
 
   renderLikeButton() {
     if (this.state.hasLiked === true) {
-      return <div><button className="buttonRed" onClick={this.clearLike.bind(this)}><span className="tooltiptext">You have already liked this post</span>UNLIKE</button></div>
+      return <div><button className="buttonLight" onClick={this.clearLike.bind(this)}><span className="tooltiptext">You have already liked this post</span>UNLIKE</button></div>
     } else {
-      return <div><button className="buttonRed" onClick={this.setLike.bind(this)}><span className="tooltiptext">Like this post</span>LIKE</button></div>
+      return <div><button className="buttonLight" onClick={this.setLike.bind(this)}><span className="tooltiptext">Like this post</span>LIKE</button></div>
     }
   }
 
@@ -131,14 +134,12 @@ class Post extends React.Component {
   render() {
     return (
       <div className='postMain'>
-        <div> 
-          <div> {
-            !!this.state.post && this.state.view !== 'profile' ?
-            <PostHeader key={this.props.post.id} userPhotoUrl={this.props.post.userPhotoUrl} userHandle={this.props.post.userHandle} clickHandler={this.profileOrThumbnailClickHandler.bind(this)}/> 
-            :
-            <div></div>
-          }
-          </div>
+        <div className="postHeader"> {
+          !!this.state.post && this.state.view !== 'profile' ?
+          <PostHeader key={this.props.post.id} userPhotoUrl={this.props.post.userPhotoUrl} userHandle={this.props.post.userHandle} clickHandler={this.profileOrThumbnailClickHandler.bind(this)}/> 
+          :
+          <div></div>
+        }
         </div>
         <div className='postLocation'>  
           {this.props.post.postLoc}
@@ -151,17 +152,17 @@ class Post extends React.Component {
             {this.renderLikeButton()}
           </div>
           <div className='addComment tooltip'>
-            <button className="buttonRed" onClick={this.addCommentClickHandler}>
+            <button className="buttonLight" onClick={this.addCommentClickHandler}>
               <span className="tooltiptext">Comment on this post</span> 
               COMMENT
             </button>
           </div>
-          <div className='share tooltip'>
-            <button className="buttonRed">
+          {/* <div className='share tooltip'>
+            <button className="buttonLight">
               <span className="tooltiptext">Share this post</span>
               SHARE
             </button>
-          </div>
+          </div> */}
         </div>  
         <div className='likes'>
           Liked by Judy, Meredith, and {this.props.post.likesCount} others.
@@ -171,7 +172,7 @@ class Post extends React.Component {
           {this.props.post.body}
         </div>
         <br />
-        <div className='addComment2' onClick={this.addCommentClickHandler}>
+        <div className='addComment' onClick={this.addCommentClickHandler}>
           {this.renderComment()}
         </div>
         <div>  
@@ -192,7 +193,6 @@ class Post extends React.Component {
           {moment(this.props.post.createdAt).fromNow()}
         </div>
         <br />
-        <hr />
       </div>
     );
   }

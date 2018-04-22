@@ -16,16 +16,30 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({
+      currentUser: this.props.user,
+      loggedInUser: this.props.loggedInUser,
+      userInfo: this.props.userInfo,
+    })
     this.getCurrentUsersPosts();
   }
 
   componentWillMount() {
-    this.setState({
-      currentUser: this.props.user,
-      loggedInUser: this.props.loggedInUser
+    this.props.userInfo === undefined && 
+    axios.get('api/checksession')
+      .then( response => {
+        if (response.data.status === 'active') {
+          this.props.getInfo(response.data.user);
+          this.state.loggedInUser = response.data.user;
+        } else {
+          axios.get('http://localhost:3000/api/logout');
+        }
+      })
+      .catch( err => {
+      console.log(err);
     })
   }
-  
+
   onFollowClickHandler(e) {
     console.log('the state of this on click ', this.state, 'and the value of e on click'. e);
     axios.post('api/follow', this.state.userInfo.users_id)
@@ -56,20 +70,21 @@ class Profile extends React.Component {
     let posts = [];
     let comments = [];
     let following;
-    axios.get(`api/feed/${this.state.currentUser}`)
+    axios.get(`api/feed/${this.state.currentUser || this.props.user}`)
     .then( response => {
       this.setState({userInfo: response.data[0]});
-
       following = response.data[0].isFollowing
       posts = [];
       comments = [];
-      response.data.forEach(data => {
-        if (data.parent_id) {
-          comments.push(data)
-        } else {
-          posts.push(data);
-        }
-      })
+      if (response.data.length > 1) {
+        response.data.forEach(data => {
+          if (data.parent_id) {
+            comments.push(data)
+          } else {
+            posts.push(data);
+          }
+        })
+      }
     })
     .then(() => {  
       posts.map(post => {
@@ -97,17 +112,20 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <div>
-        {
-          this.state.userInfo === undefined
-          ?
-          <div/>
-          :
       <div className="profileMain">
         <div id="handle">{this.state.userInfo.userHandle}</div>
-        {console.log('in profile load, this is user info: ', this.state.userInfo)}
         <div id="profilePhoto"><img src={`http://${this.state.userInfo.userPhotoUrl}`} width="100%" /></div>
-        <div id="profileBio">{this.state.userInfo.bio}</div>
+        <div id="profileInfo">
+          Location: 
+          <br />
+          <i>{this.state.userInfo.userLoc}</i>
+          <br />
+          <br />
+          Bio: 
+          <br />
+          <i>{this.state.userInfo.bio}</i>
+          <br />
+        </div>
         <div id="stats">
             <div className="statsItem">Posts: {this.state.userInfo.postCount}</div>
             <div className="statsItem">Followers: {this.state.userInfo.followedCount}</div>
@@ -116,22 +134,22 @@ class Profile extends React.Component {
               this.state.currentUser === this.state.loggedInUser
               ?
               <div>
-                <div id="edit" onClick={this.props.handleEditButtonClick} className="profileEdit">Edit...</div>
-                <button id="logoutbtn" onClick={this.props.handleLogoutButtonClick} type="button" >Logout</button>
+                <div id="edit" onClick={this.props.handleEditButtonClick} className="buttonLight">EDIT PROFILE</div>
+                <div id="logoutbtn" onClick={this.props.handleLogoutButtonClick} className="buttonLight">LOGOUT</div>
               </div>
               :
               !this.state.followed
               ?
               <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="follow">Follow</div>
               :
-              <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="unFollow">UnFollow</div>
+              <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="unFollow">Unfollow</div>
             }
         </div>
         <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo} view={this.props.view} currentUserProfilePhoto={this.state.userInfo.userPhotoUrl}/></div>
-      </div>  
-    }
-    </div>
-  )}
+        </div>  
+      
+    )
+  }
 }
 
 export default Profile;
