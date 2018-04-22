@@ -94,7 +94,9 @@ class Search extends React.Component {
         <div>
         {
         !this.state.post
-        ?  
+        ?
+        <div className='searchThumbContainer'>
+        {  
         this.state.searchData.map(post => 
           !post.parent_id  
           ?
@@ -102,6 +104,8 @@ class Search extends React.Component {
           :
           <div/>
         )
+        }
+        </div>
         :
         <Post key={Math.floor((Math.random() * 1000000) + 1)} post={this.state.post} liked={this.props.liked} handleClick={this.props.handleClick} currentUserProfilePhoto={this.props.userInfo.userPhotoUrl}/>  
         }
