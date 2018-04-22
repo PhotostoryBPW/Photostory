@@ -53,11 +53,10 @@ class CreatePost extends React.Component {
 
   onBodyChangeHandler(e) {
     this.setState({body: e.target.value})  
-    console.log(this.state.search);
   }
+
   onLocationChangeHandler(e) {
-    this.setState({location: e.target.value})  
-    console.log(this.state.search);
+    this.setState({location: e.target.value}) 
   }
 
   onFilterClickHandler(e) {
@@ -67,8 +66,10 @@ class CreatePost extends React.Component {
 
   render() {
     return (
-      <div>
-        <Zone drop={this.showSubmit.bind(this)} />
+      <div className="createPost">
+        <div>
+          <Zone drop={this.showSubmit.bind(this)} />
+        </div>
         <div className='filters'>
           <div className='nofilter' onClick={this.onFilterClickHandler.bind(this)}></div>
           <div className='blackAndWhite' onClick={this.onFilterClickHandler.bind(this)}></div>
@@ -77,12 +78,19 @@ class CreatePost extends React.Component {
           <div className='fadeout' onClick={this.onFilterClickHandler.bind(this)}></div>
           <div className='portrait' onClick={this.onFilterClickHandler.bind(this)}></div>
         </div>  
-        <textarea className='postBody' name='postBody' type='textbody' onChange={this.onBodyChangeHandler.bind(this)}/>
-        Enter your comments
-        <input className='location' name='location' type='text' onChange={this.onLocationChangeHandler.bind(this)}/>
-        Location
         <br />
-        <button id="#submit-all" class="buttonRed" onClick={this.onSubmitPostClickHandler.bind(this)} style={this.state.showSubmit ? {display: 'block'} : {display: 'none'}} >CREATE POST</button>
+        <div id='createInputs'>
+        <textarea input name='postBody' rows="2" cols="70" maxlength="500" type='textbody' onChange={this.onBodyChangeHandler.bind(this)}/>
+        <br />
+         Enter your comments
+         <br />
+         <br />
+        <input name='location' size="30" type='text' maxlength="50" onChange={this.onLocationChangeHandler.bind(this)}/>
+        <br />
+         Location
+        <br />
+        </div>
+        <button id="#submit-all" class="buttonLight" onClick={this.onSubmitPostClickHandler.bind(this)} style={this.state.showSubmit ? {display: 'block'} : {display: 'none'}} >CREATE POST</button>
       </div>
     );
   }

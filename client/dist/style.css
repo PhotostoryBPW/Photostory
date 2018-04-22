@@ -1,17 +1,17 @@
 body {
   font-family: 'PT Serif', sans-serif;
   margin: auto;
-  background-color:white;
+  background-color: #CDE;
   height: 100%;
 }
 
-button {
+buttonDark {
   cursor: pointer;
   border: none;
   border-radius: 3px;
   font-family: 'PT Serif', sans-serif;
-  color: #CCC;
-  background-color: rgb(0, 0, 0);
+  color: #FFF;
+  background-color: #22A
 }
 
 div.commentBody {
@@ -27,9 +27,10 @@ div.commentUser {
 }
 
 div.filters div {
-  height: 81.5198811288339px;
-  width: 81.5198811288339px;
-  float: left;
+  display: inline-block;
+  height: 81px;
+  width: 81px;
+  margin: auto;
   background-color: cyan;
   border: thin solid pink 
 }
@@ -76,21 +77,8 @@ footer {
   clear: both;
 }
 
-img.commentPic {
-  display: block;
-  width: 25px;
-  height: 25px;
-  border-radius: 25px;
-  float: left;
-  margin: 5px 10px 5px 0;
-  clear: both;
-}
-
-input.location {
-  width:100%;
-}
-
 header {
+  text-align: center;
   position:sticky;
   height: 40px;
   top:0;
@@ -104,50 +92,39 @@ html, body {
   min-height:100%;
   margin: 0;
 }
-footer {
-  position:sticky;
-  bottom: 0px;
-  height: 50px; 
-  margin: auto;
-  clear: both;
-}
-img.commentPic {
-  display: block;
-  width: 25px;
-  height: 25px;
-  border-radius: 25px;
-  float: left;
-  margin: 5px 10px 5px 0;
-  clear: both;
-}
-input.location {
-  width:100%;
-}
-header {
-  position:sticky;
-  height: 40px;
-  top:0;
-  width: 100%;
-  background-color: #F8F8F8;
-  padding: 15px 0px 0px 0px;
-  z-index: 1;
-}
-html, body {
-  min-height:100%;
-  margin: 0;
-}
-hr {
-  border:none;
-  border-top:3px dotted black;
-  height:3px;
-  width:60%;
-}
+
 img {
   border-radius: 3px;
 }
 
-textarea.postBody {
+img.commentPic {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border-radius: 25px;
+  float: left;
+  margin: 5px 10px 5px 0;
+  clear: both;
+}
+
+input.location {
+  box-sizing: border-box;
+  display: block;
   width: 100%;
+  height: 50px;
+  width: 300px;
+}
+
+textarea.postBody {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+}
+
+section {
+  position: center;
+  margin: 5px;
+  max-width: 485px;
 }
 
 .active {
@@ -164,23 +141,43 @@ textarea.postBody {
   border: none;
 }
 .addComment {
-  display: block;
-  float: left;
+  margin: 5px;
 }
 
 .attributeRow {
   margin-bottom: 10px;
 }
 
-.buttonRed {
+.body {
+  margin: 5px;
+}
+
+.buttonGrey {
   cursor: pointer;
-  border: none;
+  grid-area: right-bottom;
+  width: 160px;
+  height: 30px;
   border-radius: 3px;
+  border-style: outset;
+  border-width: 1px;
+  border-color: #4c4c4d;
   font-family: 'PT Serif', sans-serif;
   font-size: medium;
-  color: #CCC;
-  background-color: #722;
+  text-align: center;
+  color: #000;
+  background-color: #eee;
   padding: 5px;
+}
+
+.buttonLight {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  font-family: 'PT Serif', sans-serif;
+  font-size: medium;
+  color: #FFF;
+  background-image: linear-gradient(to bottom, #99f, #55d);
+  padding: 5px 10px;
   margin: 5px;
   z-index: -1;
 }
@@ -198,8 +195,14 @@ textarea.postBody {
   display: inline-block;
 }
 
+.createPost {
+  width: 100%;
+  padding: 0px 0px 20px 0px;
+}
+
 .dropzone {
   width: 100%;
+  max-width: 500px;
   height: 200px;
   border-width: 2px;
   border-color: rgb(102, 102, 102);
@@ -238,39 +241,47 @@ textarea.postBody {
   display: inline-block;
 }
 
-.header {
-  position: relative;
-  text-align: center;
-}
 .home {
   margin: auto;
 }
 
-.location {
+.likes {
   margin: 5px;
 }
 
 .login {
   margin: 10px;
 }
+
 .main {
   background-color: white;
 }
+
 .notifications {
   display: inline-block;
 }
 
-.postBody {
-  margin: 5px;
+.postHeader {
+  margin: -20px 0px 0px 0px;
+  border-style: dotted;
+  border-color: #7c7c7d;
+  border-width: 3px;
+  border-right: none;
+  border-left: none;
+  border-bottom: none;
 }
+
 .postLocation {
   float: left;
 }
+
 .postMain {
   margin: 10px 0px;
 }
+
 .postMoment {
   font-style: italic;
+  margin: 5px;
   clear: both;
 }
 .postOptions {
@@ -307,6 +318,7 @@ textarea.postBody {
   "left-top right-top"
   "left-middle right-middle"
   "left-bottom right-bottom"
+  "spacer spacer"
   "footer footer";
   background-color: #fff;
   color: #444;
@@ -383,7 +395,7 @@ textarea.postBody {
 .userHandle {
   float: left;
   font-weight: 600;
-  cursor: pointer;
+  cursor: pointer;  
 }
 
 .wrapper {
@@ -391,36 +403,17 @@ textarea.postBody {
   max-width: 500px;
   margin: 0 auto;
 }
-#edit {
-  cursor: pointer;
-  grid-area: right-middle;
-  width: 190px;
-  height: 30px;
-  border-radius: 3px;
-  font-family: 'PT Serif', sans-serif;
-  font-size: medium;
-  color: #FFF;
-  background-color: #333;
-  padding: 5px;
+
+#createInputs {
+  margin: 5px 5px 20px 5px;
 }
-#logoutbtn {
-  cursor: pointer;
-  grid-area: right-bottom;
-  width: 200px;
-  height: 30px;
-  border-radius: 3px;
-  font-family: 'PT Serif', sans-serif;
-  font-size: medium;
-  color: #FFF;
-  background-color: #333;
-  padding: 5px;
-}
+
 #handle {
   grid-area: header;
   color: white;
   width: 490px;
   padding: 5px;
-  background-color: #800;
+  background-color: #20c0b0;
   border-radius: 4px;
   margin: 5px 0px;
 }
@@ -429,23 +422,42 @@ textarea.postBody {
   padding: 10px;
 }
 
+#postFeed {
+  display: inline-block;
+  float: right;
+}
+
+#postHeader {
+  padding: 5px;
+}
+
+#postThumbs {
+  display: inline-block;
+  float: left;
+}
+
+#profileInfo {
+  width: 80%;
+  margin: auto;
+}
+
 #profilePosts {
   grid-area: footer;
 }
-#profileBio {
-  grid-area: left-bottom;
-  width: 300px;
-}
+
 #profilePhoto {
   grid-area: left-top;
   width: 290px;
   border-radius: 3px;
 }
 
-#searchBtn {
-  font-size: medium;
-  padding: 3px;
-  margin: 5px 5px 20px 5px;
+#profileText {
+  grid-area: center;
+}
+
+#spacer {
+  grid-area: spacer;
+  height: 15px;
 }
 
 #searchText {
@@ -456,9 +468,9 @@ textarea.postBody {
 
 #stats {
   grid-area: right-top;
-  width: 190px;
-  padding: 5px;
-  background-color: #F88;
+  width: 180px;
+  padding: 10px;
+  background-color: #beb;
   border-radius: 3px;
 }
 
@@ -467,6 +479,7 @@ textarea.postBody {
   padding: 3px;
   margin: 5px; */
 }
+
 #userPhoto {
   margin: auto;
 }

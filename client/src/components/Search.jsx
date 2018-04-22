@@ -84,8 +84,8 @@ class Search extends React.Component {
   render() {
     return (
       <div>
-        <div><br />Find a user...</div>
-        <input id="searchText" onBlur={this.onChangeHandler.bind(this)}/><button id="searchBtn" onClick={this.onClickHandler.bind(this)}>SEARCH</button>
+        <div><br />&nbsp;&nbsp; Find a user...</div>
+        <input id="searchText" onBlur={this.onChangeHandler.bind(this)}/><button className="buttonLight" onClick={this.onClickHandler.bind(this)}>SEARCH</button>
         {
           this.state.searchData.length !== 0
           ?

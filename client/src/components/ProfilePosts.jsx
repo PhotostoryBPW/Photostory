@@ -18,14 +18,14 @@ class ProfilePosts extends React.Component {
   }
 
   onPostViewClickHandler(e) {
-    this.setState({postView: e.target.className})
+    this.setState({postView: e.target.id})
   };
 
   render () {
     return (
     <div className="profilePosts">
-      <div className="postThumbs" onClick={this.onPostViewClickHandler.bind(this)}>VIEW THUMBS</div>
-      <div className="postFeed" onClick={this.onPostViewClickHandler.bind(this)}>VIEW FEED</div>
+      <div id="postThumbs" className="buttonGrey" onClick={this.onPostViewClickHandler.bind(this)}>VIEW THUMBS</div>
+      <div id="postFeed" className="buttonGrey" onClick={this.onPostViewClickHandler.bind(this)}>VIEW FEED</div>  
       <div>
         {
         this.props.posts.length === 0  
@@ -45,12 +45,12 @@ class ProfilePosts extends React.Component {
         this.props.posts.map(post =>
           !post.parent_id  
           ?
-          <Post key={post.id} post={post} liked={this.props.liked} view={this.props.view} currentUserProfilePhoto={this.props.currentUserProfilePhoto}/>
+          <Post key={post.id} post={post} view={this.props.view} currentUserProfilePhoto={this.props.currentUserProfilePhoto}/>
           :
           <div/>
         )
         :
-        <Post post={this.state.post} liked={this.props.liked} view={this.props.view} currentUserProfilePhoto={this.props.currentUserProfilePhoto}/>  
+        <Post post={this.state.post} view={this.props.view} currentUserProfilePhoto={this.props.currentUserProfilePhoto}/>  
         }
       </div>
     </div>

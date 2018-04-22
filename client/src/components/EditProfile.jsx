@@ -11,10 +11,12 @@ class EditProfile extends React.Component {
         this.state = {
             name: '',
             username: '',
+            userLoc: '',
             bio: '',
             email: '',
             nameForm: '',
             usernameForm: '',
+            locationForm: '',
             bioForm: '',
             emailForm: '',
             userPhotoUrl: '',
@@ -27,6 +29,7 @@ class EditProfile extends React.Component {
         }
         this.handleNamePencilIconClick = this.handleNamePencilIconClick.bind(this);
         this.handleUsernamePencilIconClick = this.handleUsernamePencilIconClick.bind(this);
+        this.handleLocationPencilIconClick = this.handleLocationPencilIconClick.bind(this);
         this.handleBioPencilIconClick = this.handleBioPencilIconClick.bind(this);
         this.handleEmailPencilIconClick = this.handleEmailPencilIconClick.bind(this);
         this.handleNameSaveIconClick = this.handleNameSaveIconClick.bind(this);
@@ -35,6 +38,7 @@ class EditProfile extends React.Component {
         this.handleEmailSaveIconClick = this.handleEmailSaveIconClick.bind(this);
         this.handleNameFormChange = this.handleNameFormChange.bind(this);
         this.handleUsernameFormChange = this.handleUsernameFormChange.bind(this);
+        this.handleLocationFormChange = this.handleLocationFormChange.bind(this);
         this.handleBioFormChange = this.handleBioFormChange.bind(this);
         this.handleEmailFormChange = this.handleEmailFormChange.bind(this);
     };
@@ -47,6 +51,8 @@ class EditProfile extends React.Component {
                 nameForm: response.data[0].userName,
                 username: response.data[0].userHandle,
                 usernameForm: response.data[0].userHandle,
+                location: response.data[0].userLoc,
+                locationForm: response.data[0].userLoc,
                 bio: response.data[0].bio,
                 bioForm: response.data[0].bio || '',
                 email: response.data[0].email,
@@ -65,6 +71,10 @@ class EditProfile extends React.Component {
 
     handleUsernamePencilIconClick() {
         this.setState({showUsernameInput: true});
+    }
+
+    handleLocationPencilIconClick() {
+        this.setState({showLocationInput: true});
     }
 
     handleBioPencilIconClick() {
@@ -117,6 +127,24 @@ class EditProfile extends React.Component {
       // this.props.handleLogout();  
     }
 
+    handleLocationSaveIconClick() {
+        var payload = {
+            loc: this.state.locationForm
+        }
+        console.log(payload);
+        axios
+            .put('/api/updatelocation', payload)
+            .then(response => {
+                this.setState({
+                    showBioInput: false,
+                    userLoc: response.data.userLloc
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
     handleBioSaveIconClick() {
         var payload = {
             bio: this.state.bioForm
@@ -159,6 +187,10 @@ class EditProfile extends React.Component {
 
     handleUsernameFormChange(e) {
         this.setState({usernameForm: e.target.value});
+    }
+
+    handleLocationFormChange(e) {
+        this.setState({locationForm: e.target.value});
     }
 
     handleBioFormChange(e) {
@@ -248,6 +280,22 @@ class EditProfile extends React.Component {
                         Changing your username will require you to log back in
                         </li>
                     </ul>
+                    </div>
+                }
+                {
+                    this.state.showLocationInput ? 
+                    <div className = 'attributeRow'>
+                    <span className="userAttribute">Location: </span>
+                    <label style={{marginRight: '5px'}}>
+                        <input className = "profEditInput profLocInput" maxLength="500" type="text" name="fullname" autoFocus value={this.state.locationForm} onChange={this.handleLocationFormChange}/>
+                    </label>
+                    <span onClick ={this.handleLocationSaveIconClick} className="saveProfIcon"><a href="#"><i className="fa fa-save fa-lg"></i></a></span>
+                    </div>
+                    :
+                    <div className = 'attributeRow'>
+                    <span className="userAttribute">Location: </span>
+                    <span className="userAttributeValue">{this.state.userLoc}</span>
+                    <span onClick={this.handleLocationPencilIconClick} className="editProfIcon"><a href="#"><i className="fa fa-pencil fa-lg"></i></a></span>
                     </div>
                 }
                 {

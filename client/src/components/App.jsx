@@ -75,7 +75,6 @@ class App extends React.Component {
         localStorage['isLoggedIn'] = true;
         this.getNotifications();
         this.getUserInfo(response.data.user);
-        this.getLikes();
         this.setState({ 
           loggedInUser: response.data.user,
           posts: sample.posts,
@@ -206,20 +205,6 @@ class App extends React.Component {
       })
   }
 
-  getLikes() {
-    axios.get('api/likes')
-      .then( response => {
-        var results = [];
-        response.data.forEach(function(post) {
-          results.indexOf(post.posts_id) < 0 && results.push(post.posts_id);
-        })
-        this.setState({liked: results});
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }
-  
   getNotifications() {
     let flattened = [];
     let unread = 0;
@@ -248,26 +233,6 @@ class App extends React.Component {
       })
       .catch(err => {
         console.log(err);
-      })
-  }
-
-  setLike(post, user) {
-    axios.post('api/like', post, user)
-      .then( response => {
-        console.log('setLike success')
-      })
-      .catch(err => {
-        console.log('setLike error: ', err);
-      })
-  }
-
-  unLike(post, user) {
-    axios.post('api/unlike', post, user)
-      .then( response => {
-        console.log('unLike success')
-      })
-      .catch(err => {
-        console.log('unLike error: ', err);
       })
   }
 
@@ -318,7 +283,7 @@ class App extends React.Component {
     } else if (view === 'createpost') {
       return <CreatePost onSubmit={this.changeView.bind(this)}/>
     }  else if (view === 'search') {
-      return <Search posts={this.state.data} liked={this.state.liked} handleClick={this.changeView.bind(this)} userInfo={this.state.userInfo}/>
+      return <Search posts={this.state.data} handleClick={this.changeView.bind(this)} userInfo={this.state.userInfo}/>
     } else if (view === 'notifications') {
       return <NoteFeed notes={this.state.notifications}/>
     }
