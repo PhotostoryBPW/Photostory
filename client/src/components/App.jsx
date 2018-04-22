@@ -307,12 +307,20 @@ class App extends React.Component {
           :
           <div>
             {this.state.signupView ?
-              <div>
-                <Signup isLoggedInHandler={this.isLoggedInHandler.bind(this)} toggleLogin={this.toggleLogin.bind(this)}/>
+              <div className="container">
+                <div className="loginwrapper">
+                  <div>
+                    <Signup isLoggedInHandler={this.isLoggedInHandler.bind(this)} toggleLogin={this.toggleLogin.bind(this)}/>
+                  </div>
+                </div>
               </div>
                 :
-              <div>
-                <Login setCurrent={this.setCurrent.bind(this)} toggleLoggedIn={this.isLoggedInHandler.bind(this)} toggleSignup={this.toggleSignup.bind(this)}/>
+                <div className="container loginContainer">
+                  <div className="loginwrapper">
+                    <div>
+                      <Login setCurrent={this.setCurrent.bind(this)} toggleLoggedIn={this.isLoggedInHandler.bind(this)} toggleSignup={this.toggleSignup.bind(this)}/>
+                    </div>
+                  </div>
               </div>
             }
           </div> 

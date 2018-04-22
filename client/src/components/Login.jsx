@@ -53,45 +53,41 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="container loginContainer">
-        <div className="wrapper">
-          <div className="login">
-            <div className="innerContainer">
-            <div className="loginHeaderContainer">
-            <img className="logo" src="http://localhost:3000/nav/post-w.png"/>
-            </div>
-            <h2 className="loginUsername" >Username</h2>
-            <label>
-              <input className="loginInput" type="text" name="name" value={this.state.username} onChange={this.handleUsernameChange}/>
-            </label>
-            <h2 className="loginPassword" >Password</h2>
-              <label style={{marginRight: '5px'}}>
-                <input className="loginInput" type="password" name="name" value={this.state.password} onChange={this.handlePasswordChange}/>
-              </label>
-              <button className="loginButton" type="button" onClick={this.handleLogin} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Login</button>
-              <button className="linkToSignup" type="button" onClick={() => {this.props.toggleSignup()}} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Sign Up</button>
+      <div className="login">
+        <div className="innerContainer">
+        <div className="loginHeaderContainer">
+        <img className="logo" src="http://localhost:3000/nav/post-w.png"/>
+        </div>
+        <h2 className="loginUsername" >Username</h2>
+        <label>
+          <input className="loginInput" type="text" name="name" value={this.state.username} onChange={this.handleUsernameChange}/>
+        </label>
+        <h2 className="loginPassword" >Password</h2>
+          <label style={{marginRight: '5px'}}>
+            <input className="loginInput" type="password" name="name" value={this.state.password} onChange={this.handlePasswordChange}/>
+          </label>
+          <button className="loginButton" type="button" onClick={this.handleLogin} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Login</button>
+          <button className="linkToSignup" type="button" onClick={() => {this.props.toggleSignup()}} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Sign Up</button>
+          <div>
+            {this.state.toggleIncorrectCredentialsMessage ?
               <div>
-                {this.state.toggleIncorrectCredentialsMessage ?
-                  <div>
-                    Incorrect Username and/or password
-                  </div>
-                    :
-                  <div>
-                  </div>
-                }
+                Incorrect Username and/or password
               </div>
+                :
               <div>
-                {this.state.toggleSuccessMessage ?
-                  <div>
-                    Logging in...
-                  </div>
-                    :
-                  <div>
-                  </div>
-                }
-              </div> 
-            </div>
+              </div>
+            }
           </div>
+          <div>
+            {this.state.toggleSuccessMessage ?
+              <div>
+                Logging in...
+              </div>
+                :
+              <div>
+              </div>
+            }
+          </div> 
         </div>
       </div>
     );

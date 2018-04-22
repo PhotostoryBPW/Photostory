@@ -279,12 +279,9 @@ section {
 .login {
   text-align: center;
   background-color: white;
+  position: absolute;
   height: 100%;
-  width: 60%;
-  margin: 0 auto;
-  height: 1000px;
-  overflow-y: hidden;
-  overflow-x: hidden;
+  width: 300px;
 }
 
 .loginButton {
@@ -318,6 +315,13 @@ section {
   font-size: 25px;
 }
 
+.loginwrapper {
+  width: 100%;
+  max-width: 300px;
+  min-width: 300px;
+  margin: 0 auto;
+}
+
 .logo {
   background-color: turquoise;
   border-radius: 50%;
@@ -331,10 +335,6 @@ section {
   transition: none;
   display: inline;
   float:left;
-}
-
-.loginContainer {
-  
 }
 
 .main {
