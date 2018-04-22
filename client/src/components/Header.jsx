@@ -10,7 +10,7 @@ const Header = (props) => {
   return (
   <div className="header">
     {
-    (props.view === 'feed') ? <span>Photostory</span> : 
+    (props.view === 'feed') ? <img src="http://localhost:3000/logo.png" alt="Photostory" className='headerLogo'/> : 
     (props.view === 'search') ? <span>Search</span> :
     (props.view === 'createpost') ? <span>Post</span> :
     (props.view === 'notifications') ? <span>Notifications</span> : 
