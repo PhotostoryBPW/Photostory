@@ -25,13 +25,15 @@ class Search extends React.Component {
       .then( response => {
         posts = [];
         comments = [];
-        response.data.forEach(data => {
-          if (data.parent_id) {
-            comments.push(data)
-          } else {
-            posts.push(data);
-          }
-        })
+        if (response.data.length) {
+          response.data.forEach(data => {
+            if (data.parent_id) {
+              comments.push(data)
+            } else {
+              posts.push(data);
+            }
+          })
+        }
       })
       .then(() => {
         posts.map(post => {
