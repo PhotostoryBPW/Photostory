@@ -61,8 +61,8 @@ class CreatePost extends React.Component {
   }
 
   onFilterClickHandler(e) {
-    console.log('this is the click on filter: ', e.target.className);
-    this.setState({filt: e.target.className});
+    console.log('this is the click on filter: ', e);
+    this.setState({filt: e});
   }
 
   render() {
@@ -72,12 +72,12 @@ class CreatePost extends React.Component {
           <Zone drop={this.showSubmit.bind(this)} />
         </div>
         <div className='filters'>
-          <div className='nofilter' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/> </div>
-          <div className='blackAndWhite' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
-          <div className='sepia' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
-          <div className='vibrant' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
-          <div className='fadeOut' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
-          <div className='portrait' onClick={this.onFilterClickHandler.bind(this)}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
+          <div className='nofilter' onClick={this.onFilterClickHandler.bind(this, 'nofilter')}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/> </div>
+          <div className='blackAndWhite' onClick={this.onFilterClickHandler.bind(this, 'blackAndWhite')}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
+          <div className='sepia' onClick={this.onFilterClickHandler.bind(this, 'sepia')}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
+          <div className='vibrant' onClick={this.onFilterClickHandler.bind(this, 'vibrant')}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
+          <div className='fadeOut' onClick={this.onFilterClickHandler.bind(this, 'fadeOut')}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
+          <div className='portrait' onClick={this.onFilterClickHandler.bind(this, 'portrait')}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/></div>
         </div>  
         <br />
         <div id='createInputs'>

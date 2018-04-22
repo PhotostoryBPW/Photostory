@@ -144,7 +144,7 @@ class Post extends React.Component {
         <div className='postLocation'>  
           {this.props.post.postLoc}
         </div>
-        <div className='postImage'>
+        <div className={`postImage ${this.props.post.filt}`}>
           <img src={`http://${this.props.post.photoUrl}`}/>
         </div>
         <div className='postOptions'>

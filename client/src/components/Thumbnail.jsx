@@ -24,7 +24,7 @@ class Thumbnail extends React.Component {
 
   render() {
     return (
-      <div className='thumb' onClick={this.clickHandler}>
+      <div className={`thumb ${this.props.post.filt}`} onClick={this.clickHandler}>
         <img src={`http://${this.props.post.photoUrl}`}/>
       </div>
     );
