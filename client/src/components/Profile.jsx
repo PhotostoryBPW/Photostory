@@ -140,9 +140,9 @@ class Profile extends React.Component {
               :
               !this.state.followed
               ?
-              <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="follow">Follow</div>
+              <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="follow buttonLight">FOLLOW</div>
               :
-              <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="unFollow">Unfollow</div>
+              <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="unFollow buttonLight">UNFOLLOW</div>
             }
         </div>
         <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo} view={this.props.view} currentUserProfilePhoto={this.state.userInfo.userPhotoUrl}/></div>

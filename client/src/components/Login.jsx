@@ -54,17 +54,17 @@ class Login extends React.Component {
   render() {
     return (
       <div className="login">
-        <h1>Photostory</h1>
+        <img src="http://localhost:3000/logo.png" alt="Photostory" width="250px" id="splash"/>
+        <div className="credentials">
         <h2>Username</h2>
-        <label style={{marginRight: '5px'}}>
           <input type="text" name="name" value={this.state.username} onChange={this.handleUsernameChange}/>
-        </label>
         <h2>Password</h2>
-          <label style={{marginRight: '5px'}}>
-            <input type="password" name="name" value={this.state.password} onChange={this.handlePasswordChange}/>
-          </label>
-          <button type="button" onClick={this.handleLogin} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Login</button>
-          <button type="button" onClick={() => {this.props.toggleSignup()}} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Sign up</button>
+          <input type="password" name="name" value={this.state.password} onChange={this.handlePasswordChange}/>
+        </div>
+        <div className="loginBtns">
+          <button type="button" class="buttonLight" onClick={this.handleLogin}>Login</button>
+          <button type="button" class="buttonLight" onClick={() => {this.props.toggleSignup()}}>Sign up</button>
+        </div> 
           <div>
             {this.state.toggleIncorrectCredentialsMessage ?
               <div>
