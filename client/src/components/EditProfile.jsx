@@ -34,7 +34,7 @@ componentDidMount() {
 
 createFields() {
   return this.state.fields.map(field => {
-    return <div key={Math.floor((Math.random() * 10000000) + 1)} className="attributeRow" id={field === "Username" ? "changeNote" : "none"}>
+    return <div key={field} className="attributeRow" id={field === "Username" ? "changeNote" : "none"}>
     <span className="userAttribute">{field}: </span>
     {
       this.state.showInput && this.state.selectedField === field ? 

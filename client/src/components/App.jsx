@@ -33,20 +33,20 @@ class App extends React.Component {
   isLoggedInHandler() {
     localStorage['isLoggedIn'] = true;
     this.setState({ isLoggedIn: true});
-    console.log('this is the app log in state', this.state.isLoggedIn);
+    
   }
 
   setCurrent(userLoggedIn) {
     this.setState({ 
       loggedInUser: userLoggedIn,
     })
-    console.log('This is the current logged in user on the App', userLoggedIn)
+    
   }
 
   getUserInfo(user) {
     axios.get(`http://localhost:3000/api/info`, user)
     .then( response => {
-      console.log('this is the response of getting the current users info:', response)
+      
       this.setState({ 
         userInfo: response.data
       })
@@ -157,7 +157,7 @@ class App extends React.Component {
   createPost(data) {
     axios.post('api/post', data)
       .then( response => {
-        console.log('post success ', response.body);
+        
       })
       .catch( err => {
         console.log(err);
@@ -171,7 +171,7 @@ class App extends React.Component {
       .then( response => {
         posts = [];
         comments = [];
-        console.log('got feed with the current data: ', response.data)
+      
         if (response.data.length > 1) {
           response.data.forEach(data => {
             if (data.parent_id) {
@@ -185,7 +185,7 @@ class App extends React.Component {
       .then(() => {
         posts.map(post => {
           comments.forEach(comment => {
-            console.log(comment.parent_id === post.id);
+          
             if (comment.parent_id === post.id) {
               if (!post.children) {
                 post.children = [comment];
@@ -197,7 +197,7 @@ class App extends React.Component {
         })
       })
       .then(() => {
-        console.log('this is posts after it is done compiling children', posts);
+      
         this.setState({
           data: posts,
         })
@@ -212,7 +212,7 @@ class App extends React.Component {
     let unread = 0;
     axios.get('api/notifications')
       .then( response => {
-        console.log('this is a response for a get notifications axios: ', response)
+        
         flattened = [].concat(...[response.data.comments, response.data.follow, response.data.likes]).sort((a, b) => (b.note_time - a.note_time))
         unread = 0 || flattened.filter(notification => (notification.viewed === 0)).length;
       })
@@ -221,7 +221,7 @@ class App extends React.Component {
           notifications: flattened,
           unreadNotifications: unread
         });
-        console.log('The number of unviewed notifications is: ', unread);
+        
       })
       .catch(err => {
         console.log(err);
@@ -231,7 +231,7 @@ class App extends React.Component {
   setViewedOnNoteFeed() {
     axios.post('api/view')
       .then (response => {
-        console.log('server responded to view posts feed with: ', response);
+        
       })
       .catch(err => {
         console.log(err);
@@ -266,12 +266,12 @@ class App extends React.Component {
   renderView() {
     const {view} = this.state;
     if (view === 'feed') {
-      return <Feed handleClick={this.changeView.bind(this)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view}/>;
+      return <Feed handleClick={this.changeView.bind(this)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>;
     } else if (view === 'profile') {
       if (this.state.selectedUser === '') {
-        return <Profile loggedInUser={this.state.loggedInUser} posts={this.state.posts} user={this.state.loggedInUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view}/>
+        return <Profile loggedInUser={this.state.loggedInUser} posts={this.state.posts} user={this.state.loggedInUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>
       } else {
-        return <Profile loggedInUser={this.state.loggedInUser} posts={this.state.posts} getInfo={this.state.getUserInfo} user={this.state.selectedUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view}/>
+        return <Profile loggedInUser={this.state.loggedInUser} posts={this.state.posts} getInfo={this.state.getUserInfo} user={this.state.selectedUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>
       }
     } else if (view === 'signup') {
       return <Signup/>
@@ -287,6 +287,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log('USER INFO ON APP', this.state.userInfo)
     return (
       <div>
         {

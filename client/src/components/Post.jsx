@@ -58,10 +58,12 @@ class Post extends React.Component {
         postLoc: null,
         createdAt: Date.now(),
         filt: null,
-        parent_id: this.props.post.id
+        parent_id: this.props.post.id,
       }
     })
     .then( response => {
+      console.log('this is the state on a comment handler submit thingy: ', this.state)
+      console.log('what is this.props on submit post', this.props)
       oldChildrenState = this.state.children;
       this.setState({clicked: false})
       // JSON.parse(response.config.data.userPhotoUrl).userPhotoUrl = this.props.post.userPhotoUrl
@@ -73,6 +75,7 @@ class Post extends React.Component {
     })
     .then( () => {
       oldChildrenState[oldChildrenState.length-1].userPhotoUrl = this.props.userPhotoUrl;
+      oldChildrenState[oldChildrenState.length-1].userHandle = this.props.userHandle;
       console.log('this is old children state updated', oldChildrenState);
     })
     .then( () => {

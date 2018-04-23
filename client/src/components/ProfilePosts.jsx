@@ -22,6 +22,7 @@ class ProfilePosts extends React.Component {
   };
 
   render () {
+    console.log('PROFILE POSTS PROPS: ', this.props)
     return (
     <div className="profilePosts">
       <div className='profileViewContainer'>
@@ -47,12 +48,12 @@ class ProfilePosts extends React.Component {
         this.props.posts.map(post =>
           !post.parent_id  
           ?
-          <Post key={post.id} post={post} view={this.props.view} currentUserProfilePhoto={this.props.currentUserProfilePhoto}/>
+          <Post key={post.id} post={post} view={this.props.view} userPhotoUrl={this.props.userPhotoUrl} userHandle={this.props.userHandle}/>
           :
           <div/>
         )
         :
-        <Post post={this.state.post} view={this.props.view} currentUserProfilePhoto={this.props.currentUserProfilePhoto}/>  
+        <Post post={this.state.post} view={this.props.view} userPhotoUrl={this.props.userPhotoUrl} userHandle={this.props.userHandle}/>  
         }
       </div>
     </div>
