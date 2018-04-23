@@ -60,6 +60,7 @@ class Search extends React.Component {
   
   onClickHandler() {
     console.log('we are searching for username: ')
+    this.setState({post: false})
     axios.get(`/api/search/${this.state.search}`, {
       params: {
         search: this.state.search
@@ -100,7 +101,7 @@ class Search extends React.Component {
         this.state.searchData.map(post => 
           !post.parent_id  
           ?
-          <Thumbnail key={Math.floor((Math.random() * 10000000) + 1)} post={post} onClick={this.onPostThumbClickHandler.bind(this)} postState={this.state.post}/>
+          <Thumbnail key={Math.floor((Math.random() * 100000) + 1)} post={post} onClick={this.onPostThumbClickHandler.bind(this)} postState={this.state.post}/>
           :
           <div/>
         )

@@ -11,18 +11,22 @@ class ProfilePosts extends React.Component {
       post: ''
     }
   };
-  
+
   onPostThumbClickHandler(e) {
     this.setState({post: e})
     console.log('this is e', e);
   }
 
   onPostViewClickHandler(e) {
-    this.setState({postView: e.target.id})
+    this.setState({
+      postView: e.target.id,
+      post: '',
+    })
   };
 
   render () {
     console.log('PROFILE POSTS PROPS: ', this.props)
+    console.log('PROFILE POSTS STATE.POST: ', this.state.post)
     return (
     <div className="profilePosts">
       <div className='profileViewContainer'>
@@ -40,17 +44,13 @@ class ProfilePosts extends React.Component {
         this.state.postView === 'postThumbs' && !this.state.post
         ?
         this.props.posts.map(post => 
-          <Thumbnail key={Math.floor((Math.random() * 1000000) + 1)} post={post} onClick={this.onPostThumbClickHandler.bind(this)} />
+          <Thumbnail key={post.id} post={post} onClick={this.onPostThumbClickHandler.bind(this)} />
         )
         :
         this.state.postView === 'postFeed' && !this.state.post
         ?
         this.props.posts.map(post =>
-          !post.parent_id  
-          ?
           <Post key={post.id} post={post} view={this.props.view} userPhotoUrl={this.props.userPhotoUrl} userHandle={this.props.userHandle}/>
-          :
-          <div/>
         )
         :
         <Post post={this.state.post} view={this.props.view} userPhotoUrl={this.props.userPhotoUrl} userHandle={this.props.userHandle}/>  
