@@ -77,7 +77,7 @@ class CreatePost extends React.Component {
             this.state.showDropzone ?
             <Zone drop={this.showSubmit.bind(this)} />
             :
-            <img className='newPostImage' src={`http://${this.state.photoUrl}`}/>
+            <img className={`newPostImage ${this.state.filt}`} src={`http://${this.state.photoUrl}`}/>
           }
         </div>
         <div className='filters'>

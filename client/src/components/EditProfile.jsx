@@ -40,12 +40,12 @@ createFields() {
       this.state.showInput && this.state.selectedField === field ? 
       <span className="profileEdit">
       <input className="profEditInput" maxLength={field === 'Bio' ? "500" : "25"} type="text" name={field} autoFocus defaultValue={this.state.userInfo[this.state.fieldKeys[field]]} onChange={this.handleFormChange}/>
-      <span onClick={() => this.handleSaveClick(field)} className="saveProfIcon"><a href="#"><i className="fa fa-save fa-lg"></i></a></span>
+      <span onClick={() => this.handleSaveClick(field)}><img className="profIcon" src="http://localhost:3000/save.png" /></span>
       </span>
       :
       <span className="profileEdit">
       <span className="userAttributeValue">{this.state.userInfo[this.state.fieldKeys[field]]}</span>
-      <span onClick={() => this.handlePencilClick(field)} className="editProfIcon"><a href="#"><i className="fa fa-pencil fa-lg"></i></a></span>
+      <span onClick={() => this.handlePencilClick(field)}><img className="profIcon" src="http://localhost:3000/edit.png" /></span>
       </span>
     }
     <span id="note"> * Changing your username will require you to log back in</span>

@@ -975,3 +975,14 @@ button.signupbutton:last-child {
 .newPostImage {
   width: 100%;
 }
+
+.profIcon {
+  height: 25px;
+  width: 25px;
+  margin: 0px 5px;
+}
+
+
+.headers {
+  max-height: 25px;
+}
