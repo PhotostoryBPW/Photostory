@@ -93,7 +93,10 @@ const Models = {
         console.log('this is params after updating the user id: ', params);
         var queryStr = 'insert into posts (users_id, body, postLoc, photoUrl, createdAt, filt, likesCount) values (?, ?, ?, ?, ?, ?, 0)';
         db.query(queryStr, Object.values(params), function(err, results) {
-          cb(err, results);
+          queryStr = 'update users set postCount = postCount + 1 where id =?';
+          db.query(queryStr, params.users_id, (err, results) => {
+            cb(err, results);
+          });
         });
       })
     },
