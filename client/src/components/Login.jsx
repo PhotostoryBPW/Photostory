@@ -66,8 +66,8 @@ class Login extends React.Component {
           <label style={{marginRight: '5px'}}>
             <input className="loginInput" type="password" name="name" value={this.state.password} onChange={this.handlePasswordChange}/>
           </label>
-          <button className="loginButton" type="button" onClick={this.handleLogin} style={{display: 'inline', marginTop: '10px'}}>Login</button>
-          <button className="linkToSignup" type="button" onClick={() => {this.props.toggleSignup()}} style={{display: 'inline', marginTop: '10px'}}>Sign Up</button>
+          <button className="loginButton" type="button" onClick={this.handleLogin} style={{display: 'inline', fontSize: '14px', marginTop: '10px'}}>Login</button>
+          <button className="linkToSignup" type="button" onClick={() => {this.props.toggleSignup()}} style={{display: 'inline', fontSize: '14px', marginTop: '10px'}}>Sign Up</button>
           <div>
             {this.state.toggleIncorrectCredentialsMessage ?
               <div>
