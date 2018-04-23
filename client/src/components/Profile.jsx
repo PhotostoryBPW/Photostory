@@ -92,6 +92,7 @@ class Profile extends React.Component {
       posts.map(post => {
         comments.forEach(comment => {
           if (comment.parent_id === post.id) {
+            console.log('there are no children so we will add the first comment%%%%%%%%%%%%%%%%%')
             if (!post.children) {
               post.children = [comment];
             } else {
@@ -100,6 +101,8 @@ class Profile extends React.Component {
           }
         })
       })
+      console.log('these are the posts', posts)
+      console.log('these are the comments', comments)
     })
     .then(() => {
       console.log('this is posts in Profile', posts);
