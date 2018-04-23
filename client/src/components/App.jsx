@@ -144,6 +144,11 @@ class App extends React.Component {
           this.getUserInfo(username);
           
         }
+        if (option !== 'profile') {
+          this.setState ({
+            selectedUser: '',
+          })
+        }
       })
   }
 

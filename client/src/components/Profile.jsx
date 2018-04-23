@@ -71,13 +71,14 @@ class Profile extends React.Component {
     let posts = [];
     let comments = [];
     let following;
-    axios.get(`api/feed/${this.state.currentUser || this.props.user}`)
+    axios.get(`api/feed/${this.props.user}`)
     .then( response => {
+      console.log('trying to get a users posts mine: ', response)
       this.setState({userInfo: response.data[0]});
       following = response.data[0].isFollowing
       posts = [];
       comments = [];
-      if (response.data.length > 1) {
+      if (response.data.length > 0) {
         response.data.forEach(data => {
           if (data.parent_id) {
             comments.push(data)

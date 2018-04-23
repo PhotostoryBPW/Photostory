@@ -168,7 +168,7 @@ const Models = {
           console.log('mine 2nd params', [loggedInUserName, results1[0].users_id]);
           db.query(queryStr, [loggedInUserName, mineResults[0].users_id], (err, results2) => {
             console.log('second query for existing follow relationship', !!results2.length, results2);
-            cb(err, results1, !!results2.length);
+            cb(err, mineResults, !!results2.length);
           })
         }
       });
