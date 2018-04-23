@@ -71,7 +71,7 @@ class Login extends React.Component {
           <div>
             {this.state.toggleIncorrectCredentialsMessage ?
               <div>
-                Incorrect Username and/or password
+                Incorrect username and/or password.
               </div>
                 :
               <div>

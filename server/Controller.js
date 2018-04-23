@@ -242,31 +242,5 @@ const Controller = {
       }
     })
   }
-//   Search: (req, res) => {
-//     var name = req.body.username;
-//     Posts.find({})
-//       .then(data => {
-//         if (!data.length) {
-//           res.status(200).send('No matches found');
-//         } else {
-//           res.status(202).send(data);
-//         }
-//       })
-//   }
-
-//   Comment: (req, res) => {
-//     Posts.find({})
-//       .then(data => {
-//         if (!data.length) {
-//           res.status(200).send('No results');
-//         } else {
-//           res.status(202).send(data);
-//         }
-//       })
-//   }
-
-//   Follow: (req, res) => {
-//     req.body.followId
-//   }
 };
 module.exports = Controller;
