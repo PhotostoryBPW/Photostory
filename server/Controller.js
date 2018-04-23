@@ -25,6 +25,7 @@ const Controller = {
         res.status(200).send('not logged in');
       }
       Models.posts.following(req.session.passport.user, function(err, results) {
+        console.log('this is the feed of those we are following', results)
         if (err) {
           console.log(err);
         } else {

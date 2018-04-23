@@ -156,7 +156,7 @@ class App extends React.Component {
         posts = [];
         comments = [];
       
-        if (response.data.length > 1) {
+        if (response.data.length > 0) {
           response.data.forEach(data => {
             if (data.parent_id) {
               comments.push(data)
