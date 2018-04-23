@@ -38,6 +38,7 @@ class Zone extends React.Component {
           const fileURL = data.secure_url // You should store this URL for future references in your app
           console.log('this is the data from the dropzone,', data);
           this.props.drop(data.url.split('http://').join(''));
+          this.props.toggleDropzone.bind(this, false);
         })
       });
     

@@ -73,6 +73,7 @@ class App extends React.Component {
     axios.get('api/checksession')
     .then( response => {
       if (response.data.status === 'active') {
+        console.log('got in here')
         localStorage['isLoggedIn'] = true;
         this.getNotifications();
         this.getUserInfo(response.data.user);
@@ -96,28 +97,6 @@ class App extends React.Component {
     })
   }
 
-  //jakes
-  // changeView(option, username) {
-  //   console.log(username, 'clicked username on post');
-  //   console.log(option);
-  //   console.log('changeview called! this is the state of the app: ', this.state);
-  //   if (option === 'profile' && this.state.view === 'profile') {
-  //     console.log(this.state.loggedInUser, 'loggedInUser?');
-  //     this.setState({
-  //       selectedUser: '',
-  //     })
-  //   }
-  //   this.setState({
-  //       view: option,
-  //       selectedUser: username || ''
-  //     }, () => {
-  //       if (option === 'createpost' || option === 'createpost' || option === 'feed' || option === 'profile') {
-  //         this.getFeed();
-  //         this.getUserInfo(username);
-  //       }
-  //     })
-  // }
-//lores
   changeView(option, username) {
     if (option === 'profile' && this.state.view === 'profile') {
       this.setState({
@@ -306,7 +285,7 @@ class App extends React.Component {
                 {this.renderView()}
               </div>
               <footer className="nav">
-                <NavBar navBarClickHandler={this.changeView.bind(this)} notifications={this.state.unreadNotifications}/>
+                <NavBar navBarClickHandler={this.changeView.bind(this)} notifications={this.state.unreadNotifications} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>
               </footer>
             </div>
           </div> 

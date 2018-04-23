@@ -15,7 +15,7 @@ class EditProfile extends React.Component {
       temp: {},
       selectedField: '',
       showInput: false,
-      showDropzone: true,
+      showDropzone: false,
     }
     this.handlePencilClick = this.handlePencilClick.bind(this);
     this.handleSaveClick = this.handleSaveClick.bind(this);
@@ -85,6 +85,9 @@ harvestProfileUrl(url) {
   var payload = {
     userPhotoUrl: url
   }
+  var newUserInfo = this.state.userInfo
+  newUserInfo.userPhotoUrl = url
+  this.setState({userInfo: newUserInfo})
   axios.put('/api/updateprofilepic/', payload)
   .then(response => {
     console.log('this is the response to the harvest profile url function: ', response.data.userPhotoUrl);
@@ -99,7 +102,7 @@ harvestProfileUrl(url) {
 }
 
 toggleDropzone() {
-  this.state.showDropzone = !this.state.showDropzone;
+  this.setState({showDropzone : !this.state.showDropzone});
 }
 
 render() {
@@ -111,7 +114,7 @@ render() {
             <Zone toggleDropzone={this.toggleDropzone.bind(this)} drop={this.harvestProfileUrl.bind(this)}/>
             :
             <div onClick={this.toggleDropzone.bind(this)}>
-                <img className='editProfilePic' src={this.state.userInfo.userPhotoUrl}/>
+                <img className='editProfilePic' src={`http://${this.state.userInfo.userPhotoUrl}`}/>
                 <span className='centerText'>Click to update profile pic</span>
             </div>  
             }
