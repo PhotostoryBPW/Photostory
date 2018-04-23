@@ -134,7 +134,7 @@ class Profile extends React.Component {
             <div className="statsItem">Followers: {this.state.userInfo.followedCount}</div>
             <div className="statsItem">Following: {this.state.userInfo.followCount}</div>
             {
-              this.state.currentUser === this.state.loggedInUser
+              this.props.user === this.props.userHandle
               ?
               <div>
                 <div id="edit" onClick={this.props.handleEditButtonClick} className="buttonLight">EDIT PROFILE</div>

@@ -123,11 +123,11 @@ class App extends React.Component {
           this.getUserInfo(username);
           
         }
-        if (option !== 'profile') {
-          this.setState ({
-            selectedUser: '',
-          })
-        }
+        // if (option !== 'profile') {
+        //   this.setState ({
+        //     selectedUser: '',
+        //   })
+        // }
       })
   }
 
@@ -253,7 +253,7 @@ class App extends React.Component {
       return <Feed handleClick={this.changeView.bind(this)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>;
     } else if (view === 'profile') {
       if (this.state.selectedUser === '') {
-        return <Profile loggedInUser={this.state.loggedInUser} posts={this.state.posts} user={this.state.loggedInUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>
+        return <Profile isLoggedIn={this.state.isLoggedIn} loggedInUser={this.state.loggedInUser} posts={this.state.posts} user={this.state.loggedInUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>
       } else {
         return <Profile loggedInUser={this.state.loggedInUser} posts={this.state.posts} getInfo={this.state.getUserInfo} user={this.state.selectedUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>
       }
