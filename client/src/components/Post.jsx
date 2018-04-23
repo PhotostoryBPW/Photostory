@@ -17,7 +17,8 @@ class Post extends React.Component {
       commentText: '',
       children: this.props.post.children || '',
       view: this.props.view,
-      hasLiked: ''
+      hasLiked: '',
+      likesCount: this.props.post.likesCount
     }
     
   }
@@ -91,6 +92,7 @@ class Post extends React.Component {
     axios.post('api/like', this.props.post.id)
       .then( response => {
         console.log('post success');
+        this.setState({likesCount: this.state.likesCount + 1})
       })
       .catch( err => {
         console.log(err);
@@ -100,6 +102,7 @@ class Post extends React.Component {
     this.setState({hasLiked : false});
     axios.post('api/unlike', this.props.post.id)
       .then( response => {
+        this.setState({likesCount: this.state.likesCount - 1})
         console.log('post success');
       })
       .catch( err => {
@@ -165,7 +168,7 @@ class Post extends React.Component {
           </div> */}
         </div>  
         <div className='likes'>
-          Liked by {this.props.post.likesCount} story tellers
+          Liked by {this.state.likesCount || this.props.post.likesCount} story tellers
         </div>
         
         <div className='body'>
