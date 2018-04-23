@@ -22,6 +22,7 @@ class Profile extends React.Component {
       userInfo: this.props.userInfo,
     })
     this.getCurrentUsersPosts();
+    console.log(this.props.userInfo);
   }
 
   componentWillMount() {

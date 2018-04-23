@@ -46,6 +46,7 @@ class App extends React.Component {
   getUserInfo(user) {
     axios.get(`http://localhost:3000/api/info`, user)
     .then( response => {
+      console.log('this is the response of getting the current users info:', response)
       this.setState({ 
         userInfo: response.data
       })

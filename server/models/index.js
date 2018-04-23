@@ -93,7 +93,10 @@ const Models = {
         console.log('this is params after updating the user id: ', params);
         var queryStr = 'insert into posts (users_id, body, postLoc, photoUrl, createdAt, filt, likesCount) values (?, ?, ?, ?, ?, ?, 0)';
         db.query(queryStr, Object.values(params), function(err, results) {
-          cb(err, results);
+          queryStr = 'update users set postCount = postCount + 1 where id =?';
+          db.query(queryStr, params.users_id, (err, results) => {
+            cb(err, results);
+          });
         });
       })
     },
@@ -120,9 +123,14 @@ const Models = {
     like: function(data, user, cb) {console.log(data, 'this is the data on a like model');
       var queryStr = 'select * from users where users.userHandle=(?)';
       db.query(queryStr, user, function(err, results) {
-        var queryStr = `insert into likes (posts_id, users_id) values (${Object.keys(data)[0]}, ${results[0].id})`;
+        var posts_id = Object.keys(data)[0]
+        console.log('this is the posts_id we are liking', posts_id)
+        var queryStr = `insert into likes (posts_id, users_id) values (${posts_id}, ${results[0].id})`;
         db.query(queryStr, data, function(err, results) {
-          cb(err, results);
+          queryStr = 'update posts set likesCount = likesCount + 1 where id =?'
+          db.query(queryStr, posts_id, (err, results) => {
+            cb(err, results);
+          })
         });
       });
     },
@@ -135,10 +143,14 @@ const Models = {
     unlike: function(data, user, cb) {
       var queryStr = 'select * from users where users.userHandle=(?)';
       db.query(queryStr, user, function(err, results) {
-        var queryStr = `delete from likes where posts_id=(${Object.keys(data)[0]}) and users_id=(${results[0].id})`;
+        var posts_id = Object.keys(data)[0]
+        var queryStr = `delete from likes where posts_id=(${posts_id}) and users_id=(${results[0].id})`;
         db.query(queryStr, data, function(err, results) {
-          cb(err, results);
-        });
+          queryStr = 'update posts set likesCount = likesCount - 1 where id =?'
+          db.query(queryStr, posts_id, (err, results) => {
+            cb(err, results);
+          });
+        });  
       });
     },
     mine: function(params, loggedInUserName, cb) {
