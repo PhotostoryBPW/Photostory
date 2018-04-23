@@ -11,11 +11,11 @@ const Header = (props) => {
   <div className="header">
     {
     (props.view === 'feed') ? <img src="http://localhost:3000/logo.png" alt="Photostory" className='headerLogo'/> : 
-    (props.view === 'search') ? <span>Search</span> :
-    (props.view === 'createpost') ? <span>Post</span> :
-    (props.view === 'notifications') ? <span>Notifications</span> : 
-    (props.view === 'profile') ? <span>Profile</span> :
-    (props.view === 'editprofile') ? <span>Edit Profile</span> :
+    (props.view === 'search') ? <img src="http://localhost:3000/search.jpg" className='headers' /> :
+    (props.view === 'createpost') ? <img src="http://localhost:3000/post.jpg" className='headers'/> :
+    (props.view === 'notifications') ? <img src="http://localhost:3000/notifications.jpg" className='headers'/> : 
+    (props.view === 'profile') ? <img src="http://localhost:3000/profile.jpg" className='headers'/> :
+    (props.view === 'editprofile') ? <img src="http://localhost:3000/editprofile.jpg" className='headers'/> :
     <span>{props.currentUserHandle}</span>
     }
   </div>

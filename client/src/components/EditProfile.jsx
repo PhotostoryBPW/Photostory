@@ -15,7 +15,7 @@ class EditProfile extends React.Component {
       temp: {},
       selectedField: '',
       showInput: false,
-      showDropzone: true,
+      showDropzone: false,
     }
     this.handlePencilClick = this.handlePencilClick.bind(this);
     this.handleSaveClick = this.handleSaveClick.bind(this);
@@ -40,12 +40,12 @@ createFields() {
       this.state.showInput && this.state.selectedField === field ? 
       <span className="profileEdit">
       <input className="profEditInput" maxLength={field === 'Bio' ? "500" : "25"} type="text" name={field} autoFocus defaultValue={this.state.userInfo[this.state.fieldKeys[field]]} onChange={this.handleFormChange}/>
-      <span onClick={() => this.handleSaveClick(field)} className="saveProfIcon"><a href="#"><i className="fa fa-save fa-lg"></i></a></span>
+      <span onClick={() => this.handleSaveClick(field)}><img className="profIcon" src="http://localhost:3000/save.png" /></span>
       </span>
       :
       <span className="profileEdit">
       <span className="userAttributeValue">{this.state.userInfo[this.state.fieldKeys[field]]}</span>
-      <span onClick={() => this.handlePencilClick(field)} className="editProfIcon"><a href="#"><i className="fa fa-pencil fa-lg"></i></a></span>
+      <span onClick={() => this.handlePencilClick(field)}><img className="profIcon" src="http://localhost:3000/edit.png" /></span>
       </span>
     }
     <span id="note"> * Changing your username will require you to log back in</span>
@@ -85,6 +85,9 @@ harvestProfileUrl(url) {
   var payload = {
     userPhotoUrl: url
   }
+  var newUserInfo = this.state.userInfo
+  newUserInfo.userPhotoUrl = url
+  this.setState({userInfo: newUserInfo})
   axios.put('/api/updateprofilepic/', payload)
   .then(response => {
     console.log('this is the response to the harvest profile url function: ', response.data.userPhotoUrl);
@@ -99,7 +102,7 @@ harvestProfileUrl(url) {
 }
 
 toggleDropzone() {
-  this.state.showDropzone = !this.state.showDropzone;
+  this.setState({showDropzone : !this.state.showDropzone});
 }
 
 render() {
@@ -111,7 +114,7 @@ render() {
             <Zone toggleDropzone={this.toggleDropzone.bind(this)} drop={this.harvestProfileUrl.bind(this)}/>
             :
             <div onClick={this.toggleDropzone.bind(this)}>
-                <img className='editProfilePic' src={this.state.userInfo.userPhotoUrl}/>
+                <img className='editProfilePic' src={`http://${this.state.userInfo.userPhotoUrl}`}/>
                 <span className='centerText'>Click to update profile pic</span>
             </div>  
             }

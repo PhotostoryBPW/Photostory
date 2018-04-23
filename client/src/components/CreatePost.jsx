@@ -18,6 +18,7 @@ class CreatePost extends React.Component {
       rejected: [],
       photoUrl: '',
       thumbs: "localhost:3000/img/defaultPost.jpg",
+      showDropzone: true,
     }
 
   }
@@ -47,8 +48,11 @@ class CreatePost extends React.Component {
   }
   
   showSubmit(url) {
-    this.setState({showSubmit: true});
-    this.setState({photoUrl: url});
+    this.setState({
+      showSubmit: true,
+      photoUrl: url,
+      showDropzone: false,
+    });
     console.log(this.state);
   }
 
@@ -69,7 +73,12 @@ class CreatePost extends React.Component {
     return (
       <div className="createPost">
         <div>
-          <Zone drop={this.showSubmit.bind(this)} />
+          {
+            this.state.showDropzone ?
+            <Zone drop={this.showSubmit.bind(this)} />
+            :
+            <img className={`newPostImage ${this.state.filt}`} src={`http://${this.state.photoUrl}`}/>
+          }
         </div>
         <div className='filters'>
           <div className='nofilter' onClick={this.onFilterClickHandler.bind(this, 'nofilter')}><img className='createPostThumb' src={`http://${this.state.thumbs}`}/> </div>

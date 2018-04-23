@@ -20,6 +20,7 @@ class Feed extends React.Component {
  
   render(props) {
     console.log('in feed looking for userphoturl: ', this.props.userInfo[0])
+    console.log('in feed looking for posts: ', this.props.posts)
     return (
       <div>
         {  
@@ -30,7 +31,7 @@ class Feed extends React.Component {
           ?
           <Post handleClick={this.props.handleClick} key={post.id} post={post} view={this.props.view} userPhotoUrl={this.props.userInfo[0].userPhotoUrl} userHandle={this.props.userHandle}/>
           :
-          <div/>
+          <div key={Math.floor((Math.random() * 100000) + 1)}/>
         )
         :
         <div>

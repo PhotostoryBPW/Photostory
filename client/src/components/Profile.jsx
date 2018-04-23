@@ -71,13 +71,14 @@ class Profile extends React.Component {
     let posts = [];
     let comments = [];
     let following;
-    axios.get(`api/feed/${this.state.currentUser || this.props.user}`)
+    axios.get(`api/feed/${this.props.user}`)
     .then( response => {
+      console.log('trying to get a users posts mine: ', response)
       this.setState({userInfo: response.data[0]});
       following = response.data[0].isFollowing
       posts = [];
       comments = [];
-      if (response.data.length > 1) {
+      if (response.data.length > 0) {
         response.data.forEach(data => {
           if (data.parent_id) {
             comments.push(data)
@@ -91,6 +92,7 @@ class Profile extends React.Component {
       posts.map(post => {
         comments.forEach(comment => {
           if (comment.parent_id === post.id) {
+            console.log('there are no children so we will add the first comment%%%%%%%%%%%%%%%%%')
             if (!post.children) {
               post.children = [comment];
             } else {
@@ -99,10 +101,13 @@ class Profile extends React.Component {
           }
         })
       })
+      console.log('these are the posts', posts)
+      console.log('these are the comments', comments)
     })
     .then(() => {
+      console.log('this is posts in Profile', posts);
       this.setState({
-        posts: posts,
+        posts: posts.filter(post => post.userHandle === (!!this.state.currentUser ? this.state.currentUser : this.state.loggedInUser)),
         followed: following
       })
     })
@@ -132,7 +137,7 @@ class Profile extends React.Component {
             <div className="statsItem">Followers: {this.state.userInfo.followedCount}</div>
             <div className="statsItem">Following: {this.state.userInfo.followCount}</div>
             {
-              this.state.currentUser === this.state.loggedInUser
+              this.props.user === this.props.userHandle
               ?
               <div>
                 <div id="edit" onClick={this.props.handleEditButtonClick} className="buttonLight">EDIT PROFILE</div>

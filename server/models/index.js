@@ -163,12 +163,12 @@ const Models = {
           cb('no posts');
         } else {
           const mineResults = results1;
-          queryStr = `select f.id from followers as f inner join users as u on u.id = f.users_id where u.userHandle = ? and f.follows_id = ?`;
+          queryStr = `select f.users_id from followers as f inner join users as u on u.id = f.users_id where u.userHandle = ? and f.follows_id = ?`;
           console.log('mine', results1);
           console.log('mine 2nd params', [loggedInUserName, results1[0].users_id]);
           db.query(queryStr, [loggedInUserName, mineResults[0].users_id], (err, results2) => {
             console.log('second query for existing follow relationship', !!results2.length, results2);
-            cb(err, results1, !!results2.length);
+            cb(err, mineResults, !!results2.length);
           })
         }
       });

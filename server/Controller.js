@@ -25,6 +25,7 @@ const Controller = {
         res.status(200).send('not logged in');
       }
       Models.posts.following(req.session.passport.user, function(err, results) {
+        console.log('this is the feed of those we are following', results)
         if (err) {
           console.log(err);
         } else {
@@ -112,12 +113,13 @@ const Controller = {
     },
     mine: (req, res) => {
       Models.posts.mine(req.params, req.session.passport.user, function(err, results1, results2) {
+        console.log('this is results 1: ', results1)
+        console.log('this is results 2: ', results2)
         if (err) { 
           console.log(err);
           res.status(202).send('no posts to send');
         } else {
           //edge case where a user doesn't have posts - send follow data
-
           if (!results1) {
             results1 = results2
           } else {

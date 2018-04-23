@@ -65,34 +65,35 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div className="signup">
+      <div className="login su">
+      <div className="innerContainer">
         <h1>Sign Up Here!</h1>
-        <h2>Username</h2>
+        <h2 className="loginUsername signupspace" >Username</h2>
         <form>
           <label style={{marginRight: '5px'}}>
-            <input maxLength="25" type="text" name="name" value={this.state.username} onChange={this.handleUsernameChange}/>
+            <input className="loginInput" maxLength="25" type="text" name="name" value={this.state.username} onChange={this.handleUsernameChange}/>
           </label>
         </form>
-        <h2>Password</h2>
+        <h2 className="loginUsername" >Password</h2>
           <form>
             <label style={{marginRight: '5px'}}>
-              <input maxLength="100" type="password" name="name" value={this.state.password} onChange={this.handlePasswordChange}/>
+              <input className="loginInput" maxLength="100" type="password" name="name" value={this.state.password} onChange={this.handlePasswordChange}/>
             </label>
           </form>
-        <h2>Full Name</h2>
+        <h2 className="loginUsername" >Full Name</h2>
         <form>
           <label style={{marginRight: '5px'}}>
-            <input maxLength="25" type="text" name="fullname" value={this.state.fullname} onChange={this.handleFullnameChange}/>
+            <input className="loginInput" maxLength="25" type="text" name="fullname" value={this.state.fullname} onChange={this.handleFullnameChange}/>
           </label>
         </form>
-        <h2>Email</h2>
+        <h2 className="loginUsername" >Email</h2>
         <form>
           <label style={{marginRight: '5px'}}>
-            <input maxLength="25" type="text" name="email" value={this.state.email} onChange={this.handleEmailChange}/>
+            <input className="loginInput signupbottomspace" maxLength="25" type="text" name="email" value={this.state.email} onChange={this.handleEmailChange}/>
           </label>
         </form>
-        <button type="button" onClick={this.handleSignup} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Sign Up</button>
-        <button type="button" onClick={() => {this.props.toggleLogin()}} style={{display: 'block', marginTop: '10px', marginLeft: '50px'}}>Back to login</button>
+        <button className='signupbutton' type="button" onClick={this.handleSignup} >Sign Up</button>
+        <button className='signupbutton' type="button" onClick={() => {this.props.toggleLogin()}} >Back to login</button>
         <div>
           {this.state.toggleUsernameTakenMessage ?
             <div>
@@ -113,6 +114,7 @@ class Signup extends React.Component {
             </div>
           }
         </div>
+      </div>  
       </div>
     );
   }
