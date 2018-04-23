@@ -34,7 +34,7 @@ componentDidMount() {
 
 createFields() {
   return this.state.fields.map(field => {
-    return <div className="attributeRow" id={field === "Username" ? "changeNote" : "none"}>
+    return <div key={Math.floor((Math.random() * 10000000) + 1)} className="attributeRow" id={field === "Username" ? "changeNote" : "none"}>
     <span className="userAttribute">{field}: </span>
     {
       this.state.showInput && this.state.selectedField === field ? 
@@ -111,7 +111,7 @@ render() {
             <Zone toggleDropzone={this.toggleDropzone.bind(this)} drop={this.harvestProfileUrl.bind(this)}/>
             :
             <div onClick={this.toggleDropzone.bind(this)}>
-                <img className='editProfilePic' src={this.state.tempUserInfo.userPhotoUrl}/>
+                <img className='editProfilePic' src={this.state.userInfo.userPhotoUrl}/>
                 <span className='centerText'>Click to update profile pic</span>
             </div>  
             }
