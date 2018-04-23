@@ -102,8 +102,9 @@ class Profile extends React.Component {
       })
     })
     .then(() => {
+      console.log('this is posts in Profile', posts);
       this.setState({
-        posts: posts,
+        posts: posts.filter(post => post.userHandle === (!!this.state.currentUser ? this.state.currentUser : this.state.loggedInUser)),
         followed: following
       })
     })
