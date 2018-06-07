@@ -73,7 +73,6 @@ class App extends React.Component {
     axios.get('api/checksession')
     .then( response => {
       if (response.data.status === 'active') {
-        console.log('got in here')
         localStorage['isLoggedIn'] = true;
         this.getNotifications();
         this.getUserInfo(response.data.user);
@@ -271,7 +270,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('USER INFO ON APP', this.state.userInfo)
     return (
       <div>
         {

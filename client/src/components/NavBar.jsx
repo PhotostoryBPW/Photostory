@@ -3,10 +3,10 @@ import React from 'react';
 const NavBar = (props) => {
   const clickHandler = (e) => {
     console.log('This is the current view: ', e);
+    console.log(props.userHandle, 'props userhandle is here');
     props.navBarClickHandler(e, props.userHandle);
   };
 
-  console.log(props, 'on the navbar PROPPPPPPPS')
   return (
   <div className="navBar">
     <div onClick={clickHandler.bind(this, 'feed')} className="feed">

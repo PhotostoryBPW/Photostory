@@ -8,7 +8,7 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       currentUser: '',
-      userInfo: {},
+      userInfo: this.props.userInfo,
       posts: '',
       loggedInUser: '',
       followed: '',
@@ -31,7 +31,6 @@ class Profile extends React.Component {
       .then( response => {
         if (response.data.status === 'active') {
           this.props.getInfo(response.data.user);
-          this.state.loggedInUser = response.data.user;
         } else {
           axios.get('http://localhost:3000/api/logout');
         }
@@ -60,7 +59,6 @@ class Profile extends React.Component {
             userInfo: userInfoUpdated
           })
         }
-      console.log('reached the server successfully', response)
     })
     .catch((err) => {
       console.log(err);
@@ -73,19 +71,21 @@ class Profile extends React.Component {
     let following;
     axios.get(`api/feed/${this.props.user}`)
     .then( response => {
-      console.log('trying to get a users posts mine: ', response)
-      this.setState({userInfo: response.data[0]});
-      following = response.data[0].isFollowing
-      posts = [];
-      comments = [];
-      if (response.data.length > 0) {
-        response.data.forEach(data => {
-          if (data.parent_id) {
-            comments.push(data)
-          } else {
-            posts.push(data);
-          }
-        })
+      if (response.data !== 'no posts to send') {
+        this.setState({userInfo: response.data[0]});
+        following = response.data[0].isFollowing
+        posts = [];
+        comments = [];
+        console.log(response.data, '??????');
+        if (response.data !== 'no posts to send') {
+          response.data.forEach(data => {
+            if (data.parent_id) {
+              comments.push(data)
+            } else {
+              posts.push(data);
+            }
+          })
+        }
       }
     })
     .then(() => {  
@@ -101,15 +101,14 @@ class Profile extends React.Component {
           }
         })
       })
-      console.log('these are the posts', posts)
-      console.log('these are the comments', comments)
     })
     .then(() => {
-      console.log('this is posts in Profile', posts);
-      this.setState({
-        posts: posts.filter(post => post.userHandle === (!!this.state.currentUser ? this.state.currentUser : this.state.loggedInUser)),
-        followed: following
-      })
+        if (posts.length > 0) {
+        this.setState({
+          posts: posts.filter(post => post.userHandle === (!!this.state.currentUser ? this.state.currentUser : this.state.loggedInUser)),
+          followed: following
+        })
+      }
     })
     .catch( err => {
       console.log(err);
@@ -117,10 +116,11 @@ class Profile extends React.Component {
   }
 
   render() {
+    console.log(this.state.userInfo, '??????');
     return (
       <div className="profileMain">
-        <div id="handle">{this.state.userInfo.userHandle}</div>
-        <div id="profilePhoto"><img src={`http://${this.state.userInfo.userPhotoUrl}`} width="100%" /></div>
+        <div id="handle">{this.state.userInfo[0].userHandle}</div>
+        <div id="profilePhoto"><img src={`http://${this.state.userInfo[0].userPhotoUrl}`} width="100%" /></div>
         <div id="profileInfo">
           Location: 
           <br />
@@ -151,7 +151,7 @@ class Profile extends React.Component {
               <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="unFollow buttonLight">UNFOLLOW</div>
             }
         </div>
-        <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo} view={this.props.view} userPhotoUrl={this.state.userInfo.userPhotoUrl} userHandle={this.props.userHandle}/></div>
+        <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo} view={this.props.view} userPhotoUrl={this.state.userInfo.userPhotoUrl} userHandle={this.state.userHandle}/></div>
         </div>  
       
     )
