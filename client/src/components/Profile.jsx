@@ -8,7 +8,7 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       currentUser: '',
-      userInfo: this.props.userInfo,
+      userInfo: this.props.userInfo[0],
       posts: '',
       loggedInUser: '',
       followed: '',
@@ -16,13 +16,7 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      currentUser: this.props.user,
-      loggedInUser: this.props.loggedInUser,
-      userInfo: this.props.userInfo,
-    })
     this.getCurrentUsersPosts();
-    console.log(this.props.userInfo);
   }
 
   componentWillMount() {
@@ -31,6 +25,11 @@ class Profile extends React.Component {
       .then( response => {
         if (response.data.status === 'active') {
           this.props.getInfo(response.data.user);
+          this.setState({
+            currentUser: this.props.user,
+            loggedInUser: this.props.loggedInUser,
+            userInfo: this.props.userInfo[0],
+          });
         } else {
           axios.get('http://localhost:3000/api/logout');
         }
@@ -41,7 +40,6 @@ class Profile extends React.Component {
   }
 
   onFollowClickHandler(e) {
-    console.log('the state of this on click ', this.state, 'and the value of e on click'. e);
     axios.post('api/follow', this.state.userInfo.users_id)
     .then((response) => {
         if (!this.state.followed) {
@@ -92,7 +90,6 @@ class Profile extends React.Component {
       posts.map(post => {
         comments.forEach(comment => {
           if (comment.parent_id === post.id) {
-            console.log('there are no children so we will add the first comment%%%%%%%%%%%%%%%%%')
             if (!post.children) {
               post.children = [comment];
             } else {
@@ -116,11 +113,10 @@ class Profile extends React.Component {
   }
 
   render() {
-    console.log(this.state.userInfo, '??????');
     return (
       <div className="profileMain">
-        <div id="handle">{this.state.userInfo[0].userHandle}</div>
-        <div id="profilePhoto"><img src={`http://${this.state.userInfo[0].userPhotoUrl}`} width="100%" /></div>
+        <div id="handle">{this.state.userInfo.userHandle}</div>
+        <div id="profilePhoto"><img src={`http://${this.state.userInfo.userPhotoUrl}`} width="100%" /></div>
         <div id="profileInfo">
           Location: 
           <br />
@@ -153,7 +149,6 @@ class Profile extends React.Component {
         </div>
         <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo} view={this.props.view} userPhotoUrl={this.state.userInfo.userPhotoUrl} userHandle={this.state.userHandle}/></div>
         </div>  
-      
     )
   }
 }
