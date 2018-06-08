@@ -540,12 +540,17 @@ section {
 
 #handle {
   grid-area: header;
-  color: white;
-  width: 490px;
-  padding: 5px;
-  background-color: #20c0b0;
-  border-radius: 4px;
-  margin: 5px 0px;
+  color:black;
+  background-color: white;
+  width: 250px;
+  padding: 10px 12px;
+  text-align: center;
+  border-style: dotted;
+  border-color: #20c0b0;
+  border-width: 2px;
+  border-radius: 7px;
+  margin: 0px auto -20px auto;
+  z-index: 0;
 }
 
 #nosearchresult {
@@ -582,6 +587,7 @@ section {
   width: 80%;
   margin: auto;
 }
+
 
 #profilePosts {
   grid-area: footer;
@@ -986,3 +992,4 @@ button.signupbutton:last-child {
 .headers {
   max-height: 25px;
 }
+
