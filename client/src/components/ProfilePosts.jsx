@@ -35,7 +35,7 @@ class ProfilePosts extends React.Component {
       </div>
       <div>
         {
-        this.props.posts.length === 0  
+        this.props.userHandle === undefined
         ?
         <div>
           No posts to display.

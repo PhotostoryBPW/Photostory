@@ -57,6 +57,14 @@ CREATE TABLE IF NOT EXISTS notifications (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS login (
+  id int not null AUTO_INCREMENT,
+  username varchar(20),
+  password varchar(100),
+  PRIMARY KEY(id)
+);
+
+
 
 INSERT INTO users (userHandle, userName, userLoc, userPhotoUrl, bio, email, followedCount, followCount)
 VALUES ('randomuser', 'Tim R.', 'New York, NY', 'source.unsplash.com/1600x900/?featured/?man', 'abcdefg hijklmnop qrs tuv wxyz', 'tim@nowhere.com', 20, 200);
@@ -97,12 +105,6 @@ VALUES (5, 'kitchen', 'lol wut', 'source.unsplash.com/1600x900/?featured/?kitche
 INSERT INTO likes (users_id, posts_id)
 VALUES (1, 1), (1, 2), (1, 3), (2, 2), (2, 4), (3, 1), (3, 4), (4, 2), (5, 2), (5, 3), (6, 1), (6, 3), (7, 4);
 
-CREATE TABLE IF NOT EXISTS login (
-  id int not null AUTO_INCREMENT,
-  username varchar(20),
-  password varchar(100),
-  PRIMARY KEY(id)
-);
 -- To run: open Terminal and start MySQL server:
 -- mysql.server stop | then | mysql.server start
 -- mysql -u root < server/schema.sql

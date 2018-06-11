@@ -8,7 +8,7 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       currentUser: '',
-      userInfo: {},
+      userInfo: this.props.userInfo[0],
       posts: '',
       loggedInUser: '',
       followed: '',
@@ -16,13 +16,7 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      currentUser: this.props.user,
-      loggedInUser: this.props.loggedInUser,
-      userInfo: this.props.userInfo,
-    })
     this.getCurrentUsersPosts();
-    console.log(this.props.userInfo);
   }
 
   componentWillMount() {
@@ -31,7 +25,11 @@ class Profile extends React.Component {
       .then( response => {
         if (response.data.status === 'active') {
           this.props.getInfo(response.data.user);
-          this.state.loggedInUser = response.data.user;
+          this.setState({
+            currentUser: this.props.user,
+            loggedInUser: this.props.loggedInUser,
+            userInfo: this.props.userInfo[0],
+          });
         } else {
           axios.get('http://localhost:3000/api/logout');
         }
@@ -42,7 +40,6 @@ class Profile extends React.Component {
   }
 
   onFollowClickHandler(e) {
-    console.log('the state of this on click ', this.state, 'and the value of e on click'. e);
     axios.post('api/follow', this.state.userInfo.users_id)
     .then((response) => {
         if (!this.state.followed) {
@@ -60,7 +57,6 @@ class Profile extends React.Component {
             userInfo: userInfoUpdated
           })
         }
-      console.log('reached the server successfully', response)
     })
     .catch((err) => {
       console.log(err);
@@ -73,26 +69,27 @@ class Profile extends React.Component {
     let following;
     axios.get(`api/feed/${this.props.user}`)
     .then( response => {
-      console.log('trying to get a users posts mine: ', response)
-      this.setState({userInfo: response.data[0]});
-      following = response.data[0].isFollowing
-      posts = [];
-      comments = [];
-      if (response.data.length > 0) {
-        response.data.forEach(data => {
-          if (data.parent_id) {
-            comments.push(data)
-          } else {
-            posts.push(data);
-          }
-        })
+      if (response.data !== 'no posts to send') {
+        this.setState({userInfo: response.data[0]});
+        following = response.data[0].isFollowing
+        posts = [];
+        comments = [];
+        console.log(response.data, '??????');
+        if (response.data !== 'no posts to send') {
+          response.data.forEach(data => {
+            if (data.parent_id) {
+              comments.push(data)
+            } else {
+              posts.push(data);
+            }
+          })
+        }
       }
     })
     .then(() => {  
       posts.map(post => {
         comments.forEach(comment => {
           if (comment.parent_id === post.id) {
-            console.log('there are no children so we will add the first comment%%%%%%%%%%%%%%%%%')
             if (!post.children) {
               post.children = [comment];
             } else {
@@ -101,15 +98,14 @@ class Profile extends React.Component {
           }
         })
       })
-      console.log('these are the posts', posts)
-      console.log('these are the comments', comments)
     })
     .then(() => {
-      console.log('this is posts in Profile', posts);
-      this.setState({
-        posts: posts.filter(post => post.userHandle === (!!this.state.currentUser ? this.state.currentUser : this.state.loggedInUser)),
-        followed: following
-      })
+        if (posts.length > 0) {
+        this.setState({
+          posts: posts.filter(post => post.userHandle === (!!this.state.currentUser ? this.state.currentUser : this.state.loggedInUser)),
+          followed: following
+        })
+      }
     })
     .catch( err => {
       console.log(err);
@@ -151,9 +147,8 @@ class Profile extends React.Component {
               <div id="follow" onClick={this.onFollowClickHandler.bind(this)} className="unFollow buttonLight">UNFOLLOW</div>
             }
         </div>
-        <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo} view={this.props.view} userPhotoUrl={this.state.userInfo.userPhotoUrl} userHandle={this.props.userHandle}/></div>
+        <div id="profilePosts"><ProfilePosts posts={this.state.posts} user={this.state.userInfo} view={this.props.view} userPhotoUrl={this.state.userInfo.userPhotoUrl} userHandle={this.state.userHandle}/></div>
         </div>  
-      
     )
   }
 }

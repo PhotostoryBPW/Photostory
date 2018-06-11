@@ -69,6 +69,7 @@ handleSaveClick(field) {
         showInput: false,
         selectedField: '',
       })
+      this.props.getUserInfo();
     })
     .catch(err => {
       console.log(err)
@@ -77,7 +78,6 @@ handleSaveClick(field) {
 }
 
 handleFormChange(e) {
-  console.log('value ', e.target.value)
   this.setState({temp: e.target.value});
 }
 
@@ -90,11 +90,11 @@ harvestProfileUrl(url) {
   this.setState({userInfo: newUserInfo})
   axios.put('/api/updateprofilepic/', payload)
   .then(response => {
-    console.log('this is the response to the harvest profile url function: ', response.data.userPhotoUrl);
     this.setState({
       userPhotoUrl: response.data.userPhotoUrl,
       showDropzone: false,
     });
+    this.props.getUserInfo();
   })
   .catch(err => {
     console.log(err);

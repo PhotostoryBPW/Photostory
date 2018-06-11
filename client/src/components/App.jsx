@@ -46,7 +46,6 @@ class App extends React.Component {
   getUserInfo(user) {
     axios.get(`http://localhost:3000/api/info`, user)
     .then( response => {
-      
       this.setState({ 
         userInfo: response.data
       })
@@ -73,7 +72,6 @@ class App extends React.Component {
     axios.get('api/checksession')
     .then( response => {
       if (response.data.status === 'active') {
-        console.log('got in here')
         localStorage['isLoggedIn'] = true;
         this.getNotifications();
         this.getUserInfo(response.data.user);
@@ -155,7 +153,7 @@ class App extends React.Component {
       .then( response => {
         posts = [];
         comments = [];
-      
+        
         if (response.data.length > 0) {
           response.data.forEach(data => {
             if (data.parent_id) {
@@ -253,14 +251,14 @@ class App extends React.Component {
       return <Feed handleClick={this.changeView.bind(this)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>;
     } else if (view === 'profile') {
       if (this.state.selectedUser === '') {
-        return <Profile isLoggedIn={this.state.isLoggedIn} loggedInUser={this.state.loggedInUser} posts={this.state.posts} user={this.state.loggedInUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>
+        return <Profile getInfo={this.state.getUserInfo} isLoggedIn={this.state.isLoggedIn} loggedInUser={this.state.loggedInUser} posts={this.state.posts} user={this.state.loggedInUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>
       } else {
         return <Profile loggedInUser={this.state.loggedInUser} posts={this.state.posts} getInfo={this.state.getUserInfo} user={this.state.selectedUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>
       }
     } else if (view === 'signup') {
       return <Signup/>
     } else if (view === 'editprofile') {
-      return <EditProfile handleLogout={this.handleLogoutButtonClick.bind(this)} user={this.state.username} userInfo={this.state.userInfo}/>
+      return <EditProfile getUserInfo={this.getUserInfo.bind(this)} handleLogout={this.handleLogoutButtonClick.bind(this)} user={this.state.username} userInfo={this.state.userInfo}/>
     } else if (view === 'createpost') {
       return <CreatePost onSubmit={this.changeView.bind(this)}/>
     }  else if (view === 'search') {
@@ -271,7 +269,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('USER INFO ON APP', this.state.userInfo)
     return (
       <div>
         {
