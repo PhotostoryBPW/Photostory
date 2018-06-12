@@ -56,9 +56,11 @@ const Models = {
           db.query(ohMyAnotherQuery, (err, results) => {
             var usersIdList = [];
             var idList = [];
-            for (var i = 0; i < results.length; i++) {
-              usersIdList.push(results[i].users_id);
-              idList.push(results[i].id);
+            if (results !== undefined) {
+              for (var i = 0; i < results.length; i++) {
+                usersIdList.push(results[i].users_id);
+                idList.push(results[i].id);
+              }
             }
             if (usersIdList.length === 0) {
               usersIdList.push(0);

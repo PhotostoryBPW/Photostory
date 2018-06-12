@@ -95,18 +95,22 @@ class App extends React.Component {
     })
   }
 
-  changeView(option, username) {
+  async changeView(option, username) {
+    console.log('This is the options: ', option, 'username: ', username)
     if (option === 'profile' && this.state.view === 'profile') {
-      this.setState({
+      await this.setState({
         selectedUser: '',
       })
     }
     if (option === 'feed') {
       this.getFeed();
     }
+    if (option === 'profile') {
+      this.render();
+    }
     this.getUserInfo(username);
     this.getNotifications();
-    this.setState({
+    await this.setState({
         view: option,
         selectedUser: username || ''
       }, () => {
@@ -121,11 +125,6 @@ class App extends React.Component {
           this.getUserInfo(username);
           
         }
-        // if (option !== 'profile') {
-        //   this.setState ({
-        //     selectedUser: '',
-        //   })
-        // }
       })
   }
 
@@ -250,10 +249,12 @@ class App extends React.Component {
     if (view === 'feed') {
       return <Feed handleClick={this.changeView.bind(this)} posts={this.state.data} users={this.state.users} userInfo={this.state.userInfo} view={this.state.view} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>;
     } else if (view === 'profile') {
-      if (this.state.selectedUser === '') {
-        return <Profile getInfo={this.state.getUserInfo} isLoggedIn={this.state.isLoggedIn} loggedInUser={this.state.loggedInUser} posts={this.state.posts} user={this.state.loggedInUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>
+      if (this.state.selectedUser === '' && this.state.selectedUser === this.state.userInfo[0].userHandle) {
+        console.log('this will be MY PROFILE MWAAAHHAHAHAAHAHAHAHAHAHAH', this.state);
+        return <Profile getInfo={this.getUserInfo.bind(this)} isLoggedIn={this.state.isLoggedIn} loggedInUser={this.state.loggedInUser} posts={this.state.posts} user={this.state.loggedInUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>
       } else {
-        return <Profile loggedInUser={this.state.loggedInUser} posts={this.state.posts} getInfo={this.state.getUserInfo} user={this.state.selectedUser} userInfo={this.state.userInfo} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>
+        console.log('this will be YOUR PROFILE OHOOOHOOOOHOOO NOOOOOOOO', this.state);
+        return <Profile loggedInUser={this.state.loggedInUser} posts={this.state.posts} getInfo={this.getUserInfo.bind(this)} user={this.state.selectedUser} handleEditButtonClick={this.handleEditButtonClick.bind(this)} handleLogoutButtonClick={this.handleLogoutButtonClick.bind(this)} view={this.state.view} userHandle={!!this.state.userInfo.length ? this.state.userInfo[0].userHandle : 'nope'}/>
       }
     } else if (view === 'signup') {
       return <Signup/>

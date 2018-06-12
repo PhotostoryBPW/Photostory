@@ -25,7 +25,6 @@ const Controller = {
         res.status(200).send('not logged in');
       }
       Models.posts.following(req.session.passport.user, function(err, results) {
-        console.log('this is the feed of those we are following', results)
         if (err) {
           console.log(err);
         } else {
@@ -167,7 +166,8 @@ const Controller = {
       });
     },
     info: (req, res) => {
-      var user = req.body.username || req.session.passport.user;
+      console.log('THIS IS THE REQ.PARAMS FOR GETTING INFO OF USER NOT SELF BITCH: ', req.params, req.body, req.url)
+      var user = req.params.username || req.session.passport.user;
       Models.users.info(user, function(err, results) {
         if (err) { 
           console.log(err);

@@ -8,15 +8,32 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       currentUser: '',
-      userInfo: this.props.userInfo[0],
+      userInfo: '',
       posts: '',
       loggedInUser: '',
       followed: '',
     }
   }
 
-  componentDidMount() {
+  // componentDidUpdate() {
+  //   this.props.getInfo(this.props.user);
+  // }
+
+  async componentDidMount() {
+    console.log('this is this.props.user from the profile: ', this.props.user);
+
+    const userInfo = await axios.get('http://localhost:3000/api/info', {
+      params: {
+        payload: {username: this.props.user}
+      }
+    });
+
     this.getCurrentUsersPosts();
+    this.setState({
+      currentUser: this.props.user,
+      loggedInUser: this.props.loggedInUser,
+      userInfo: userInfo,
+    });
   }
 
   componentWillMount() {
@@ -25,11 +42,6 @@ class Profile extends React.Component {
       .then( response => {
         if (response.data.status === 'active') {
           this.props.getInfo(response.data.user);
-          this.setState({
-            currentUser: this.props.user,
-            loggedInUser: this.props.loggedInUser,
-            userInfo: this.props.userInfo[0],
-          });
         } else {
           axios.get('http://localhost:3000/api/logout');
         }
@@ -37,6 +49,9 @@ class Profile extends React.Component {
       .catch( err => {
       console.log(err);
     })
+    
+    
+    
   }
 
   onFollowClickHandler(e) {
@@ -113,9 +128,11 @@ class Profile extends React.Component {
   }
 
   render() {
+    console.log('this is the props in profile posts: ', this.props);
+    console.log('this is the state in profile posts: ', this.state);
     return (
       <div className="profileMain">
-        <div id="handle">{this.state.userInfo.userHandle}</div>
+        <div id="handle">{this.props.user || this.props.userHandle}</div>
         <div id="profilePhoto"><img src={`http://${this.state.userInfo.userPhotoUrl}`} width="100%" /></div>
         <div id="profileInfo">
           Location: 

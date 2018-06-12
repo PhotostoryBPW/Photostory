@@ -35,19 +35,19 @@ class ProfilePosts extends React.Component {
       </div>
       <div>
         {
-        this.props.userHandle === undefined
+        this.props.posts.length === 0
         ?
         <div>
           No posts to display.
         </div>
         :
-        this.state.postView === 'postThumbs' && !this.state.post
+        this.state.postView === 'postThumbs'
         ?
         this.props.posts.map(post => 
           <Thumbnail key={post.id} post={post} onClick={this.onPostThumbClickHandler.bind(this)} />
         )
         :
-        this.state.postView === 'postFeed' && !this.state.post
+        this.state.postView === 'postFeed'
         ?
         this.props.posts.map(post =>
           <Post key={post.id} post={post} view={this.props.view} userPhotoUrl={this.props.userPhotoUrl} userHandle={this.props.userHandle}/>
